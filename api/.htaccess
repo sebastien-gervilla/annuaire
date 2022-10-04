@@ -1,3 +1,4 @@
 Options +FollowSymlinks
 RewriteEngine on
-RewriteRule "students$" "/annuaire-nws/api/routes/" [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ "/annuaire-nws/api/routes/index.php" [L]
