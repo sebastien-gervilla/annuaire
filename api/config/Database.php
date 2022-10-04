@@ -1,21 +1,20 @@
 <?php
 
+require_once './settings.php';
+
 class DatabaseHandler {
-    private $host = 'locahost';
-    private $db_name = 'annuaire_nws';
-    private $username = 'root';
-    private $password = '';
     private $dbh;
 
-    public function connect()
-    {
+    public function connect() {
         $this->dbh = null;
+        $cfg = getSettings()['database'];
 
         try {
             $this->dbh = new PDO(
-                'mysql:host=' . $this->host . ';dbname=' . $this->db_name,
-                $this->username,
-                $this->password
+                'mysql:host=' . $cfg['host'] . 
+                ';dbname=' . $cfg['name'],
+                $cfg['username'],
+                $cfg['password']
             );
         } catch (PDOException $e) {
             print_r("PDO Error : " . $e->getMessage());
