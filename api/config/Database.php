@@ -1,6 +1,6 @@
 <?php
 
-class Database {
+class DatabaseHandler {
     private $host = 'locahost';
     private $db_name = 'annuaire_nws';
     private $username = 'root';

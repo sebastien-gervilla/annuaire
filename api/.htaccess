@@ -1,0 +1,3 @@
+Options +FollowSymlinks
+RewriteEngine on
+RewriteRule "students$" "/annuaire-nws/api/routes/" [L]
