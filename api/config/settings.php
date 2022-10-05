@@ -7,10 +7,3 @@ function getSettings(string $env = 'developpement')
     $envSettings = $settings[$env];
     return $envSettings;
 }
-
-function getRouteEndpoints(string $url)
-{
-    $routesURL = getSettings()['routesURL'];
-    $endpoints = str_replace($routesURL, '', $url);
-    return $endpoints;
-}
