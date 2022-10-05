@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/student_get.php';
 
-function useStudentRoutes(string $method, string $endpoint, array $body)
+function useStudentRoutes(string $method, string $endpoint, array|null $body)
 {
     switch ($method) {
         case 'GET':
