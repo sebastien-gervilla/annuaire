@@ -3,9 +3,9 @@ import useFetch from '../hooks/useFetch';
 
 const Students = () => {
 
-    const studentsReq = useFetch('/students/students');
+    const studentsReq = useFetch('students/students');
 
-    useEffect(() => console.log(studentsReq), [studentsReq]);
+    useEffect(() => console.log(studentsReq.data), [studentsReq]);
 
     return (
         <div className="students">
