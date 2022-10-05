@@ -3,13 +3,14 @@ import React, { useCallback, useEffect, useState } from 'react';
 export default function useFetch(defUrl, defOptions = {}) {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [url, setUrl] = useState(defUrl);
+    const [relUrl, setRelUrl] = useState(defUrl);
 
-    const changeDefUrl = (newUrl) => setUrl(newUrl);
+    const changeRelUrl = (newUrl) => setRelUrl(newUrl);
     
-    const fetch = useCallback(async (url) => {
+    const fetchFn = useCallback(async (url) => {
         const controller = new AbortController();
         const signal = controller.signal;
+        const fullUrl = process.env.REACT_APP_API_PATH + url;
 
         setIsLoading(true);
         const options = {
@@ -18,20 +19,21 @@ export default function useFetch(defUrl, defOptions = {}) {
         };
 
         try {
-            const res = await fetch(url, options);
-            setData(res.data);
+            const res = await fetch(fullUrl, options);
+            const json = await res.json();
+            setData(json);
         } catch (error) {
             console.log("Error while fetching with url : ", url, error);
         } finally {
             setIsLoading(false);
         }
-    }, [url])
+    }, [relUrl]);
 
-    const fetchEffet = () => { fetch() };
+    const doFetch = (url = relUrl) => { fetchFn(url) };
 
     useEffect(() => {
-        fetchEffet();
+        doFetch();
     }, []);
 
-    return { data, isLoading, changeDefUrl };
+    return { data, isLoading, doFetch, changeRelUrl };
 }
