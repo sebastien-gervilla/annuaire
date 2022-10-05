@@ -1,36 +1,36 @@
 <?php
 
-require_once '../config/settings.php';
 require_once './student/index.php';
+require_once '../inc/request-utils.php';
 
-function useRedirections()
-{
-    // $endpoints list, if endpoints.length < 2
+allowCors();
+
+function useRedirections() {
     try {
-        $method = $_SERVER['REQUEST_METHOD'];
-        $endpoints = getRouteEndpoints($_SERVER['REQUEST_URI']);
-        $endpointsList = explode('/', $endpoints);
-        $model = $endpointsList[0];
-        $endpoint = $endpointsList[1];
-        $body = json_decode(file_get_contents("php://input"), true);
+        $fullUrl = getRequestUrl();
+        $method = getRequestMethod();
+        $endpoints = getUrlEndpoints();
+        $endpoint = $endpoints['endpoint'];
+        $model = $endpoints['model'];
+        $body = getRequestBody();
     } catch (Error $error) {
         echo "Request error : $error";
     }
 
-    function redirect(string $model, string $method, string $endpoint, array $body)
+    function redirect(string $url, string $model, string $method, string $endpoint, array|null $body)
     {
         switch ($model) {
             case 'students':
                 return useStudentRoutes($method, $endpoint, $body);
             
             default:
-                // Route not found
-                break;
+                return "Couldn't find url : " . $url;
         }
     }
 
-    $res = redirect($model, $method, $endpoint, $body);
-    return json_encode($res, JSON_PRETTY_PRINT);
+    $res = redirect($fullUrl, $model, $method, $endpoint, $body);
+    $res = gettype($res) === "string" ? $res : json_encode($res);
+    return $res;
 }
 
-echo useRedirections();
+die(useRedirections()); // TODO : Status
