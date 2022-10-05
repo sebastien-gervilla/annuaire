@@ -1,0 +1,12 @@
+{
+    "developpement": {
+        "baseURL": "localhost/annuaire-nws/api/",
+        "routesURL": "/annuaire-nws/api/routes/",
+        "database": {
+            "host": "localhost",
+            "name": "annuaire_nws",
+            "username": "root",
+            "password": ""
+        }
+    }
+}
