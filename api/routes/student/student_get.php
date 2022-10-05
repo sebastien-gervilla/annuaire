@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../Router.php';
 require_once __DIR__ .'/../../controllers/StudentController.php';
 
-function useStudentGetRoutes(string $endpoint, array $body)
+function useStudentGetRoutes(string $endpoint, array|null $body)
 {
     switch ($endpoint) {
         case 'students':
