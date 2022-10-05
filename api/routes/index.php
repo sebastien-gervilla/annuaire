@@ -3,6 +3,8 @@
 require_once './student/index.php';
 require_once '../inc/request-utils.php';
 
+allowCors();
+
 function useRedirections() {
     try {
         $fullUrl = getRequestUrl();
@@ -31,4 +33,4 @@ function useRedirections() {
     return $res;
 }
 
-echo useRedirections();
+die(useRedirections()); // TODO : Status
