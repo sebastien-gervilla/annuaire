@@ -1,14 +1,17 @@
 <?php
 
-require_once '../Router.php';
-require_once '../../controllers/StudentController.php';
+require_once __DIR__ . '/../Router.php';
+require_once __DIR__ .'/../../controllers/StudentController.php';
 
-function studentGet($endpoint)
+function useStudentGetRoutes(string $endpoint, array $body)
 {
     switch ($endpoint) {
         case 'students':
-            Router::get($endpoint, 'StudentController::');
-            break;
+            return Router::get(function () { return StudentController::getAll(); });
+
+        case 'student':
+            $id = $body['id'];
+            return Router::get(function () use($id) { return StudentController::getById($id); });
         
         default:
             # code...
