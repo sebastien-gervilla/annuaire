@@ -1,0 +1,5 @@
+.main-area {
+    .main-content {
+        @include app-content;
+    }
+}
