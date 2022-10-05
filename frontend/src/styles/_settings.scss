@@ -1,0 +1,32 @@
+// Fonts
+@font-face {
+    font-family: 'RobotoRegular';
+    src: url('../../public/assets/fonts/Roboto-Regular.ttf');
+}
+
+// Variables
+
+$replace-font: Helvetica, Arial, sans-serif;
+$main-font: 'RobotoRegular', $replace-font;
+
+// Globales
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: $main-font;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+// Mixins
