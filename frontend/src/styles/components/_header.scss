@@ -1,0 +1,28 @@
+.header {
+    box-shadow: $main-shadow;
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        @include app-content;
+
+        .brand {
+            h1 {
+                font-size: 1.4vw;
+            }
+        }
+
+        .buttons {
+            display: flex;
+
+            button {
+                margin-left: 1vw;
+
+                img {
+                    width: 2vw;
+                    height: 2vw;
+                }
+            }
+        }
+    }
+}
