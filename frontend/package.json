@@ -9,9 +9,11 @@
     "dotenv": "^16.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "sass": "^1.55.0",
+    "skz-ui": "^0.0.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
