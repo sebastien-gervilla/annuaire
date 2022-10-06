@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = () => {
     return (
-        <div className="header">
+        <div className="app-header">
             <div className="header-content">
                 <div className="brand">
                     <h1>Annuaire NWS</h1>
