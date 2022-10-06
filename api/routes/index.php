@@ -24,7 +24,10 @@ function useRedirections() {
                 return useStudentRoutes($method, $endpoint, $body);
             
             default:
-                return "Couldn't find url : " . $url;
+                return array(
+                    "status" => 400,
+                    "message" => "Couldn't find url : " . $url
+                );
         }
     }
 

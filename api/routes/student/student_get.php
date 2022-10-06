@@ -14,7 +14,8 @@ function useStudentGetRoutes(string $endpoint, array|null $body)
             return Router::get(function () use($id) { return StudentController::getById($id); });
         
         default:
-            # code...
-            break;
+            return array(
+                "status" => 400
+            );
     }
 }
