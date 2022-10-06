@@ -1,0 +1,13 @@
+.students {
+    padding: 2vw;
+    background-color: $light-color;
+
+    box-shadow: $main-shadow;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+
+        width: 100%;
+    }
+}

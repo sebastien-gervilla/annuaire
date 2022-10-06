@@ -22,7 +22,7 @@ function useStudentRoutes(string $method, string $endpoint, array|null $body)
         
         default:
             return array(
-                "success" => false,
+                "status" => 400,
                 "data" => null
             );
     }
