@@ -9,9 +9,9 @@ function isFormFilled(array $formInputs, array $exceptions): bool {
     return true;
 }
 
-function formMatchesTable(array $form, string $columnPrefix, array $tableColumns): bool {
+function formMatchesTable(array $form, array $tableColumns): bool {
     foreach ($form as $key => $value) {
-        if (!in_array($columnPrefix . $key, $tableColumns)) {
+        if (!in_array($key, $tableColumns)) {
             return false;
         }
     }

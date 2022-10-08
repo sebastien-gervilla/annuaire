@@ -34,11 +34,11 @@ class StudentController {
     public static function createStudent(array $student): Response {
         try {
             $columns = StudentManager::getColumnsNames();
-            if (!formMatchesTable($student, 'student_', $columns)) {
+            if (!formMatchesTable($student, $columns)) {
                 return new Response(400, false, "Le formulaire ne correspond pas à la table.");
             }
 
-            $exceptions = ["number", "degree"];
+            $exceptions = ["phone", "degree"];
             if (!isFormFilled($student, $exceptions)) {
                 return new Response(400, false, "Tous les champs requis ne sont pas remplis.");
             }

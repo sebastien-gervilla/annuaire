@@ -1,15 +1,13 @@
 <?php
 
 class Student {
-    private string $tablePrefix = 'student_';
-
     private int $id;
     private string $fname;
     private string $lname;
     private int $age;
     private string $gender;
     private string $email;
-    private string|null $number;
+    private string|null $phone;
     private string|null $degree;
     private string $createdAt;
 
@@ -26,7 +24,7 @@ class Student {
         $this->age = $student['age'];
         $this->gender = $student['gender'];
         $this->email = $student['email'];
-        $this->number = $student['number'];
+        $this->phone = $student['phone'];
         $this->degree = $student['degree'];
     }
 
@@ -37,7 +35,7 @@ class Student {
             'Age' => [betweenNumbers($this->age, 0, 100)],
             'Genre' => [amongValues($this->gender, ['Homme', 'Femme'])],
             'Email' => [validEmail($this->email)],
-            'Téléphone' => [betweenLengths($this->number, 9, 11)]
+            'Téléphone' => [betweenLengths($this->phone, 9, 11)]
         );
     }
 

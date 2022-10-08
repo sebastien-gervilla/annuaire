@@ -11,7 +11,7 @@ class StudentManager {
         $columns = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
         $columnNames = [];
         foreach ($columns as $column) {
-            if ($column['COLUMN_NAME'] !== 'student_id') {
+            if ($column['COLUMN_NAME'] !== '_id') {
                 array_push($columnNames, $column['COLUMN_NAME']);
             }
         }
@@ -22,13 +22,13 @@ class StudentManager {
 
     public static function getAllStudents() {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `students` ORDER BY `student_id`;";
+        $request = "SELECT * FROM `students` ORDER BY `_id`;";
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function getStudent(int $studentId) {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `students` WHERE `student_id` = $studentId;";
+        $request = "SELECT * FROM `students` WHERE `_id` = $studentId;";
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -43,13 +43,13 @@ class StudentManager {
         $age = $student['age'];
         $gender = $student['gender'];
         $email = $student['email'];
-        $number = $student['number'];
+        $phone = $student['phone'];
         $degree = $student['degree'];
-        $request = "INSERT INTO students 
-        (student_fname, student_lname, student_age, student_gender, student_email, student_number, student_degree) 
-        VALUES ('$fname', '$lname', '$age', '$gender', '$email', '$number', '$degree')";
+        $request = "INSERT INTO students (fname, lname, age, gender, email, phone, degree) 
+        VALUES ('$fname', '$lname', '$age', '$gender', '$email', '$phone', '$degree')";
         $dbh->exec($request);
     }
 
     #endregion
+    
 }
