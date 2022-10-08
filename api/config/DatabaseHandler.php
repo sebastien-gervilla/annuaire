@@ -1,16 +1,14 @@
 <?php
 
-require_once './settings.php';
+require_once __DIR__ . '/settings.php';
 
 class DatabaseHandler {
-    private $dbh;
 
-    public function connect() {
-        $this->dbh = null;
+    public static function connect() {
         $cfg = getSettings()['database'];
 
         try {
-            $this->dbh = new PDO(
+            return new PDO(
                 'mysql:host=' . $cfg['host'] . 
                 ';dbname=' . $cfg['name'],
                 $cfg['username'],
@@ -20,7 +18,5 @@ class DatabaseHandler {
             print_r("PDO Error : " . $e->getMessage());
             die();
         }
-
-        return $this->dbh;
     }
 }
