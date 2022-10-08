@@ -1,6 +1,7 @@
 <?php
 
 require_once './student/index.php';
+require_once '../inc/Response.php';
 require_once '../inc/request-utils.php';
 
 allowCors();
@@ -17,23 +18,19 @@ function useRedirections() {
         echo "Request error : $error";
     }
 
-    function redirect(string $url, string $model, string $method, string $endpoint, array|null $body)
+    function useRoutes(string $url, string $model, string $method, string $endpoint, array|null $body): Response
     {
         switch ($model) {
             case 'students':
                 return useStudentRoutes($method, $endpoint, $body);
             
             default:
-                return array(
-                    "status" => 400,
-                    "message" => "Couldn't find url : " . $url
-                );
+                return new Response(400, false, "Coudln't find url : $url");
         }
     }
 
-    $res = redirect($fullUrl, $model, $method, $endpoint, $body);
-    $res = gettype($res) === "string" ? $res : json_encode($res);
-    return $res;
+    $res = useRoutes($fullUrl, $model, $method, $endpoint, $body);
+    return $res->send();
 }
 
 die(useRedirections()); // TODO : Status

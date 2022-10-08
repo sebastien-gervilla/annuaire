@@ -4,6 +4,6 @@ export const defaultStudent = {
     age: 18,
     gender: 'Homme',
     email: '',
-    number: '',
+    phone: '',
     degree: ''
 }
