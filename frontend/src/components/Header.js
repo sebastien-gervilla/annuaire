@@ -1,4 +1,6 @@
 import React from 'react';
+import { IoPower } from 'react-icons/io5';
+import { HiOutlineMoon } from 'react-icons/hi';
 
 const Header = () => {
     return (
@@ -8,7 +10,8 @@ const Header = () => {
                     <h1>Annuaire NWS</h1>
                 </div>
                 <div className="buttons">
-                    <button><img src="/assets/icons/disconnect.svg" alt="Disconnect icon"/></button>
+                    <button><HiOutlineMoon id='dark-mode_icon' /></button>
+                    <button><IoPower id='disconnect_icon' /></button>
                 </div>
             </div>
         </div>
