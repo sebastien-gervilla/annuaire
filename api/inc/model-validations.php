@@ -11,7 +11,7 @@ function isFormFilled(array $formInputs, array $exceptions): bool {
 
 function formMatchesTable(array $form, array $tableColumns): bool {
     foreach ($form as $key => $value) {
-        if (!in_array($key, $tableColumns)) {
+        if (!in_array($key, $tableColumns) && $key != '_id') {
             return false;
         }
     }
