@@ -15,7 +15,6 @@ class Response {
 
     private function setResponseHeader() {
         header('Content-type: application/json');
-        http_response_code($this->status);
     }
 
     public function create(): array {
