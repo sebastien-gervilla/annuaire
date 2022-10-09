@@ -3,11 +3,11 @@ import { IoClose } from 'react-icons/io5';
 import apiRequest from '../utils/api-request';
 import { defaultStudent } from '../utils/model-defaults';
 
-const StudentForm = ({ studentInfos = defaultStudent, closeModal, onSubmit }) => {
+const StudentForm = ({ studentInfos, method, closeModal, onSubmit }) => {
 
-    const [student, setStudent] = useState(studentInfos);
+    const [student, setStudent] = useState(studentInfos || defaultStudent);
     const [error, setError] = useState(null);
-
+    
     const handleChanges = event => 
         setStudent({...student, [event.target.name]: event.target.value});
 
@@ -22,7 +22,7 @@ const StudentForm = ({ studentInfos = defaultStudent, closeModal, onSubmit }) =>
 
     const handleSubmitForm = async event => {
         event.preventDefault();
-        const res = await apiRequest('students/student', 'POST', student);
+        const res = await apiRequest('students/student', method, student);
         if (res.status !== 200) return setError(res.message);
         onSubmit();
         closeModal();

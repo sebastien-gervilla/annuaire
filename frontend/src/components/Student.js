@@ -2,9 +2,13 @@ import React from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { TbEdit } from 'react-icons/tb';
 
-const Student = ({ studentInfos }) => {
+const Student = ({ studentInfos, openStudentModal, deleteStudent }) => {
 
-    const { fname, lname, age, gender, email, phone, degree} = studentInfos;
+    const { _id, fname, lname, age, gender, email, phone, degree} = studentInfos;
+
+    const handleEditStudent = event => openStudentModal(studentInfos, 'PUT');
+
+    const handleDeleteStudent = event => _id && deleteStudent(_id);
 
     return (
         <div className="student">
@@ -17,8 +21,8 @@ const Student = ({ studentInfos }) => {
             <p className='degree'>{degree}</p>
 
             <div className="menu_buttons">
-                <TbEdit className='edit-btn_icon' />
-                <AiFillDelete className='del-btn_icon' />
+                <TbEdit className='edit-btn_icon' onClick={handleEditStudent} />
+                <AiFillDelete className='del-btn_icon' onClick={handleDeleteStudent} />
             </div>
         </div>
     );
