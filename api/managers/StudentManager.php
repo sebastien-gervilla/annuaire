@@ -4,6 +4,8 @@ require_once __DIR__ . '/../config/DatabaseHandler.php';
 
 class StudentManager {
 
+    #region GET
+
     public static function getColumnsNames() {
         $dbh = DatabaseHandler::connect();
         $request = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS 
@@ -17,8 +19,6 @@ class StudentManager {
         }
         return $columnNames;
     }
-
-    #region GET
 
     public static function getAllStudents() {
         $dbh = DatabaseHandler::connect();
@@ -52,4 +52,33 @@ class StudentManager {
 
     #endregion
     
+    #region PUT
+
+    public static function modifyStudentRequest(int $studentId, array $newStudent) {
+        $dbh = DatabaseHandler::connect();
+        $fname = $newStudent['fname'];
+        $lname = $newStudent['lname'];
+        $age = $newStudent['age'];
+        $gender = $newStudent['gender'];
+        $email = $newStudent['email'];
+        $phone = $newStudent['phone'];
+        $degree = $newStudent['degree'];
+        $request = "UPDATE `students` 
+        SET `fname` = '$fname', `lname` = '$lname', `age` = '$age', `gender` = '$gender', 
+        `email` = '$email', `phone` = '$phone', `degree` = '$degree' WHERE `_id` = '$studentId';";
+        $dbh->exec($request);
+    }
+
+    #endregion
+
+    #region DELETE
+
+    public static function deleteStudentRequest(int $studentId) {
+        $dbh = DatabaseHandler::connect();
+        $request = "DELETE FROM `students` WHERE `_id` = $studentId;";
+        $dbh->exec($request);
+    }
+
+    #endregion
+
 }

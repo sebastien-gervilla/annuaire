@@ -61,8 +61,51 @@ class StudentController {
     #region PUT
 
     public static function modifyStudent(int $studentId, array $newStudent) {
-        // check for 
+        try {
+            $student = StudentManager::getStudent($studentId);
+            if (!$student) return new Response(400, false, "Elève inexistant.");
+            
+            $columns = StudentManager::getColumnsNames();
+            if (!formMatchesTable($newStudent, $columns)) {
+                return new Response(400, false, "Le formulaire ne correspond pas à la table.");
+            }
+
+            $exceptions = ["phone", "degree"];
+            if (!isFormFilled($newStudent, $exceptions)) {
+                return new Response(400, false, "Tous les champs requis ne sont pas remplis.");
+            }
+
+            $NewStudent = new Student($newStudent);
+            $error = findModelValidationsError($NewStudent->getValidations());
+            if ($error) return new Response(400, false, $error);
+
+            StudentManager::modifyStudentRequest($studentId, $newStudent);
+            return new Response(200, true, "Elève modifié avec succès.", $newStudent);
+        } catch (Error $error) {
+            return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
+                "error" => $error
+            ));
+        }
     }
 
-    #enregion
+    #endregion
+
+    #region DELETE
+
+    public static function deleteStudent(int $studentId){
+        try {
+            $student = StudentManager::getStudent($studentId);
+            if (!$student) return new Response(400, false, "Elève inexistant.");
+
+            StudentManager::deleteStudentRequest($studentId);
+            return new Response(200, true, "Elève supprimé avec succès.");
+        } catch (Error $error) {
+            return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
+                "error" => $error
+            ));
+        }
+    }
+
+    #endregion
+
 }
