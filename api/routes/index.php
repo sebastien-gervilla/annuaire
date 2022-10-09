@@ -7,16 +7,6 @@ require_once '../inc/request-utils.php';
 allowCors();
 
 function useRedirections() {
-    try {
-        $fullUrl = getRequestUrl();
-        $method = getRequestMethod();
-        $endpoints = getUrlEndpoints();
-        $endpoint = $endpoints['endpoint'];
-        $model = $endpoints['model'];
-        $body = getRequestBody();
-    } catch (Error $error) {
-        echo "Request error : $error";
-    }
 
     function useRoutes(string $url, string $model, string $method, string $endpoint, array|null $body): Response
     {
@@ -29,8 +19,22 @@ function useRedirections() {
         }
     }
 
-    $res = useRoutes($fullUrl, $model, $method, $endpoint, $body);
-    return $res->send();
+    try {
+        $fullUrl = getRequestUrl();
+        $method = getRequestMethod();
+        $endpoints = getUrlEndpoints();
+        $endpoint = $endpoints['endpoint'];
+        $model = $endpoints['model'];
+        $body = getRequestBody();
+
+        $res = useRoutes($fullUrl, $model, $method, $endpoint, $body);
+    } catch (\Throwable $error) {
+        $res = new Response(400, false, "Un problème est survenu, réessayez plus tard.", array(
+            "error" => $error
+        ));
+    } finally {
+        return $res->send();
+    }
 }
 
 die(useRedirections()); // TODO : Status
