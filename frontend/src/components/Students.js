@@ -6,6 +6,7 @@ import { calcMaxPage } from '../utils/useful-functions';
 import StudentForm from './StudentForm';
 import Student from './Student';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
+import apiRequest from '../utils/api-request';
 
 const Students = () => {
 
@@ -20,10 +21,9 @@ const Students = () => {
     const [studentModal, setStudentModal] = useState({
         student: defaultStudent,
         isOpen: false,
+        method: 'POST',
         closeModal: () => setStudentModal(prev => { return {...prev, isOpen: false}})
     });
-
-    useEffect(() => console.log(studentsReq.data), [studentsReq]);
 
     useEffect(() => {
         const body = studentsReq.data?.body;
@@ -35,12 +35,27 @@ const Students = () => {
         });
     }, [studentsReq.data]);
 
-    const handleOpenStudentModal = event => {
-        event.preventDefault();
-        setStudentModal({...studentModal, isOpen: true});
-    }
+    const handleChangePage = event =>
+    setSortOptions({
+        ...sortOptions,
+        page: changePage(event)
+    });
 
-    const onSubmit = () => studentsReq.doFetch();
+    const openStudentModal = (student = defaultStudent, method = 'POST') =>
+        setStudentModal({
+            ...studentModal,
+            isOpen: true,
+            student,
+            method
+        });
+
+    const changePage = event => {
+        let newPage = sortOptions.page + parseInt(event.currentTarget.value);
+        const pages = sortOptions.maxPage - 1;
+        if (newPage > pages) return pages;
+        if (newPage < 0) return 0;
+        if (newPage !== sortOptions.page) return newPage;
+    };
 
     const displayStudentModal = () =>
         <Modal 
@@ -49,8 +64,9 @@ const Students = () => {
             body={
                 <StudentForm 
                     studentInfos={studentModal.student}
+                    method={studentModal.method}
                     closeModal={studentModal.closeModal}
-                    onSubmit={onSubmit}
+                    onSubmit={studentsReq.doFetch}
                 />
             } 
         />
@@ -65,30 +81,27 @@ const Students = () => {
         const displayedStudents = students.slice(start, end);
 
         return displayedStudents.map(student =>
-            <Student key={student._id} studentInfos={student} />
+            <Student key={student._id} 
+                studentInfos={student}
+                openStudentModal={openStudentModal}
+                deleteStudent={deleteStudent}
+            />
         )
     }
 
-    const handleChangePage = event =>
-        setSortOptions({
-            ...sortOptions,
-            page: changePage(event)
-        });
+    // Api calls
 
-    const changePage = event => {
-        let newPage = sortOptions.page + parseInt(event.currentTarget.value);
-        const pages = sortOptions.maxPage - 1;
-        if (newPage > pages) return pages;
-        if (newPage < 0) return 0;
-        if (newPage !== sortOptions.page) return newPage;
-    };
+    const deleteStudent = async studentId => { // Snackbar when delete ?
+        const res = await apiRequest('students/student', 'DELETE', {_id: studentId});
+        if (res.status === 200) studentsReq.doFetch();
+    }
 
     return (
         <div className="students">
             {displayStudentModal()}
             <div className="header">
                 <h2>Students</h2>
-                <button className='add-btn' onClick={handleOpenStudentModal}>Ajouter</button>
+                <button className='add-btn' onClick={() => openStudentModal()}>Ajouter</button>
             </div>
             <div className="menu">
                 <p className='fname'>PRENOM</p>
