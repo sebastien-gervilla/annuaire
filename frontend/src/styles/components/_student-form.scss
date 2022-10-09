@@ -2,43 +2,126 @@
     width: 40vw;
     padding: 2vw;
 
-    .header {
+    .form-header {
         display: flex;
         justify-content: space-between;
+        align-items: center;
 
+        width: 100%;
         margin-bottom: 2vw;
 
+        h3 {
+            font-size: 1.2vw;
+        }
+
         button {
-            width: 2vw;
-            height: 2vw;
+            border: none;
 
             svg {
-                width: 100%;
-                height: 100%;
+                font-size: 1.4vw;
+                color: $dark-color;
+
+                transition: .15s ease;
+
+                &:hover {
+                    color: $secondary-color;
+
+                    cursor: pointer;
+                    transition: .15s ease;
+                }
             }
         }
     }
 
-    .inputs {
+    .form-input_row {
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
 
-        .row {
-            display: flex;
-            justify-content: space-between;
+        width: 100%;
+
+        .form-input {
+            width: 47.5%;
 
             input, select {
-                width: 47.5%;
-                padding: .2vw .35vw;
+                height: 2vw;
+            }
+        }
+    }
+
+    .form-input {
+        width: 100%;
+        margin-bottom: 1.5vw;
+
+        p {
+            font-size: .8vw;
+            letter-spacing: .05vw;
+            margin-bottom: .5vw;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            height: 2vw;
+            padding: .5vw;
+
+            background-color: $gray-color;
+            border: none;
+            box-shadow: inset 0 0 3px rgb(0, 0, 0, .1);
+
+            font-size: .9vw;
+
+            &[name=submit] {
+                height: 2.5vw;
+
+                background-color: $main-color;
+                color: $light-color;
+                border: .1vw solid $main-color;
+                box-shadow: none;
+
+                font-size: 1vw;
+
+                transition: .2s ease;
+
+                &:hover {
+                    background-color: $light-color;
+                    color: $main-color;
+
+                    cursor: pointer;
+                    transition: .2s ease;
+                }
             }
         }
 
-        input, select {
-            width: 100%;
-            height: 2vw;
-            margin-bottom: 1.5vw;
+        textarea {
+            height: 8vw;
+            resize: none;
+        }
 
-            border-bottom: 1px solid $dark-color;
+        select {
+            height: unset;
+            max-height: 5vw;
+
+            option {
+                padding: .1vw 0;
+
+                &:checked {
+                    background-color: $main-color;
+                    color: $light-color;
+
+                    &:hover {
+                        background-color: $main-color;
+                        color: $light-color;
+                    }
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: $mid-gray-color;
+                }
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 }
