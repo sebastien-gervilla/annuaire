@@ -1,0 +1,20 @@
+.add-btn {
+    height: 2.5vw;
+    padding: 0 1.5vw;
+
+    background-color: $main-color;
+    color: $light-color;
+    border: .1vw solid $main-color;
+
+    font-size: 1.1vw;
+
+    transition: .2s ease;
+
+    &:hover {
+        background-color: $light-color;
+        color: $main-color;
+
+        cursor: pointer;
+        transition: .2s ease;
+    }
+}

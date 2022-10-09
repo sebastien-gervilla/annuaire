@@ -1,12 +1,18 @@
 .app-header {
+    background-color: $light-color;
     box-shadow: $main-shadow;
 
     .header-content {
         display: flex;
         justify-content: space-between;
         @include app-content;
+        padding-left: 2vw;
+        padding-right: 2vw;
 
         .brand {
+            display: flex;
+            align-items: center;
+            
             h1 {
                 font-size: 1.4vw;
             }
@@ -16,11 +22,27 @@
             display: flex;
 
             button {
-                margin-left: 1vw;
+                @include flex-center;
+                margin-left: 2vw;
+                border-radius: 1.5vw;
 
-                img {
-                    width: 2vw;
-                    height: 2vw;
+                cursor: pointer;
+
+                svg {
+                    width: 1.5vw;
+                    height: 1.5vw;
+
+                    border-radius: 1.5vw;
+
+                    transition: .1s ease;
+
+                    &:hover {
+                        cursor: pointer;
+                        transition: .1s ease;
+                    }
+
+                    &#disconnect_icon:hover { color: $secondary-color; }
+                    &#dark-mode_icon:hover { color: purple; }
                 }
             }
         }

@@ -3,9 +3,10 @@ import { IoClose } from 'react-icons/io5';
 import apiRequest from '../utils/api-request';
 import { defaultStudent } from '../utils/model-defaults';
 
-const StudentForm = ({ studentInfos = defaultStudent, closeModal }) => {
+const StudentForm = ({ studentInfos = defaultStudent, closeModal, onSubmit }) => {
 
     const [student, setStudent] = useState(studentInfos);
+    const [error, setError] = useState(null);
 
     const handleChanges = event => 
         setStudent({...student, [event.target.name]: event.target.value});
@@ -19,34 +20,61 @@ const StudentForm = ({ studentInfos = defaultStudent, closeModal }) => {
 
     const handleCloseModal = event => closeModal();
 
-    const handleSubmitForm = event => {
+    const handleSubmitForm = async event => {
         event.preventDefault();
-        apiRequest('students/student', 'POST', student);
+        const res = await apiRequest('students/student', 'POST', student);
+        if (res.status !== 200) return setError(res.message);
+        onSubmit();
         closeModal();
     }
 
+    const displayError = () => error &&
+        <p>{error}</p>
+
     return (
         <form className='student-form'>
-            <div className="header">
+            <div className="form-header">
                 <h2>Nouvel élève</h2>
                 <button onClick={handleCloseModal}><IoClose/></button>
             </div>
-            <div className="inputs">
-                <div className="names row">
-                    <input type="text" name='fname' placeholder='Prénom' value={student.fname} onChange={handleChanges} />
-                    <input type="text" name='lname' placeholder='Nom' value={student.lanme} onChange={handleChanges} />
+            <div className="form-input_row">
+                <div className="form-input">
+                    <p>PRENOM</p>
+                    <input type="text" name='fname' value={student.fname} onChange={handleChanges} />
                 </div>
-                <div className="gender-age row">
-                    <select name="gender" placeholder='Genre' value={student.gender} onChange={handleChanges}>
+                <div className="form-input">
+                    <p>NOM</p>
+                    <input type="text" name='lname' value={student.lname} onChange={handleChanges} />
+                </div>
+            </div>
+            <div className="form-input_row">
+                <div className="form-input">
+                    <p>GENRE</p>
+                    <select name="gender" value={student.gender} onChange={handleChanges}>
                         <option value="Homme">Homme</option>
                         <option value="Femme">Femme</option>
                     </select>
-                    <input type="number" name="age" placeholder='Age' value={student.age} onChange={handleChangeAge} />
                 </div>
-                <input type="email" name="email" placeholder='Email' value={student.email} onChange={handleChanges} />
-                <input type="text" name="number" placeholder='Téléphone' value={student.number} onChange={handleChanges} />
-                <input type="text" name='degree' placeholder='Diplome' value={student.degree} onChange={handleChanges}/>
-                <button type="submit" onClick={handleSubmitForm}>Valider</button>
+                <div className="form-input">
+                    <p>AGE</p>
+                    <input type="number" name="age" value={student.age} onChange={handleChangeAge} />
+                </div>
+            </div>
+            <div className="form-input">
+                <p>EMAIL</p>
+                <input type="email" name='email' value={student.email} onChange={handleChanges} />
+            </div>
+            <div className="form-input">
+                <p>TELEPHONE</p>
+                <input type="text" name='phone' value={student.phone} onChange={handleChanges} />
+            </div>
+            <div className="form-input">
+                <p>DIPLOME</p>
+                <input type="text" name='degree' value={student.degree} onChange={handleChanges} />
+            </div>
+            {displayError()}
+            <div className="form-input">
+                <input onClick={handleSubmitForm} name="submit" type="submit" value="Valider"/>
             </div>
         </form>
     );

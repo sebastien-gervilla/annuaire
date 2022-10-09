@@ -1,6 +1,6 @@
 export const defaultStudent = {
     fname: '',
-    lanme: '',
+    lname: '',
     age: 18,
     gender: 'Homme',
     email: '',
