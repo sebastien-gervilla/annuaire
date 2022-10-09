@@ -1,0 +1,11 @@
+.switch-btn {
+    width: 2vw;
+    height: 2vw;
+
+    background-color: transparent;
+    color: $main-color;
+    border: .1vw solid $main-color;
+    border-radius: 5vw;
+
+    cursor: pointer;
+}
