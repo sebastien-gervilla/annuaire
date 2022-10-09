@@ -6,9 +6,12 @@
 
 // Variables
 
-$main-color: #0074CC;
-$dark-color: #1A1A1A;
+$main-color: #3794F2;
+$secondary-color: #FF5638;
 $light-color: #F1F1F1;
+$dark-color: #313A39;
+$gray-color: #dddfeb;
+$mid-gray-color: #cdd0d6;
 
 $replace-font: Helvetica, Arial, sans-serif;
 $main-font: 'RobotoRegular', $replace-font;
@@ -26,7 +29,7 @@ $modal-wrapper-bg: rgba(100, 100, 100, 0.2);
 
 body {
     font-family: $main-font;
-    background-color: $light-color;
+    background-color: $gray-color;
     color: $dark-color;
 }
 
@@ -52,10 +55,22 @@ a {
     background-color: $modal-wrapper-bg !important;
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+}
+
 // Mixins
 
 @mixin app-content {
-    width: 65vw;
+    width: 90vw;
     margin: 0 auto;
     padding: 2vw 0;
+}
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
