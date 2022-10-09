@@ -35,7 +35,7 @@ class Student {
             'Age' => [betweenNumbers($this->age, 0, 100)],
             'Genre' => [amongValues($this->gender, ['Homme', 'Femme'])],
             'Email' => [validEmail($this->email)],
-            'Téléphone' => [betweenLengths($this->phone, 9, 11)]
+            'Téléphone' => [validLength(removeAllSpaces($this->phone), 10)]
         );
     }
 

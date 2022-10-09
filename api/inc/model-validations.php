@@ -117,3 +117,17 @@ function validLength(string|null $value, int $length): array {
         }
     );
 }
+
+// Utils
+
+function removeAllSpaces($string) {
+    return preg_replace('/\s+/', '', $string);
+}
+
+function trimArray(array $array) {
+    $newArray = array();
+    foreach ($array as $key => $value)
+        $newArray += (gettype($value) == 'string') ? 
+            [$key => trim($value)] : [$key => $value];
+    return $newArray;
+}
