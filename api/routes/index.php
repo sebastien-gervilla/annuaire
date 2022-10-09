@@ -2,11 +2,11 @@
 
 require_once './student/index.php';
 require_once '../inc/Response.php';
-require_once '../inc/request-utils.php';
-
-allowCors();
+require_once '../inc/Request.php';
 
 function useRedirections() {
+
+    Request::allowCors();
 
     function useRoutes(string $url, string $model, string $method, string $endpoint, array|null $body): Response
     {
@@ -20,14 +20,13 @@ function useRedirections() {
     }
 
     try {
-        $fullUrl = getRequestUrl();
-        $method = getRequestMethod();
-        $endpoints = getUrlEndpoints();
-        $endpoint = $endpoints['endpoint'];
-        $model = $endpoints['model'];
-        $body = getRequestBody();
-
-        $res = useRoutes($fullUrl, $model, $method, $endpoint, $body);
+        $res = useRoutes(
+            Request::getUrl(), 
+            Request::getModel(),
+            Request::getMethod(), 
+            Request::getEndpoint(), 
+            Request::getBody()
+        );
     } catch (\Throwable $error) {
         $res = new Response(400, false, "Un problème est survenu, réessayez plus tard.", array(
             "error" => $error
@@ -37,4 +36,4 @@ function useRedirections() {
     }
 }
 
-die(useRedirections()); // TODO : Status
+die(useRedirections());
