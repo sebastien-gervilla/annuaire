@@ -1,6 +1,7 @@
 <?php
 
 require_once './student/index.php';
+require_once './event/index.php';
 require_once '../inc/Response.php';
 require_once '../inc/Request.php';
 
@@ -11,8 +12,11 @@ function useRedirections() {
     function useRoutes(string $url, string $model, string $method, string $endpoint, array|null $body): Response
     {
         switch ($model) {
-            case 'students':
+            case 'student':
                 return useStudentRoutes($method, $endpoint, $body);
+
+            case 'event':
+                return useEventRoutes($method, $endpoint, $body);
             
             default:
                 return new Response(400, false, "Coudln't find url : $url");
