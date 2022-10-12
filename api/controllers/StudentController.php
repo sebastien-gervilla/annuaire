@@ -38,7 +38,7 @@ class StudentController {
                 return new Response(400, false, "Le formulaire ne correspond pas à la table.");
             }
 
-            $exceptions = ["phone", "degree"];
+            $exceptions = ["phone", "degree", "specialization"];
             if (!isFormFilled($student, $exceptions)) {
                 return new Response(400, false, "Tous les champs requis ne sont pas remplis.");
             }
@@ -71,7 +71,7 @@ class StudentController {
                 return new Response(400, false, "Le formulaire ne correspond pas à la table.");
             }
 
-            $exceptions = ["phone", "degree"];
+            $exceptions = ["phone", "degree", "specialization"];
             if (!isFormFilled($newStudent, $exceptions)) {
                 return new Response(400, false, "Tous les champs requis ne sont pas remplis.");
             }

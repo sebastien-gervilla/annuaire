@@ -1,7 +1,7 @@
 <?php
 
 class Student {
-    private int $id;
+    private int $_id;
     private string $fname;
     private string $lname;
     private int $age;
@@ -9,7 +9,7 @@ class Student {
     private string $email;
     private string|null $phone;
     private string|null $degree;
-    private string $createdAt;
+    private string|null $specialization;
 
     private array $validations;
 
@@ -26,6 +26,7 @@ class Student {
         $this->email = $student['email'];
         $this->phone = $student['phone'];
         $this->degree = $student['degree'];
+        $this->specialization = $student['specialization'];
     }
 
     private function setValidations() {
