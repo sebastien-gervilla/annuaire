@@ -1,0 +1,12 @@
+{
+    "name": "annuaire-nws",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "start": "cd frontend && npm run start"
+    },
+    "keywords": ["React", "php"],
+    "author": "sebastien-gervilla",
+    "license": "MIT"
+}

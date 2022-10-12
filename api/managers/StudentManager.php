@@ -9,7 +9,7 @@ class StudentManager {
     public static function getColumnsNames() {
         $dbh = DatabaseHandler::connect();
         $request = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS 
-        WHERE TABLE_SCHEMA = 'annuaire_nws' AND TABLE_NAME = 'students'";
+        WHERE TABLE_SCHEMA = 'annuaire_nws' AND TABLE_NAME = 'student'";
         $columns = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
         $columnNames = [];
         foreach ($columns as $column) {
@@ -22,13 +22,13 @@ class StudentManager {
 
     public static function getAllStudents() {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `students` ORDER BY `_id`;";
+        $request = "SELECT * FROM `student` ORDER BY `_id`;";
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function getStudent(int $studentId) {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `students` WHERE `_id` = $studentId;";
+        $request = "SELECT * FROM `student` WHERE `_id` = $studentId;";
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -45,8 +45,9 @@ class StudentManager {
         $email = $student['email'];
         $phone = $student['phone'];
         $degree = $student['degree'];
-        $request = "INSERT INTO students (fname, lname, age, gender, email, phone, degree) 
-        VALUES ('$fname', '$lname', '$age', '$gender', '$email', '$phone', '$degree')";
+        $specialization = $student['specialization'];
+        $request = "INSERT INTO student (fname, lname, age, gender, email, phone, degree, specialization) 
+        VALUES ('$fname', '$lname', '$age', '$gender', '$email', '$phone', '$degree', '$specialization')";
         $dbh->exec($request);
     }
 
@@ -63,9 +64,10 @@ class StudentManager {
         $email = $newStudent['email'];
         $phone = $newStudent['phone'];
         $degree = $newStudent['degree'];
-        $request = "UPDATE `students` 
-        SET `fname` = '$fname', `lname` = '$lname', `age` = '$age', `gender` = '$gender', 
-        `email` = '$email', `phone` = '$phone', `degree` = '$degree' WHERE `_id` = '$studentId';";
+        $specialization = $newStudent['specialization'];
+        $request = "UPDATE `student` 
+        SET `fname` = '$fname', `lname` = '$lname', `age` = '$age', `gender` = '$gender', `email` = '$email', 
+        `phone` = '$phone', `degree` = '$degree' `specialization` = '$specialization' WHERE `_id` = '$studentId';";
         $dbh->exec($request);
     }
 
@@ -75,7 +77,7 @@ class StudentManager {
 
     public static function deleteStudentRequest(int $studentId) {
         $dbh = DatabaseHandler::connect();
-        $request = "DELETE FROM `students` WHERE `_id` = $studentId;";
+        $request = "DELETE FROM `student` WHERE `_id` = $studentId;";
         $dbh->exec($request);
     }
 

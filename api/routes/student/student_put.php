@@ -10,7 +10,7 @@ function useStudentPutRoutes(string $endpoint, array|null $body): Response
         case 'student':
             $student = $body;
             $id = $body['_id'];
-            return Router::get(function () use($id, $student) { 
+            return Router::put(function () use($id, $student) { 
                 return StudentController::modifyStudent($id, $student); 
             });
         

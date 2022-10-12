@@ -92,7 +92,7 @@ const Students = () => {
     // Api calls
 
     const deleteStudent = async studentId => { // Snackbar when delete ?
-        const res = await apiRequest('students/student', 'DELETE', {_id: studentId});
+        const res = await apiRequest('students/student', 'DELETE', { _id: studentId });
         if (res.status === 200) studentsReq.doFetch();
     }
 

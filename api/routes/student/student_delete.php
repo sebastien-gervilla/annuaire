@@ -9,7 +9,7 @@ function useStudentDeleteRoutes(string $endpoint, array|null $body): Response
     switch ($endpoint) {
         case 'student':
             $id = $body['_id'];
-            return Router::get(function () use($id) { return StudentController::deleteStudent($id); });
+            return Router::delete(function () use($id) { return StudentController::deleteStudent($id); });
         
         default:
             return new Response(400, false, "Couldn't find url endpoint.");

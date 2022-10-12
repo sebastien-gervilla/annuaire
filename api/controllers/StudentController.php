@@ -38,11 +38,12 @@ class StudentController {
                 return new Response(400, false, "Le formulaire ne correspond pas à la table.");
             }
 
-            $exceptions = ["phone", "degree"];
+            $exceptions = ["phone", "degree", "specialization"];
             if (!isFormFilled($student, $exceptions)) {
                 return new Response(400, false, "Tous les champs requis ne sont pas remplis.");
             }
 
+            $student = trimArray($student);
             $NewStudent = new Student($student);
             $error = findModelValidationsError($NewStudent->getValidations());
             if ($error) return new Response(400, false, $error);
@@ -70,11 +71,12 @@ class StudentController {
                 return new Response(400, false, "Le formulaire ne correspond pas à la table.");
             }
 
-            $exceptions = ["phone", "degree"];
+            $exceptions = ["phone", "degree", "specialization"];
             if (!isFormFilled($newStudent, $exceptions)) {
                 return new Response(400, false, "Tous les champs requis ne sont pas remplis.");
             }
 
+            $newStudent = trimArray($newStudent);
             $NewStudent = new Student($newStudent);
             $error = findModelValidationsError($NewStudent->getValidations());
             if ($error) return new Response(400, false, $error);
