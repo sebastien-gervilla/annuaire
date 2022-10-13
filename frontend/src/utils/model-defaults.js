@@ -5,5 +5,13 @@ export const defaultStudent = {
     gender: 'Homme',
     email: '',
     phone: '',
-    degree: ''
+    degree: '',
+    specialization: 'Aucune',
+    participations: []
+}
+
+export const defaultEvent = {
+    title: '',
+    type: 'JPO',
+    description: ''
 }
