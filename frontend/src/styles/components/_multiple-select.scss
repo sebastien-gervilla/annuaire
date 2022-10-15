@@ -1,0 +1,108 @@
+.multiple-select {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    height: 2vw;
+    padding: .25vw .5vw;
+
+    background-color: $gray-color;
+    border: none;
+    box-shadow: inset 0 0 3px rgb(0, 0, 0, .1);
+
+    .select-bar {
+        display: flex;
+        align-items: center;
+        width: calc(100% - 3vw);
+        height: 100%;
+
+        cursor: pointer;
+
+        p {
+            margin: 0 !important;
+
+            cursor: default;
+            user-select: none;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        align-items: center;
+
+        svg {
+            width: 1.5vw;
+            height: 1.5vw;
+
+            cursor: pointer;
+            transition: .1s ease;
+
+            &:hover { transition: .1s ease; }
+
+            &.reset-multiple-select {
+                width: 1.25vw;
+                height: 1.25vw;
+                margin-right: .25vw;
+
+                &:hover { color: $secondary-color; }
+            }
+
+            &.open-multiple-select:hover { color: #3794F2; }
+        }
+    }
+
+    ul {
+        position: absolute;
+        z-index: 100;
+        top: 2vw;
+        left: 0;
+
+        width: 100%;
+        height: calc(8.5vw + 2px);
+        max-height: calc(8.5vw + 2px);
+        padding: .5vw;
+
+        background-color: $gray-color;
+        border: 1px solid $dark-color;
+        border-radius: 0;
+        box-shadow: inset 0 0 3px rgb(0, 0, 0, .1);
+
+        overflow-y: auto;
+
+        font-size: .9vw;
+
+        button {
+            display: flex;
+            align-items: center;
+
+            width: 100%;
+            height: 1.5vw;
+
+            color: $dark-color;
+
+            transition: .15s ease;
+
+            &.selected {
+                background-color: $main-color;
+                color: $light-color;
+
+                transition: .15s ease;
+
+                &:hover {
+                    background-color: #2c6cac;
+
+                    transition: .15s ease;
+                }
+            }
+
+            &:hover {
+                cursor: pointer;
+                color: $dark-color;
+                background-color: $light-gray-color;
+                transition: .15s ease;
+            }
+        }
+    }
+}
