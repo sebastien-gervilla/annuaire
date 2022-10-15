@@ -6,12 +6,33 @@
 
 // Variables
 
-$main-color: #3794F2;
+:root {
+    --main-color: #3794F2;
+    --dark-color: #313A39;
+    --gray-color: #dddfeb;
+    --mid-gray-color: #cdd0d6;
+    --light-gray-color: #cdd0d6;
+    --light-color: #F1F1F1;
+}
+
+.dark-mode {
+    --main-color: #F1F1F1;
+    --dark-color: #F1F1F1;
+    --gray-color: #171721;
+    --mid-gray-color: #c4bfbb;
+    --light-gray-color: #565250;
+    --light-color: #34343C;
+
+    transition: .2s ease;
+}
+
+$main-color: var(--main-color);
 $secondary-color: #FF5638;
-$light-color: #F1F1F1;
-$dark-color: #313A39;
-$gray-color: #dddfeb;
-$mid-gray-color: #cdd0d6;
+$light-color: var(--light-color);
+$dark-color: var(--dark-color);
+$gray-color: var(--gray-color);
+$mid-gray-color: var(--mid-gray-color);
+$light-gray-color: var(--light-gray-color);
 
 $replace-font: Helvetica, Arial, sans-serif;
 $main-font: 'RobotoRegular', $replace-font;
@@ -34,11 +55,13 @@ body {
 }
 
 button {
+    font-family: $main-font;
     background-color: unset;
     border: unset;
 }
 
 input, select {
+    font-family: $main-font;
     border: unset;
     outline: none;
 }
@@ -55,10 +78,18 @@ a {
     background-color: $modal-wrapper-bg !important;
 }
 
+.skz-modal {
+    background-color: $light-color !important;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     appearance: none;
     margin: 0;
+}
+
+svg {
+    color: $dark-color;
 }
 
 // Mixins
@@ -69,8 +100,39 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 2vw 0;
 }
 
+@mixin half-component {
+    width: 42.5vw;
+    max-height: 37vw;
+    height: 37vw;
+
+    background-color: $light-color;
+    box-shadow: $main-shadow;
+}
+
 @mixin flex-center {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+// Other variables
+
+.copy-msg {
+    position: absolute;
+
+    padding: .25vw .5vw;
+
+    color: $light-color;
+    background-color: $dark-color;
+
+    font-size: .9vw;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: .2s ease;
+
+    &.appear {
+        opacity: 1;
+        transition: .2s ease;
+    }
 }

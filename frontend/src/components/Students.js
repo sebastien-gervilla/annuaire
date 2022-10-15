@@ -3,14 +3,14 @@ import useFetch from '../hooks/useFetch';
 import { Modal } from 'skz-ui';
 import { defaultStudent } from '../utils/model-defaults';
 import { calcMaxPage } from '../utils/useful-functions';
-import StudentForm from './StudentForm';
+import StudentForm from './student/StudentForm';
 import Student from './Student';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import apiRequest from '../utils/api-request';
 
 const Students = () => {
 
-    const studentsReq = useFetch('students/students');
+    const studentsReq = useFetch('student/students');
     const [students, setStudents] = useState([]);
     const [sortOptions, setSortOptions] = useState({
         page: 0,
@@ -92,25 +92,22 @@ const Students = () => {
     // Api calls
 
     const deleteStudent = async studentId => { // Snackbar when delete ?
-        const res = await apiRequest('students/student', 'DELETE', { _id: studentId });
-        if (res.status === 200) studentsReq.doFetch();
+        const res = await apiRequest('student/student', 'DELETE', { _id: studentId });
+        (res.status === 200) ? studentsReq.doFetch() : console.log(res);
     }
 
     return (
-        <div className="students">
+        <div className="students half-component">
             {displayStudentModal()}
             <div className="header">
-                <h2>Students</h2>
+                <h2>Elèves</h2>
                 <button className='add-btn' onClick={() => openStudentModal()}>Ajouter</button>
             </div>
             <div className="menu">
                 <p className='fname'>PRENOM</p>
                 <p className='lname'>NOM</p>
                 <p className='age'>AGE</p>
-                <p className='gender'>SEXE</p>
                 <p className='email'>EMAIL</p>
-                <p className='phone'>TELEPHONE</p>
-                <p className='degree'>DIPLOME</p>
                 <div className='menu_buttons placeholder'>PLUS</div>
             </div>
             <div className="data">

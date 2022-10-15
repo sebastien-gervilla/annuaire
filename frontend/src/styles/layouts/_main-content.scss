@@ -1,5 +1,7 @@
 .main-area {
     .main-content {
+        display: flex;
+        justify-content: space-between;
         @include app-content;
     }
 }

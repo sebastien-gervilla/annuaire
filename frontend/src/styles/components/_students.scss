@@ -1,102 +1,21 @@
 .students {
-    position: relative;
-    max-height: 37vw;
-    height: 37vw;
-
-    background-color: $light-color;
-    box-shadow: $main-shadow;
-
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        width: 100%;
-        height: 5.5vw;
-        padding: 1.5vw 2vw;
-
-        h2 {
-            font-size: 1.6vw;
-        }
-    }
-
-    .menu {
-        display: flex;
-        align-items: center;
-
-        width: 100%;
-        height: 2.5vw;
-        padding: .5vw 2vw;
-        
-        background-color: rgb(226, 227, 233);
-        border-top: .1vw solid $mid-gray-color;
-        border-bottom: .1vw solid $mid-gray-color;
-
-        font-size: .8vw;
-    }
-
     .fname {
-        width: 15%;
+        width: 17.5%;
     }
 
     .lname {
-        width: 15%;
+        width: 17.5%;
     }
 
     .age {
-        width: 5%;
-    }
-
-    .gender {
-        width: 8%;
+        width: 7.5%;
     }
 
     .email {
-        width: 20%;
+        width: 47.5%;
     }
 
     .phone {
         width: 12%;
-    }
-
-    .degree {
-        width: 20%;
-    }
-
-    .menu_buttons {
-        width: 5%;
-    }
-
-    .footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        width: 100%;
-        height: 5vw;
-        padding: 1.5vw 2vw;
-
-        p {
-            font-size: 1.2vw;
-            width: unset;
-        }
-
-        .buttons {
-            display: flex;
-
-            button {
-                @include flex-center;
-    
-                margin-right: .5vw;
-    
-                svg {
-                    font-size: 1.2vw;
-                }
-            }
-        }
     }
 }

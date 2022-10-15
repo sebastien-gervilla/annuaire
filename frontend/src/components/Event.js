@@ -2,15 +2,15 @@ import React, { useRef } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { TbEdit } from 'react-icons/tb';
 
-const Student = ({ studentInfos, openStudentModal, deleteStudent }) => {
+const Event = ({ eventInfos, openEventModal, deleteEvent }) => {
 
     const messageRef = useRef(null);
 
-    const { _id } = studentInfos;
+    const { _id } = eventInfos;
 
-    const handleEditStudent = event => openStudentModal(studentInfos, 'PUT');
+    const handleEditEvent = event => openEventModal(eventInfos, 'PUT');
 
-    const handleDeleteStudent = event => _id && deleteStudent(_id);
+    const handleDeleteEvent = event => _id && deleteEvent(_id);
 
     const handleCopy = event => {
         if (!event.target.textContent) return;
@@ -34,15 +34,16 @@ const Student = ({ studentInfos, openStudentModal, deleteStudent }) => {
     const handleLeaveCopy = event => {
         if (!messageRef.current) return;
         messageRef.current.classList.remove('appear');
+        console.log(messageRef.current);
         setTimeout(() => {
             document.body.removeChild(messageRef.current);
             messageRef.current = null;
         }, 1);
     }
 
-    const displayStudent = () =>
-        Object.entries(studentInfos)
-            .filter(([name, value]) => ['fname', 'lname', 'age', 'email'].includes(name))
+    const displayEvent = () =>
+        Object.entries(eventInfos)
+            .filter(([name, value]) => ['title', 'type', 'creation_date'].includes(name))
             .map(([name, value]) =>
                 <p key={name} className={name + (value ? ' active' : '')}>
                     {name && <span 
@@ -51,18 +52,17 @@ const Student = ({ studentInfos, openStudentModal, deleteStudent }) => {
                         onClick={handleCopy}
                         >{value}</span>}
                 </p>
-            )
+            );
 
     return (
-        <div className="student half-component-el">
-            {displayStudent()}
-
+        <div className="event half-component-el">
+            {displayEvent()}
             <div className="menu_buttons">
-                <TbEdit className='edit-btn_icon' onClick={handleEditStudent} />
-                <AiFillDelete className='del-btn_icon' onClick={handleDeleteStudent} />
+                <TbEdit className='edit-btn_icon' onClick={handleEditEvent} />
+                <AiFillDelete className='del-btn_icon' onClick={handleDeleteEvent} />
             </div>
         </div>
     );
 };
 
-export default Student;
+export default Event;

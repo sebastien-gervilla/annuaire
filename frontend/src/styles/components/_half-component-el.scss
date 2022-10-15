@@ -1,4 +1,4 @@
-.student {
+.half-component-el {
     position: relative;
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@
         svg {
             width: 1.35vw;
             height: 1.35vw;
-            margin-right: .75vw;
+            margin-right: .5vw;
 
             cursor: pointer;
             transition: .1s ease;

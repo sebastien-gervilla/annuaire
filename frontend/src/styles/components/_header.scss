@@ -42,7 +42,26 @@
                     }
 
                     &#disconnect_icon:hover { color: $secondary-color; }
-                    &#dark-mode_icon:hover { color: purple; }
+                    &#dark-mode_icon {
+                        transition: .1s ease;  
+
+                        &:hover {
+                            color: purple;
+                            transition: .1s ease;
+                        }
+                    }
+
+                    &#light-mode_icon {
+                        fill: white;
+
+                        transition: .1s ease;
+
+                        &:hover {
+                            color: #FFE205;
+                            fill: #FFE205;
+                            transition: .1s ease;
+                        }
+                    } 
                 }
             }
         }
