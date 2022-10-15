@@ -20,6 +20,13 @@ class StudentManager {
         return $columnNames;
     }
 
+    public static function getLastCreatedStudentId(){
+        $dbh = DatabaseHandler::connect();
+        $request = "SELECT MAX(_id) as lastId FROM `student`;";
+        $idArray = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
+        return $idArray[0]["lastId"];
+    }
+
     public static function getAllStudents() {
         $dbh = DatabaseHandler::connect();
         $request = "SELECT * FROM `student` ORDER BY `_id`;";
