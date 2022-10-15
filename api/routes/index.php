@@ -1,5 +1,7 @@
 <?php
 
+require_once './specialization/index.php';
+require_once './schoolyear/index.php';
 require_once './student/index.php';
 require_once './event/index.php';
 require_once '../inc/Response.php';
@@ -17,6 +19,12 @@ function useRedirections() {
 
             case 'event':
                 return useEventRoutes($method, $endpoint, $body);
+
+            case 'specialization':
+                return useSpecializationRoutes($method, $endpoint, $body);
+
+            case 'schoolyear':
+                return useSchoolYearRoutes($method, $endpoint, $body);
             
             default:
                 return new Response(400, false, "Coudln't find url : $url");
