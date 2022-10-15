@@ -106,6 +106,18 @@ function validEmail(string|null $email): array {
     );
 }
 
+function validPhone(string|null $phone): array {
+    return array(
+        "validateFn" => function() use($phone): bool {
+            if ($phone == null) return true;
+            return is_numeric($phone) ? true : false;
+        },
+        "getErrorFn" => function(string $field): string {
+            return "Le numéro de téléphone n'est pas valide.";
+        }
+    );
+}
+
 function validLength(string|null $value, int $length): array {
     return array(
         "validateFn" => function() use($value, $length): bool {
