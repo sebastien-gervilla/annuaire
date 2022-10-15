@@ -30,4 +30,12 @@ class Response {
     public function send(): string {
         return json_encode($this->create());
     }
+
+    // Getters
+
+    public function getStatus() { return $this->status; }
+
+    public function getMessage() { return $this->message; }
+
+    public function getBody() { return $this->body; }
 }
