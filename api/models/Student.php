@@ -30,13 +30,14 @@ class Student {
     }
 
     private function setValidations() {
+        $phone = removeAllSpaces($this->phone);
         $this->validations = array(
             'Prénom' => [minLength($this->fname, 2)],
             'Nom' => [minLength($this->lname, 1)],
             'Age' => [betweenNumbers($this->age, 0, 100)],
             'Genre' => [amongValues($this->gender, ['Homme', 'Femme'])],
             'Email' => [validEmail($this->email)],
-            'Téléphone' => [validLength(removeAllSpaces($this->phone), 10)]
+            'Téléphone' => [validPhone($phone), validLength($phone, 10)]
         );
     }
 

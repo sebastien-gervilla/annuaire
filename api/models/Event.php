@@ -9,15 +9,15 @@ class Event {
 
     private array $validations;
 
-    public function __construct(array $student) {
-        $this->setModel($student);
+    public function __construct(array $event) {
+        $this->setModel($event);
         $this->setValidations();
     }
 
-    private function setModel(array $student) {
-        $this->title = $student['title'];
-        $this->type = $student['type'];
-        $this->description = $student['description'];
+    private function setModel(array $event) {
+        $this->title = $event['title'];
+        $this->type = $event['type'];
+        $this->description = $event['description'];
     }
 
     private function setValidations() {
