@@ -20,12 +20,15 @@
         text-overflow: ellipsis;
         word-break: break-word;
 
-        a {
-            transition: .15s ease;
-
-            &:hover {
-                color: $main-color;
+        &.active {
+            span {
+                cursor: pointer;
                 transition: .15s ease;
+
+                &:hover {
+                    color: #3794F2;
+                    transition: .15s ease;
+                }
             }
         }
     }
@@ -45,7 +48,7 @@
                 transition: .1s ease;
             }
 
-            &.edit-btn_icon:hover { color: $main-color; }
+            &.edit-btn_icon:hover { color: #3794F2; }
             &.del-btn_icon:hover { color: $secondary-color; }
         }
     }
