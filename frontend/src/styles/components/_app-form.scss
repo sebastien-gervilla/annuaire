@@ -1,4 +1,4 @@
-.student-form {
+.app-form {
     width: 40vw;
     padding: 2vw;
 
@@ -58,11 +58,12 @@
             margin-bottom: .5vw;
         }
 
-        input, textarea, select {
+        input, textarea, .form-select {
             width: 100%;
             height: 2vw;
             padding: .5vw;
 
+            color: $dark-color;
             background-color: $gray-color;
             border: none;
             box-shadow: inset 0 0 3px rgb(0, 0, 0, .1);
@@ -94,30 +95,6 @@
         textarea {
             height: 8vw;
             resize: none;
-        }
-
-        select {
-            height: unset;
-            max-height: 5vw;
-
-            option {
-                padding: .1vw 0;
-
-                &:checked {
-                    background-color: $main-color;
-                    color: $light-color;
-
-                    &:hover {
-                        background-color: $main-color;
-                        color: $light-color;
-                    }
-                }
-
-                &:hover {
-                    cursor: pointer;
-                    background-color: $mid-gray-color;
-                }
-            }
         }
 
         &:last-child {
