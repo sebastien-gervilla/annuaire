@@ -26,9 +26,9 @@ class PathwayManager {
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getPathway(int $pathwayId) {
+    public static function getStudentPathways(int $studentId) {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `pathway` WHERE `_id` = $pathwayId;";
+        $request = "SELECT * FROM `pathway` WHERE `student_id` = $studentId;";
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -40,6 +40,17 @@ class PathwayManager {
         $dbh = DatabaseHandler::connect();
         $request = "INSERT INTO pathway (student_id, specialization_id) 
         VALUES ('$studentId', '$specializationId')";
+        $dbh->exec($request);
+    }
+
+    #endregion
+
+    #region DELETE
+
+    public static function deletePathwayRequest(int $studentId, int $specializationId) {
+        $dbh = DatabaseHandler::connect();
+        $request = "DELETE FROM `pathway` 
+        WHERE `student_id` = $studentId AND `specialization_id` = $specializationId;";
         $dbh->exec($request);
     }
 
