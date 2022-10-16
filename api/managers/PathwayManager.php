@@ -2,14 +2,14 @@
 
 require_once __DIR__ . '/../config/DatabaseHandler.php';
 
-class ParticipationManager {
+class PathwayManager {
 
     #region GET
 
     public static function getColumnsNames() {
         $dbh = DatabaseHandler::connect();
         $request = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS 
-        WHERE TABLE_SCHEMA = 'annuaire_nws' AND TABLE_NAME = 'participation'";
+        WHERE TABLE_SCHEMA = 'annuaire_nws' AND TABLE_NAME = 'pathway'";
         $columns = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
         $columnNames = [];
         foreach ($columns as $column) {
@@ -20,15 +20,15 @@ class ParticipationManager {
         return $columnNames;
     }
 
-    public static function getAllParticipations() {
+    public static function getAllPathways() {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `participation` ORDER BY `_id`;";
+        $request = "SELECT * FROM `pathway` ORDER BY `_id`;";
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getParticipation(int $participationId) {
+    public static function getPathway(int $pathwayId) {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `participation` WHERE `_id` = $participationId;";
+        $request = "SELECT * FROM `pathway` WHERE `_id` = $pathwayId;";
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -36,9 +36,10 @@ class ParticipationManager {
 
     #region POST
 
-    public static function createParticipationRequest(int $studentId, int $eventId) {
+    public static function createPathwayRequest(int $studentId, int $specializationId) {
         $dbh = DatabaseHandler::connect();
-        $request = "INSERT INTO participation (student_id, event_id) VALUES ('$studentId', '$eventId')";
+        $request = "INSERT INTO pathway (student_id, specialization_id) 
+        VALUES ('$studentId', '$specializationId')";
         $dbh->exec($request);
     }
 
