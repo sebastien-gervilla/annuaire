@@ -43,29 +43,5 @@ class ParticipationManager {
     }
 
     #endregion
-    
-    #region PUT
-
-    public static function modifyParticipationRequest(int $participationId, array $newParticipation) {
-        $dbh = DatabaseHandler::connect();
-        $title = $newParticipation['title'];
-        $type = $newParticipation['type'];
-        $description = $newParticipation['description'];
-        $request = "UPDATE `participation` 
-        SET `title` = '$title', `type` = '$type', `description` = '$description' WHERE `_id` = '$participationId';";
-        $dbh->exec($request);
-    }
-
-    #endregion
-
-    #region DELETE
-
-    public static function deleteParticipationRequest(int $participationId) {
-        $dbh = DatabaseHandler::connect();
-        $request = "DELETE FROM `participation` WHERE `_id` = $participationId;";
-        $dbh->exec($request);
-    }
-
-    #endregion
 
 }
