@@ -110,15 +110,17 @@ class StudentController {
             if ($error) return new Response(400, false, $error);
 
             StudentManager::modifyStudentRequest($studentId, $newStudent);
-            $body = array("data" => $student);
 
             $res = EntryYearController::modifyStudentEntryYears($entryYears, $studentId);
             if ($res->getStatus() != 200) return $res;
 
             $res = PathwayController::modifyStudentPathways($pathways, $studentId);
             if ($res->getStatus() != 200) return $res;
+
+            $res = ParticipationController::modifyStudentParticipations($participations, $studentId);
+            if ($res->getStatus() != 200) return $res;
             
-            return new Response(200, true, "Elève modifié avec succès.", $body);
+            return new Response(200, true, "Elève modifié avec succès.", array("data" => $student));
         } catch (Error $error) {
             return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
                 "error" => $error

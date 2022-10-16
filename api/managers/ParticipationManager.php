@@ -22,13 +22,13 @@ class ParticipationManager {
 
     public static function getAllParticipations() {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `participation` ORDER BY `_id`;";
+        $request = "SELECT * FROM `participation` ORDER BY `student_id`;";
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getParticipation(int $participationId) {
+    public static function getStudentParticipations(int $studentId) {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `participation` WHERE `_id` = $participationId;";
+        $request = "SELECT * FROM `participation` WHERE `student_id` = $studentId;";
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -44,4 +44,15 @@ class ParticipationManager {
 
     #endregion
 
+    #region DELETE
+
+    public static function deleteParticipationRequest(int $studentId, int $eventId) {
+        $dbh = DatabaseHandler::connect();
+        $request = "DELETE FROM `participation` 
+        WHERE `student_id` = $studentId AND `event_id` = $eventId;";
+        $dbh->exec($request);
+    }
+
+    #endregion
+    
 }
