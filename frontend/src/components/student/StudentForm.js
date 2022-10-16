@@ -13,8 +13,6 @@ const StudentForm = ({ studentInfos, method, closeModal, onSubmit }) => {
 
     const [student, setStudent] = useState(studentInfos || defaultStudent);
     const [error, setError] = useState(null);
-
-    console.log(student.specializations);
     
     const handleChanges = event => 
         setStudent({...student, [event.target.name]: event.target.value});
@@ -25,29 +23,21 @@ const StudentForm = ({ studentInfos, method, closeModal, onSubmit }) => {
         age = (age > 99) ? 99 : age;
         setStudent({...student, [event.target.name]: age});
     }
-
-    const handleTableSelectChanges = values => {
-        const value = values.value;
-        setStudent({
-            ...student, 
-            participations: [...student.participations, value]
-        });
-    };
-
-    const onChangeSelectValues = (name, values) => { // clean up
-        console.log("stud : ", student);
+    
+    const onChangeSelectValues = (name, values) =>
         setStudent(prev => { 
             return {
                 ...prev, 
                 [name]: [...values]
             }
         });
-    }
+        
     const handleCloseModal = event => closeModal();
 
     const handleSubmitForm = async event => {
         event.preventDefault();
         const res = await apiRequest('student/student', method, student);
+        console.log(student);
         console.log(res);
         if (res.status !== 200) return setError(res.message);
         onSubmit();
@@ -74,45 +64,47 @@ const StudentForm = ({ studentInfos, method, closeModal, onSubmit }) => {
                 </div>
             </div>
             <div className="form-input_row">
-                <div className="form-input">
-                    <p>GENRE *</p>
-                    <select name="gender" className='form-select' value={student.gender} onChange={handleChanges}>
-                        <option value="Homme">Homme</option>
-                        <option value="Femme">Femme</option>
-                    </select>
+                <div className="form-input_row">
+                    <div className="form-input">
+                        <p>GENRE *</p>
+                        <select name="gender" className='form-select' value={student.gender} onChange={handleChanges}>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                        </select>
+                    </div>
+                    <div className="form-input">
+                        <p>AGE *</p>
+                        <input type="number" name="age" value={student.age} onChange={handleChangeAge} />
+                    </div>
                 </div>
-                <div className="form-input">
-                    <p>AGE *</p>
-                    <input type="number" name="age" value={student.age} onChange={handleChangeAge} />
-                </div>
-            </div>
-            <div className="form-input_row">
                 <div className="form-input">
                     <p>EMAIL *</p>
                     <input type="email" name='email' value={student.email} onChange={handleChanges} />
                 </div>
+            </div>
+            <div className="form-input_row">
                 <div className="form-input">
                     <p>TELEPHONE</p>
                     <input type="text" name='phone' value={student.phone} onChange={handleChanges} />
                 </div>
-            </div>
-            <div className="form-input">
-                <p>DIPLOME</p>
-                <input type="text" name='degree' value={student.degree} onChange={handleChanges} />
+                <div className="form-input">
+                    <p>DIPLOME</p>
+                    <input type="text" name='degree' value={student.degree} onChange={handleChanges} />
+                </div>
             </div>
             <div className="form-input">
                 <p>ANNEE D'ENTREE</p>
-                <TableSelect name={'school_year'} 
+                <TableSelect name={'entry_years'} 
                     tableData={schoolYearsReq.data?.body} 
                     onChangeValues={onChangeSelectValues}
-                    defaultValues={student.school_year} />
+                    defaultValues={student.entry_years} />
             </div>
             <div className="form-input">
                 <p>POTENTIELLE SPECIALISATION</p>
-                <TableSelect name={'specializations'} 
+                <TableSelect name={'pathways'} 
                     tableData={specializationsReq.data?.body} 
                     onChangeValues={onChangeSelectValues}
-                    defaultValues={student.specializations} />
+                    defaultValues={student.pathways} />
             </div>
             <div className="form-input">
                 <p>PARTICIPATIONS</p>

@@ -6,8 +6,8 @@ export const defaultStudent = {
     email: '',
     phone: '',
     degree: '',
-    entry_year: 'Indéterminée',
-    specializations: [1],
+    entry_years: [1],
+    pathways: [1],
     participations: []
 }
 
