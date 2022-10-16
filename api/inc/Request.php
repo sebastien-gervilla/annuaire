@@ -12,6 +12,10 @@ class Request {
         return $_SERVER['REQUEST_METHOD'];
     }
 
+    public static function getParam(string $param): string|null {
+        return isset($_GET[$param]) ? $_GET[$param] : null;
+    }
+
     public static function getBody() {
         $json = file_get_contents("php://input");
         return json_decode($json, true);
