@@ -1,9 +1,13 @@
 <?php
 
+require_once __DIR__ . '/../utils/utils.php';
 require_once __DIR__ . '/../inc/Response.php';
 require_once __DIR__ . "/../models/Student.php";
 require_once __DIR__ . "/../inc/model-validations.php";
 require_once __DIR__ . "/../managers/StudentManager.php";
+require_once __DIR__ . "/../controllers/PathwayController.php";
+require_once __DIR__ . "/../controllers/EntryYearController.php";
+require_once __DIR__ . "/../controllers/ParticipationController.php";
 
 class StudentController {
 
@@ -33,10 +37,17 @@ class StudentController {
 
     public static function createStudent(array $student): Response {
         try {
+            $splitted = splitArrayByKeys($student, ["pathways", "entry_years", "participations"]);
+            $student = $splitted['first'];
+            $pathways = $splitted['second']['pathways'];
+            $entryYears = $splitted['second']['entry_years'];
+            $participations = $splitted['second']['participations'];
+
             $columns = StudentManager::getColumnsNames();
-            if (!formMatchesTable($student, $columns)) {
-                return new Response(400, false, "Le formulaire ne correspond pas à la table.");
-            }
+            if (!formMatchesTable($student, $columns))
+                return new Response(400, false, "Le formulaire ne correspond pas à la table.", array(
+                    "data" => $student
+                ));
 
             $exceptions = ["phone", "degree", "specialization"];
             if (!isFormFilled($student, $exceptions)) {
@@ -49,7 +60,18 @@ class StudentController {
             if ($error) return new Response(400, false, $error);
 
             StudentManager::createStudentRequest($student);
-            return new Response(200, true, "Elève créé avec succès.", $student);
+            $studentId = StudentManager::getLastCreatedStudentId();
+            $body = array("data" => $student);
+            $res = EntryYearController::createEntryYears($entryYears, $studentId);
+            if ($res->getStatus() != 200) return $res;
+
+            $res = PathwayController::createPathways($pathways, $studentId);
+            if ($res->getStatus() != 200) return $res;
+
+            $res = ParticipationController::createParticipations($participations, $studentId);
+            if ($res->getStatus() != 200) $body += ["warning" => $res->getBody()];
+
+            return new Response(200, true, "Elève créé avec succès.", $body);
         } catch (Error $error) {
             return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
                 "error" => $error
