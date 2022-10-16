@@ -6,29 +6,15 @@ class EntryYearManager {
 
     #region GET
 
-    public static function getColumnsNames() {
-        $dbh = DatabaseHandler::connect();
-        $request = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS 
-        WHERE TABLE_SCHEMA = 'annuaire_nws' AND TABLE_NAME = 'entry_year'";
-        $columns = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
-        $columnNames = [];
-        foreach ($columns as $column) {
-            if ($column['COLUMN_NAME'] !== '_id') {
-                array_push($columnNames, $column['COLUMN_NAME']);
-            }
-        }
-        return $columnNames;
-    }
-
     public static function getAllEntryYears() {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `entry_year` ORDER BY `_id`;";
+        $request = "SELECT * FROM `entry_year` ORDER BY `student_id`;";
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getEntryYear(int $entryYearId) {
+    public static function getStudentEntryYears(int $studentId) {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `entry_year` WHERE `_id` = $entryYearId;";
+        $request = "SELECT * FROM `entry_year` WHERE `student_id` = $studentId;";
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -39,6 +25,17 @@ class EntryYearManager {
     public static function createEntryYearRequest(int $studentId, int $schoolYearId) {
         $dbh = DatabaseHandler::connect();
         $request = "INSERT INTO entry_year (student_id, school_year_id) VALUES ('$studentId', '$schoolYearId')";
+        $dbh->exec($request);
+    }
+
+    #endregion
+
+    #region DELETE
+
+    public static function deleteEntryYearRequest(int $studentId, int $schoolYearId) {
+        $dbh = DatabaseHandler::connect();
+        $request = "DELETE FROM `entry_year` 
+        WHERE `student_id` = $studentId AND `school_year_id` = $schoolYearId;";
         $dbh->exec($request);
     }
 

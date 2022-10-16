@@ -112,6 +112,9 @@ class StudentController {
             StudentManager::modifyStudentRequest($studentId, $newStudent);
             $body = array("data" => $student);
 
+            $res = EntryYearController::modifyStudentEntryYears($entryYears, $studentId);
+            if ($res->getStatus() != 200) return $res;
+
             $res = PathwayController::modifyStudentPathways($pathways, $studentId);
             if ($res->getStatus() != 200) return $res;
             
