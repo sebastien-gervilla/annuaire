@@ -52,9 +52,8 @@ class StudentManager {
         $email = $student['email'];
         $phone = $student['phone'];
         $degree = $student['degree'];
-        $specialization = $student['specialization'];
-        $request = "INSERT INTO student (fname, lname, age, gender, email, phone, degree, specialization) 
-        VALUES ('$fname', '$lname', '$age', '$gender', '$email', '$phone', '$degree', '$specialization')";
+        $request = "INSERT INTO student (fname, lname, age, gender, email, phone, degree) 
+        VALUES ('$fname', '$lname', '$age', '$gender', '$email', '$phone', '$degree')";
         $dbh->exec($request);
     }
 
@@ -71,10 +70,9 @@ class StudentManager {
         $email = $newStudent['email'];
         $phone = $newStudent['phone'];
         $degree = $newStudent['degree'];
-        $specialization = $newStudent['specialization'];
         $request = "UPDATE `student` 
         SET `fname` = '$fname', `lname` = '$lname', `age` = '$age', `gender` = '$gender', `email` = '$email', 
-        `phone` = '$phone', `degree` = '$degree' `specialization` = '$specialization' WHERE `_id` = '$studentId';";
+        `phone` = '$phone', `degree` = '$degree' WHERE `_id` = '$studentId';";
         $dbh->exec($request);
     }
 
