@@ -21,7 +21,7 @@ class ParticipationController {
 
     public static function getById(int $id): Response {
         try {
-            $participation = ParticipationManager::getParticipation($id);
+            $participation = ParticipationManager::getStudentParticipations($id);
             return new Response(200, true, "Participation récupéré avec succès", $participation);
         } catch (\Throwable $error) {
             return new Response(400, false, "La requête à échouée : $error");
@@ -71,22 +71,36 @@ class ParticipationController {
 
     #region PUT
 
-    public static function modifyParticipation(int $participationId, array $newParticipation) {
-        // Remove all participations from student (by id);
-        // Add all participations from student (by id);
-    }
-
-    #endregion
-
-    #region DELETE
-
-    public static function deleteParticipation(int $participationId){
+    public static function modifyStudentParticipations(array $newParticipations, int $studentId): Response {
         try {
-            $participation = ParticipationManager::getparticipation($participationId);
-            if (!$participation) return new Response(400, false, "Participation inexistant.");
+            $students = StudentManager::getAllStudents();
+            $studentsId = filterArrayList($students, '_id');
+            if (!in_array($studentId, $studentsId))
+                return new Response(400, false, "Elève inexistant.");
 
-            ParticipationManager::deleteparticipationRequest($participationId);
-            return new Response(200, true, "Participation supprimé avec succès.");
+            $events = EventManager::getAllEvents();
+            $eventsId = filterArrayList($events, '_id');
+            foreach ($newParticipations as $eventId) {
+                if (!in_array($eventId, $eventsId))
+                    return new Response(400, false, "Evènement(s) inexistante(s).", array(
+                        "data" => $newParticipations
+                    ));
+            }
+
+            $oldParticipations = ParticipationManager::getStudentParticipations($studentId);
+            $oldParticipationsIds = filterArrayList($oldParticipations, 'event_id');
+            foreach ($oldParticipationsIds as $eventId)
+                ParticipationManager::deleteParticipationRequest($studentId, $eventId);
+
+            foreach ($newParticipations as $eventId) {
+                $NewParticipation = new Participation($studentId, $eventId);
+                $error = findModelValidationsError($NewParticipation->getValidations());
+                if ($error) return new Response(400, false, $error);
+
+                ParticipationManager::createParticipationRequest($studentId, $eventId);
+            }
+
+            return new Response(200, true, "Evènement(s) créée avec succès.");
         } catch (Error $error) {
             return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
                 "error" => $error

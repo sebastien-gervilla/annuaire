@@ -87,6 +87,12 @@ class StudentController {
         try {
             $student = StudentManager::getStudent($studentId);
             if (!$student) return new Response(400, false, "Elève inexistant.");
+
+            $splitted = splitArrayByKeys($newStudent, ["pathways", "entry_years", "participations"]);
+            $newStudent = $splitted['first'];
+            $pathways = $splitted['second']['pathways'];
+            $entryYears = $splitted['second']['entry_years'];
+            $participations = $splitted['second']['participations'];
             
             $columns = StudentManager::getColumnsNames();
             if (!formMatchesTable($newStudent, $columns)) {
@@ -104,7 +110,17 @@ class StudentController {
             if ($error) return new Response(400, false, $error);
 
             StudentManager::modifyStudentRequest($studentId, $newStudent);
-            return new Response(200, true, "Elève modifié avec succès.", $newStudent);
+
+            $res = EntryYearController::modifyStudentEntryYears($entryYears, $studentId);
+            if ($res->getStatus() != 200) return $res;
+
+            $res = PathwayController::modifyStudentPathways($pathways, $studentId);
+            if ($res->getStatus() != 200) return $res;
+
+            $res = ParticipationController::modifyStudentParticipations($participations, $studentId);
+            if ($res->getStatus() != 200) return $res;
+            
+            return new Response(200, true, "Elève modifié avec succès.", array("data" => $student));
         } catch (Error $error) {
             return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
                 "error" => $error

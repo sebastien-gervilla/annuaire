@@ -31,19 +31,28 @@ class StudentManager {
     public static function getAllStudents() {
         $dbh = DatabaseHandler::connect();
         $request = "SELECT student.*, pathway.specialization_id as pathways, 
-        entry_year.school_year_id as entry_years FROM `student`
+        entry_year.school_year_id as entry_years,
+        participation.event_id as participations FROM `student`
         LEFT JOIN `pathway` ON pathway.student_id = student._id
         LEFT JOIN `entry_year` ON entry_year.student_id = student._id
+        LEFT JOIN `participation` ON participation.student_id = student._id
         ORDER BY student._id;";
         $data = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
-        // return $data;
-        return groupRowsByKeys($data, ['pathways', 'entry_years']);
+        return groupRowsByKeys($data, ['pathways', 'entry_years', 'participations']);
     }
 
     public static function getStudent(int $studentId) {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `student` WHERE `_id` = $studentId;";
-        return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
+        $request = "SELECT student.*, pathway.specialization_id as pathways, 
+        entry_year.school_year_id as entry_years,
+        participation.event_id as participations FROM `student`
+        LEFT JOIN `pathway` ON pathway.student_id = student._id
+        LEFT JOIN `entry_year` ON entry_year.student_id = student._id
+        LEFT JOIN `participation` ON participation.student_id = student._id
+        WHERE student._id = $studentId;";
+        $data = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
+        $student = groupRowsByKeys($data, ['pathways', 'entry_years', 'participations']);
+        return count($student) > 0 ? $student[0] : null;
     }
 
     #endregion
