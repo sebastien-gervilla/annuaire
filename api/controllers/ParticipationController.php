@@ -78,22 +78,4 @@ class ParticipationController {
 
     #endregion
 
-    #region DELETE
-
-    public static function deleteParticipation(int $participationId){
-        try {
-            $participation = ParticipationManager::getparticipation($participationId);
-            if (!$participation) return new Response(400, false, "Participation inexistant.");
-
-            ParticipationManager::deleteparticipationRequest($participationId);
-            return new Response(200, true, "Participation supprimé avec succès.");
-        } catch (Error $error) {
-            return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
-                "error" => $error
-            ));
-        }
-    }
-
-    #endregion
-
 }
