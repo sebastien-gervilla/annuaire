@@ -57,8 +57,9 @@ class ParticipationController {
                 if ($error) return new Response(400, false, $error);
 
                 ParticipationManager::createParticipationRequest($studentId, $eventId);
-                return new Response(200, true, "Participation créé avec succès.");
             }
+
+            return new Response(200, true, "Participation(s) créé avec succès.");
         } catch (Error $error) {
             return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
                 "error" => $error
