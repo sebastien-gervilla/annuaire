@@ -13,8 +13,6 @@ const StudentForm = ({ studentInfos, method, closeModal, onSubmit }) => {
 
     const [student, setStudent] = useState(studentInfos || defaultStudent);
     const [error, setError] = useState(null);
-
-    console.log(student.specializations);
     
     const handleChanges = event => 
         setStudent({...student, [event.target.name]: event.target.value});
@@ -26,20 +24,20 @@ const StudentForm = ({ studentInfos, method, closeModal, onSubmit }) => {
         setStudent({...student, [event.target.name]: age});
     }
     
-    const onChangeSelectValues = (name, values) => { // clean up
-        console.log("stud : ", student);
+    const onChangeSelectValues = (name, values) =>
         setStudent(prev => { 
             return {
                 ...prev, 
                 [name]: [...values]
             }
         });
-    }
+        
     const handleCloseModal = event => closeModal();
 
     const handleSubmitForm = async event => {
         event.preventDefault();
         const res = await apiRequest('student/student', method, student);
+        console.log(student);
         console.log(res);
         if (res.status !== 200) return setError(res.message);
         onSubmit();
