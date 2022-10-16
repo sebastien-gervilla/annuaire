@@ -1,0 +1,61 @@
+.student-card {
+    @include half-component;    
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        width: 100%;
+        padding: 2vw;
+
+        h3 {
+            font-size: 1.6vw;
+        }
+    }
+
+    .card_row {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+
+        width: 100%;
+        padding: 1.5vw 2vw;
+
+        &::after {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 50%;
+
+            width: 90%;
+            height: .01vw;
+
+            background-color: rgba(0, 0, 0, .2);
+            
+            transform: translateX(-50%);
+        }
+
+        p {
+            font-size: 1vw;
+        }
+
+        .field {
+            margin-bottom: .5vw;
+
+            color: $main-color;
+
+            font-size: .8vw;
+        }
+
+        &.fullsize .info:first-child { width: 100%; }
+
+        .info {
+            width: 35%;
+
+            &:first-child {
+                width: 65%;
+            }
+        }
+    }
+}
