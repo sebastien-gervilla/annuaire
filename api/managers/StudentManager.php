@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../config/DatabaseHandler.php';
+require_once __DIR__ . '/../utils/utils.php';
 
 class StudentManager {
 
@@ -29,8 +30,14 @@ class StudentManager {
 
     public static function getAllStudents() {
         $dbh = DatabaseHandler::connect();
-        $request = "SELECT * FROM `student` ORDER BY `_id`;";
-        return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
+        $request = "SELECT student.*, pathway.specialization_id as pathways, 
+        entry_year.school_year_id as entry_years FROM `student`
+        LEFT JOIN `pathway` ON pathway.student_id = student._id
+        LEFT JOIN `entry_year` ON entry_year.student_id = student._id
+        ORDER BY student._id;";
+        $data = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
+        // return $data;
+        return groupRowsByKeys($data, ['pathways', 'entry_years']);
     }
 
     public static function getStudent(int $studentId) {
