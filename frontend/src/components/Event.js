@@ -34,7 +34,6 @@ const Event = ({ eventInfos, openEventModal, deleteEvent }) => {
     const handleLeaveCopy = event => {
         if (!messageRef.current) return;
         messageRef.current.classList.remove('appear');
-        console.log(messageRef.current);
         setTimeout(() => {
             document.body.removeChild(messageRef.current);
             messageRef.current = null;

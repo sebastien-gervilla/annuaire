@@ -117,7 +117,7 @@ const Events = () => {
                     <button className='switch-btn' onClick={handleChangePage} value="-1"><VscChevronLeft/></button>
                     <button className='switch-btn' onClick={handleChangePage} value="1"><VscChevronRight/></button>
                 </div>
-                <p>Page {sortOptions.page + 1} / {sortOptions.maxPage}</p>
+                <p>Page {sortOptions.page + 1} / {sortOptions.maxPage || 1}</p>
             </div>
         </div>
     );

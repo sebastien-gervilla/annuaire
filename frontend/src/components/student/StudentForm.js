@@ -37,7 +37,6 @@ const StudentForm = ({ studentInfos, method, closeModal, onSubmit }) => {
     const handleSubmitForm = async event => {
         event.preventDefault();
         const res = await apiRequest('student/student', method, student);
-        console.log(student);
         console.log(res);
         if (res.status !== 200) return setError(res.message);
         onSubmit();
