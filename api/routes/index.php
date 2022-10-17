@@ -1,6 +1,7 @@
 <?php
 
 require_once './specialization/index.php';
+require_once './participation/index.php';
 require_once './schoolyear/index.php';
 require_once './student/index.php';
 require_once './event/index.php';
@@ -25,6 +26,9 @@ function useRedirections() {
 
             case 'schoolyear':
                 return useSchoolYearRoutes($method, $endpoint, $body);
+
+            case 'participation':
+                return useParticipationRoutes($method, $endpoint, $body);
             
             default:
                 return new Response(400, false, "Coudln't find url : $url");
