@@ -6,6 +6,7 @@ import StudentCard from '../components/student/StudentCard';
 import useFetch from '../hooks/useFetch';
 import { defaultStudent } from '../utils/model-defaults';
 import StudentForm from '../components/student/StudentForm';
+import StudentEvents from '../components/student/StudentEvents';
 
 const AppStudent = () => {
 
@@ -49,6 +50,7 @@ const AppStudent = () => {
                 <div className="main-content">
 
                     <StudentCard studentInfos={studentReq.data?.body} openStudentModal={openStudentModal} />
+                    <StudentEvents participationsIds={studentReq.data?.body?.participations} />
 
                 </div>
             </div>
