@@ -20,9 +20,7 @@ const StudentEvents = ({ studentId, participationsIds, removeParticipation }) =>
 
     useEffect(() => {
         const body = eventsReq.data?.body;
-        console.log(eventsReq.data?.body);
         if (!body) return;
-        console.log(getEvents());
         setEvents(getEvents());
         setSortOptions({
             ...sortOptions, 
@@ -57,7 +55,6 @@ const StudentEvents = ({ studentId, participationsIds, removeParticipation }) =>
             events.length : (start + 6);
 
         const displayedEvents = events.slice(start, end);
-        console.log(eventsReq.data);
 
         return displayedEvents.map(event =>
             <StudentEvent key={event._id} 
