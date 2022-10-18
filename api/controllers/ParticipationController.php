@@ -4,6 +4,8 @@ require_once __DIR__ . '/../utils/utils.php';
 require_once __DIR__ . '/../inc/Response.php';
 require_once __DIR__ . "/../models/Participation.php";
 require_once __DIR__ . "/../inc/model-validations.php";
+require_once __DIR__ . "/../managers/EventManager.php";
+require_once __DIR__ . "/../managers/StudentManager.php";
 require_once __DIR__ . "/../managers/ParticipationManager.php";
 
 class ParticipationController {
@@ -101,6 +103,27 @@ class ParticipationController {
             }
 
             return new Response(200, true, "Evènement(s) créée avec succès.");
+        } catch (Error $error) {
+            return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
+                "error" => $error
+            ));
+        }
+    }
+
+    #endregion
+
+    #region DELETE
+
+    public static function deleteParticipation($studentId, $eventId) {
+        try {
+            $student = StudentManager::getStudent($studentId);
+            if (!$student) return new Response(400, false, "Elève inexistant.");
+
+            $event = EventManager::getEvent($eventId);
+            if (!$event) return new Response(400, false, "Evènement inexistant.");
+
+            ParticipationManager::deleteParticipationRequest($studentId, $eventId);
+            return new Response(200, true, "Participation supprimée avec succès.");
         } catch (Error $error) {
             return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
                 "error" => $error
