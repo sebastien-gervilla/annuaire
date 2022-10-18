@@ -11,7 +11,6 @@ import apiRequest from '../../utils/api-request';
 const StudentEvents = ({ participationsIds }) => {
 
     const eventsReq = useFetch('event/events');
-    console.log(eventsReq.data);
 
     const [events, setEvents] = useState([]);
     const [sortOptions, setSortOptions] = useState({
