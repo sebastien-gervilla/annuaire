@@ -106,7 +106,6 @@ const Students = () => {
             <div className="menu">
                 <p className='fname'>PRENOM</p>
                 <p className='lname'>NOM</p>
-                <p className='age'>AGE</p>
                 <p className='email'>EMAIL</p>
                 <div className='menu_buttons placeholder'>PLUS</div>
             </div>
