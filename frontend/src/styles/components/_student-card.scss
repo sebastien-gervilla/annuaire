@@ -38,6 +38,20 @@
 
         p {
             font-size: 1vw;
+            text-overflow: ellipsis;
+            word-break: break-word;
+
+            &.active {
+                span {
+                    cursor: pointer;
+                    transition: .15s ease;
+    
+                    &:hover {
+                        color: #3794F2;
+                        transition: .15s ease;
+                    }
+                }
+            }
         }
 
         .field {

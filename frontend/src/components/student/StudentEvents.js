@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import useFetch from '../hooks/useFetch';
-import { Modal } from 'skz-ui';
-import { defaultEvent } from '../utils/model-defaults';
-import { calcMaxPage } from '../utils/useful-functions';
-import EventForm from './event/EventForm';
-import Event from './Event';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
-import apiRequest from '../utils/api-request';
+import { Modal } from 'skz-ui';
+import useFetch from '../../hooks/useFetch';
+import { defaultEvent } from '../../utils/model-defaults';
+import { calcMaxPage } from '../../utils/useful-functions';
+import EventForm from '../event/EventForm';
+import StudentEvent from './StudentEvent';
+import apiRequest from '../../utils/api-request';
 
-const Events = () => {
+const StudentEvents = ({ participationsIds }) => {
 
     const eventsReq = useFetch('event/events');
+
     const [events, setEvents] = useState([]);
     const [sortOptions, setSortOptions] = useState({
         page: 0,
@@ -18,36 +19,26 @@ const Events = () => {
         maxPage: 0
     });
 
-    const [eventModal, setEventModal] = useState({
-        event: defaultEvent,
-        isOpen: false,
-        method: 'POST',
-        closeModal: () => setEventModal(prev => { return {...prev, isOpen: false}})
-    });
-
     useEffect(() => {
         const body = eventsReq.data?.body;
         if (!body) return;
-        setEvents(body);
+        setEvents(getEvents());
         setSortOptions({
             ...sortOptions, 
             maxPage: calcMaxPage(body.length, sortOptions.pageSize)
         });
     }, [eventsReq.data]);
 
+    const getEvents = () => participationsIds && eventsReq.data?.body && 
+        eventsReq.data?.body?.filter(event =>
+            participationsIds.includes(event._id)
+        );
+
     const handleChangePage = event =>
     setSortOptions({
         ...sortOptions,
         page: changePage(event)
     });
-
-    const openEventModal = (event = defaultEvent, method = 'POST') =>
-        setEventModal({
-            ...eventModal,
-            isOpen: true,
-            event,
-            method
-        });
 
     const changePage = event => {
         let newPage = sortOptions.page + parseInt(event.currentTarget.value);
@@ -56,20 +47,6 @@ const Events = () => {
         if (newPage < 0) return 0;
         if (newPage !== sortOptions.page) return newPage;
     };
-
-    const displayEventModal = () =>
-        <Modal 
-            open={eventModal.isOpen} 
-            onClose={eventModal.closeModal} 
-            body={
-                <EventForm 
-                    eventInfos={eventModal.event}
-                    method={eventModal.method}
-                    closeModal={eventModal.closeModal}
-                    onSubmit={eventsReq.doFetch}
-                />
-            } 
-        />
 
     const displayEvents = () => {
         if (!events) return;
@@ -81,27 +58,25 @@ const Events = () => {
         const displayedEvents = events.slice(start, end);
 
         return displayedEvents.map(event =>
-            <Event key={event._id} 
+            <StudentEvent key={event._id} 
                 eventInfos={event}
-                openEventModal={openEventModal}
-                deleteEvent={deleteEvent}
+                removeEvent={removeEvent}
             />
         )
     }
 
     // Api calls
 
-    const deleteEvent = async eventId => { // Snackbar when delete ?
+    const removeEvent = async eventId => { // call delete function here
         const res = await apiRequest('event/event', 'DELETE', { _id: eventId });
         if (res.status === 200) eventsReq.doFetch();
     }
 
     return (
         <div className="events half-component">
-            {displayEventModal()}
             <div className="header">
                 <h2>Evènements</h2>
-                <button className='add-btn' onClick={() => openEventModal()}>Ajouter</button>
+                <button className='add-btn'>Ajouter</button>
             </div>
             <div className="menu">
                 <p className='title'>TITLE</p>
@@ -123,4 +98,4 @@ const Events = () => {
     );
 };
 
-export default Events;
+export default StudentEvents;

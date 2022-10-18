@@ -1,10 +1,13 @@
-import React, { useRef } from 'react';
-import { AiFillDelete } from 'react-icons/ai';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AiFillDelete, AiOutlineInfoCircle } from 'react-icons/ai';
 import { TbEdit } from 'react-icons/tb';
+import useClipboard from '../hooks/useClipboard';
 
 const Student = ({ studentInfos, openStudentModal, deleteStudent }) => {
 
-    const messageRef = useRef(null);
+    const navigate = useNavigate();
+    const { setAnchor } = useClipboard();
 
     const { _id } = studentInfos;
 
@@ -12,43 +15,20 @@ const Student = ({ studentInfos, openStudentModal, deleteStudent }) => {
 
     const handleDeleteStudent = event => _id && deleteStudent(_id);
 
-    const handleCopy = event => {
-        if (!event.target.textContent) return;
-        navigator.clipboard.writeText(event.target.textContent);
-        messageRef.current.textContent = "Collé !";
-    }
+    const handleShowStudent = event => navigate('/student/' + _id);
 
-    const handleHoverCopy = event => {
-        if (messageRef.current) return;
-        const msg = document.createElement('p');
-        msg.classList.add('copy-msg');
-        msg.textContent = 'Copier';
-        const rect = event.target.getBoundingClientRect();
-        msg.style.left = (rect.x + rect.width * 2 / 3) + 'px';
-        msg.style.top = (rect.y + rect.height * 1.5) + 'px';
-        document.body.appendChild(msg);
-        messageRef.current = msg;
-        setTimeout(() => msg.classList.add('appear'), 1)
-    }
+    const handleHoverCopy = event => setAnchor(event.target);
 
-    const handleLeaveCopy = event => {
-        if (!messageRef.current) return;
-        messageRef.current.classList.remove('appear');
-        setTimeout(() => {
-            document.body.removeChild(messageRef.current);
-            messageRef.current = null;
-        }, 1);
-    }
+    const handleLeaveCopy = event => setAnchor(null);
 
     const displayStudent = () =>
         Object.entries(studentInfos)
-            .filter(([name, value]) => ['fname', 'lname', 'age', 'email'].includes(name))
+            .filter(([name, value]) => ['fname', 'lname', 'email'].includes(name))
             .map(([name, value]) =>
                 <p key={name} className={name + (value ? ' active' : '')}>
                     {name && <span 
                         onMouseOver={handleHoverCopy} 
                         onMouseLeave={handleLeaveCopy}
-                        onClick={handleCopy}
                         >{value}</span>}
                 </p>
             )
@@ -58,6 +38,7 @@ const Student = ({ studentInfos, openStudentModal, deleteStudent }) => {
             {displayStudent()}
 
             <div className="menu_buttons">
+                <AiOutlineInfoCircle className='info-btn_icon' onClick={handleShowStudent} />
                 <TbEdit className='edit-btn_icon' onClick={handleEditStudent} />
                 <AiFillDelete className='del-btn_icon' onClick={handleDeleteStudent} />
             </div>

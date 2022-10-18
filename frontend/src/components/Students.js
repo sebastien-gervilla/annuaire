@@ -106,7 +106,6 @@ const Students = () => {
             <div className="menu">
                 <p className='fname'>PRENOM</p>
                 <p className='lname'>NOM</p>
-                <p className='age'>AGE</p>
                 <p className='email'>EMAIL</p>
                 <div className='menu_buttons placeholder'>PLUS</div>
             </div>
@@ -118,7 +117,7 @@ const Students = () => {
                     <button className='switch-btn' onClick={handleChangePage} value="-1"><VscChevronLeft/></button>
                     <button className='switch-btn' onClick={handleChangePage} value="1"><VscChevronRight/></button>
                 </div>
-                <p>Page {sortOptions.page + 1} / {sortOptions.maxPage}</p>
+                <p>Page {sortOptions.page + 1} / {sortOptions.maxPage || 1}</p>
             </div>
         </div>
     );

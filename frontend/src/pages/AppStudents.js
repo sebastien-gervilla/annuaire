@@ -1,8 +1,9 @@
 import React from 'react';
+import Events from '../components/Events';
 import Header from '../components/Header';
 import Students from '../components/Students';
 
-const Home = () => {
+const AppStudents = () => {
     return (
         <section id="home-page">
             <Header />
@@ -10,6 +11,7 @@ const Home = () => {
             <div className="main-area">
                 <div className="main-content">
 
+                    <Events />
                     <Students />
 
                 </div>
@@ -18,4 +20,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default AppStudents;

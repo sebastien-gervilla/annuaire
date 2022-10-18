@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IoPower } from 'react-icons/io5';
 import { HiOutlineMoon } from 'react-icons/hi';
 import { MdWbSunny } from 'react-icons/md';
@@ -6,6 +7,7 @@ import { MdWbSunny } from 'react-icons/md';
 const Header = () => {
 
     const [isDark, setIsDark] = useState(false);
+    const navigate = useNavigate();
 
     const handleToggleDarkMode = () => {
         document.documentElement.classList.contains('dark-mode') ?
@@ -23,7 +25,7 @@ const Header = () => {
         <div className="app-header">
             <div className="header-content">
                 <div className="brand">
-                    <h1>Annuaire NWS</h1>
+                    <h1 onClick={() => navigate('/')}>Annuaire NWS</h1>
                 </div>
                 <div className="buttons">
                     <button>{displayDarkModeIcon()}</button>
