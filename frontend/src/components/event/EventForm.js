@@ -36,7 +36,7 @@ const EventForm = ({ eventInfos, method, closeModal, onSubmit }) => {
             </div>
             <div className="form-input">
                 <p>TYPE</p>
-                <select name="type" value={event.type} onChange={handleChanges}>
+                <select className='form-select' name="type" value={event.type} onChange={handleChanges}>
                     <option value="JPO">JPO</option>
                     <option value="Entretien">Entretien</option>
                     <option value="Visite">Visite</option>
