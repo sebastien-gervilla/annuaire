@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { IoRemoveCircleOutline } from 'react-icons/io5';
 
-const StudentEvent = ({ eventInfos, openEventModal, removeEvent }) => {
+const StudentEvent = ({ eventInfos, openEventModal, removeParticipation }) => {
 
     const messageRef = useRef(null);
 
@@ -9,7 +9,7 @@ const StudentEvent = ({ eventInfos, openEventModal, removeEvent }) => {
 
     const handleEditEvent = event => openEventModal(eventInfos, 'PUT');
 
-    const handleRemoveEvent = event => _id && removeEvent(_id);
+    const handleRemoveParticipation = event => _id && removeParticipation(_id);
 
     const handleCopy = event => {
         if (!event.target.textContent) return;
@@ -56,7 +56,7 @@ const StudentEvent = ({ eventInfos, openEventModal, removeEvent }) => {
         <div className="event half-component-el">
             {displayEvent()}
             <div className="menu_buttons">
-                <IoRemoveCircleOutline className='del-btn_icon' onClick={handleRemoveEvent} />
+                <IoRemoveCircleOutline className='del-btn_icon' onClick={handleRemoveParticipation} />
             </div>
         </div>
     );

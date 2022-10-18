@@ -7,6 +7,7 @@ import useFetch from '../hooks/useFetch';
 import { defaultStudent } from '../utils/model-defaults';
 import StudentForm from '../components/student/StudentForm';
 import StudentEvents from '../components/student/StudentEvents';
+import apiRequest from '../utils/api-request';
 
 const AppStudent = () => {
 
@@ -17,7 +18,7 @@ const AppStudent = () => {
         student: defaultStudent,
         isOpen: false,
         method: 'PUT',
-        closeModal: () => setStudentModal(prev => { return {...prev, isOpen: false}})
+        closeModal: () => setStudentModal({...studentModal, isOpen: false})
     });
 
     const openStudentModal = (student = defaultStudent, method = 'PUT') =>
@@ -42,6 +43,14 @@ const AppStudent = () => {
             } 
         />
 
+    // Api calls
+
+    const removeParticipation = async (eventId, studentId) => {
+        if (!studentId || !eventId) return;
+        const res = await apiRequest('participation/participation', 'DELETE', { studentId, eventId });
+        if (res.status === 200) studentReq.doFetch();
+    }
+
     return (
         <section id="student-page">
             <Header />
@@ -50,7 +59,9 @@ const AppStudent = () => {
                 <div className="main-content">
 
                     <StudentCard studentInfos={studentReq.data?.body} openStudentModal={openStudentModal} />
-                    <StudentEvents participationsIds={studentReq.data?.body?.participations} />
+                    <StudentEvents studentId={studentReq.data?.body?._id} 
+                    participationsIds={studentReq.data?.body?.participations}
+                    removeParticipation={removeParticipation} />
 
                 </div>
             </div>
