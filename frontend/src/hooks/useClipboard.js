@@ -1,16 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export default function useClipboard() {
+export default function useClipboard(timeout = 150) {
     const [anchor, setAnchor] = useState(null);
     const messageRef = useRef(null);
 
     useEffect(() => {
-        anchor ? setCopyMessage(anchor) : removeCopyMessage();
-
-        anchor && anchor.addEventListener('click', handleCopy);
+        resetCopyMessage(anchor);
+        console.log("new anchor : ", anchor);
     }, [anchor]);
 
+    const resetCopyMessage = (anchor) => {
+        removeCopyMessage();
+        setCopyMessage(anchor);
+        anchor && anchor.addEventListener('click', handleCopy);
+    }
+
     const setCopyMessage = (anchor) => {
+        if (!anchor) return;
         const msg = document.createElement('p');
         msg.classList.add('copy-msg');
         msg.textContent = 'Copier';
@@ -19,16 +25,15 @@ export default function useClipboard() {
         msg.style.top = (rect.y + rect.height * 1.5) + 'px';
         document.body.appendChild(msg);
         messageRef.current = msg;
-        setTimeout(() => msg.classList.add('appear'), 1);
+        setTimeout(() => msg.classList.add('appear'), timeout);
     }
     
-    const removeCopyMessage = (anchor) => {
+    const removeCopyMessage = () => {
         if (!messageRef.current) return;
-        messageRef.current.classList.remove('appear');
-        setTimeout(() => {
-            document.body.removeChild(messageRef.current);
-            messageRef.current = null;
-        }, 1);
+        const msg = messageRef.current;
+        msg.classList.remove('appear');
+        messageRef.current = null;
+        setTimeout(() => document.body.removeChild(msg), timeout);
     }
 
     const handleCopy = event => {
