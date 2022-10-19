@@ -1,0 +1,48 @@
+.error-msg {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    height: 3vw;
+    margin: .5vw 0;
+    padding-left: 1vw;
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+        height: 2vw;
+    }
+
+    p {
+        margin-left: 1vw;
+
+        font-size: 1vw;
+    }
+
+    svg {
+        width: 1.5vw;
+        height: 1.5vw;
+    }
+    
+    &.error {
+        background-color: rgba(195, 41, 10, .2);
+        &::before { background-color: $error-color; }
+        svg { color: $error-color; }
+    }
+
+    &.warning {
+        background-color: rgba(224, 167, 11, .2);
+        &::before { background-color: $warning-color; }
+        svg { color: $warning-color; }
+    }
+
+    &::before {
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 0;
+
+        width: .25vw;
+        height: 100%;
+    }
+}

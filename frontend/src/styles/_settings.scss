@@ -13,6 +13,9 @@
     --mid-gray-color: #cdd0d6;
     --light-gray-color: #cdd0d6;
     --light-color: #F1F1F1;
+
+    --error-color: rgb(195, 41, 10);
+    --warning-color: rgb(224, 167, 11);
 }
 
 .dark-mode {
@@ -33,6 +36,9 @@ $dark-color: var(--dark-color);
 $gray-color: var(--gray-color);
 $mid-gray-color: var(--mid-gray-color);
 $light-gray-color: var(--light-gray-color);
+
+$error-color: var(--error-color);
+$warning-color: var(--warning-color);
 
 $replace-font: Helvetica, Arial, sans-serif;
 $main-font: 'RobotoRegular', $replace-font;
