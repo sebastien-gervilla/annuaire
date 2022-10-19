@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { defaultEvent } from '../../utils/model-defaults';
 import apiRequest from '../../utils/api-request';
+import ErrorMessage from '../ErrorMessage';
 
 const EventForm = ({ eventInfos, method, closeModal, onSubmit }) => {
 
     const [event, setEvent] = useState(eventInfos || defaultEvent);
     const [error, setError] = useState(null);
+    const [warning, setWarning] = useState(null);
     
     const handleChanges = cEvent => 
         setEvent({...event, [cEvent.target.name]: cEvent.target.value});
@@ -16,13 +18,19 @@ const EventForm = ({ eventInfos, method, closeModal, onSubmit }) => {
     const handleSubmitForm = async cEvent => {
         cEvent.preventDefault();
         const res = await apiRequest('event/event', method, event);
-        if (res.status !== 200) return setError(res.message);
+        if (!res) return setError("Une erreur est survenue...");
+        if (res.status !== 200) {
+            res.body?.warning && setWarning(res.body.warning);
+            return setError(res.message)
+        };
         onSubmit();
         closeModal();
     }
 
-    const displayError = () => error &&
-        <p>{error}</p>
+    const displayError = () =>
+        (!error) ?
+            warning && <ErrorMessage type='warning' message={warning} />
+        : <ErrorMessage type={'error'} message={error} />
 
     return (
         <form className='event-form app-form'>

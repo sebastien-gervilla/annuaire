@@ -3,6 +3,7 @@ import { IoClose } from 'react-icons/io5';
 import useFetch from '../../hooks/useFetch';
 import apiRequest from '../../utils/api-request';
 import { defaultStudent } from '../../utils/model-defaults';
+import ErrorMessage from '../ErrorMessage';
 import TableSelect from '../TableSelect';
 
 const StudentForm = ({ studentInfos, method, closeModal, onSubmit }) => {
@@ -13,6 +14,7 @@ const StudentForm = ({ studentInfos, method, closeModal, onSubmit }) => {
 
     const [student, setStudent] = useState(studentInfos || defaultStudent);
     const [error, setError] = useState(null);
+    const [warning, setWarning] = useState(null);
     
     const handleChanges = event => 
         setStudent({...student, [event.target.name]: event.target.value});
@@ -37,13 +39,19 @@ const StudentForm = ({ studentInfos, method, closeModal, onSubmit }) => {
     const handleSubmitForm = async event => {
         event.preventDefault();
         const res = await apiRequest('student/student', method, student);
-        if (res.status !== 200) return setError(res.message);
+        if (!res) return setError("Une erreur est survenue...");
+        if (res.status !== 200) {
+            res.body?.warning && setWarning(res.body.warning);
+            return setError(res.message)
+        };
         onSubmit();
         closeModal();
     }
 
-    const displayError = () => error &&
-        <p>{error}</p>
+    const displayError = () =>
+        (!error) ?
+            warning && <ErrorMessage type='warning' message={warning} />
+        : <ErrorMessage type={'error'} message={error} />
 
     return (
         <form className='student-form app-form'>
