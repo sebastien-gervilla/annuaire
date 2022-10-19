@@ -2,6 +2,9 @@
     width: 40vw;
     padding: 2vw;
 
+    background-color: $light-color;
+    box-shadow: $main-shadow;
+
     .form-header {
         display: flex;
         justify-content: space-between;
@@ -72,6 +75,7 @@
 
             &[name=submit] {
                 height: 2.5vw;
+                margin-top: 1vw;
 
                 background-color: $main-color;
                 color: $light-color;
