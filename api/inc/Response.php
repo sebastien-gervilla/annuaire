@@ -4,7 +4,7 @@ class Response {
     private int $status;
     private bool $success;
     private string $message;
-    private array|null $body;
+    private mixed $body;
 
     public function __construct(int $status, bool $success, string $message, mixed $body = null) {
         $this->status = $status;

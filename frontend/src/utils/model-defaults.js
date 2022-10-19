@@ -16,3 +16,8 @@ export const defaultEvent = {
     type: 'JPO',
     description: ''
 }
+
+export const defaultUser = {
+    email: '',
+    password: ''
+}

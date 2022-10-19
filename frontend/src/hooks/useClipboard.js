@@ -6,7 +6,6 @@ export default function useClipboard(timeout = 150) {
 
     useEffect(() => {
         resetCopyMessage(anchor);
-        console.log("new anchor : ", anchor);
     }, [anchor]);
 
     const resetCopyMessage = (anchor) => {

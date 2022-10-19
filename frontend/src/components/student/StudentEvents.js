@@ -6,9 +6,8 @@ import { defaultEvent } from '../../utils/model-defaults';
 import { calcMaxPage } from '../../utils/useful-functions';
 import EventForm from '../event/EventForm';
 import StudentEvent from './StudentEvent';
-import apiRequest from '../../utils/api-request';
 
-const StudentEvents = ({ participationsIds }) => {
+const StudentEvents = ({ studentId, participationsIds, removeParticipation }) => {
 
     const eventsReq = useFetch('event/events');
 
@@ -27,7 +26,7 @@ const StudentEvents = ({ participationsIds }) => {
             ...sortOptions, 
             maxPage: calcMaxPage(body.length, sortOptions.pageSize)
         });
-    }, [eventsReq.data]);
+    }, [eventsReq.data, participationsIds]);
 
     const getEvents = () => participationsIds && eventsReq.data?.body && 
         eventsReq.data?.body?.filter(event =>
@@ -60,16 +59,9 @@ const StudentEvents = ({ participationsIds }) => {
         return displayedEvents.map(event =>
             <StudentEvent key={event._id} 
                 eventInfos={event}
-                removeEvent={removeEvent}
+                removeParticipation={(() => removeParticipation(event._id, studentId))}
             />
         )
-    }
-
-    // Api calls
-
-    const removeEvent = async eventId => { // call delete function here
-        const res = await apiRequest('event/event', 'DELETE', { _id: eventId });
-        if (res.status === 200) eventsReq.doFetch();
     }
 
     return (

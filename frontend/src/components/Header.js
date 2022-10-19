@@ -6,11 +6,11 @@ import { MdWbSunny } from 'react-icons/md';
 
 const Header = () => {
 
-    const [isDark, setIsDark] = useState(false);
+    const [isDark, setIsDark] = useState(isDarkMode());
     const navigate = useNavigate();
 
     const handleToggleDarkMode = () => {
-        document.documentElement.classList.contains('dark-mode') ?
+        isDarkMode() ?
             document.documentElement.classList.remove('dark-mode') :
             document.documentElement.classList.add('dark-mode');
         
@@ -37,3 +37,5 @@ const Header = () => {
 };
 
 export default Header;
+
+const isDarkMode = () => document.documentElement.classList.contains('dark-mode');
