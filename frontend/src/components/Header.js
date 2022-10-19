@@ -3,8 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { IoPower } from 'react-icons/io5';
 import { HiOutlineMoon } from 'react-icons/hi';
 import { MdWbSunny } from 'react-icons/md';
+import apiRequest from '../utils/api-request';
+import useAuth from '../hooks/useAuth';
 
 const Header = () => {
+
+    const { refresh } = useAuth();
 
     const [isDark, setIsDark] = useState(isDarkMode());
     const navigate = useNavigate();
@@ -15,6 +19,14 @@ const Header = () => {
             document.documentElement.classList.add('dark-mode');
         
         setIsDark(prev => !prev);
+    }
+
+    const handleLogout = async event => {
+        const res = await apiRequest('auth/logout', 'POST', { token : document.cookie });
+        if (res && res.success) {
+            document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+            refresh();
+        };
     }
 
     const displayDarkModeIcon = () => !isDark ?
@@ -29,7 +41,7 @@ const Header = () => {
                 </div>
                 <div className="buttons">
                     <button>{displayDarkModeIcon()}</button>
-                    <button><IoPower id='disconnect_icon' /></button>
+                    <button onClick={handleLogout}><IoPower id='disconnect_icon'/></button>
                 </div>
             </div>
         </div>

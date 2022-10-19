@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
-import useFetch from '../hooks/useFetch';
 import apiRequest from '../utils/api-request';
 import { defaultUser } from '../utils/model-defaults';
 
 const Login = () => {
 
-    useAuth();
     const navigate = useNavigate();
 
     const [user, setUser] = useState(defaultUser);
