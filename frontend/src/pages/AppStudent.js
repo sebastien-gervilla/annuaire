@@ -8,8 +8,11 @@ import { defaultStudent } from '../utils/model-defaults';
 import StudentForm from '../components/student/StudentForm';
 import StudentEvents from '../components/student/StudentEvents';
 import apiRequest from '../utils/api-request';
+import useAuth from '../hooks/useAuth';
 
 const AppStudent = () => {
+
+    useAuth();
 
     const { id } = useParams();
     const studentReq = useFetch('student/student/?_id=' + id);

@@ -2,8 +2,12 @@ import React from 'react';
 import Events from '../components/Events';
 import Header from '../components/Header';
 import Students from '../components/Students';
+import useAuth from '../hooks/useAuth';
 
 const AppStudents = () => {
+
+    useAuth();
+
     return (
         <section id="home-page">
             <Header />
