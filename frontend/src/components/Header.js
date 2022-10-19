@@ -3,8 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { IoPower } from 'react-icons/io5';
 import { HiOutlineMoon } from 'react-icons/hi';
 import { MdWbSunny } from 'react-icons/md';
+import apiRequest from '../utils/api-request';
+import useAuth from '../hooks/useAuth';
 
 const Header = () => {
+
+    const { refresh } = useAuth();
 
     const [isDark, setIsDark] = useState(isDarkMode());
     const navigate = useNavigate();
