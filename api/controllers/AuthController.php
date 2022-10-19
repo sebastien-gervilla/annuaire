@@ -30,7 +30,7 @@ class AuthController {
                 if ($token == $user['password'])
                     return new Response(200, true, "Utilisateur connecté.");
                     
-            return new Response(400, true, "Utilisateur non connecté.");
+            return new Response(400, false, "Utilisateur non connecté.");
         } catch (\Throwable $error) {
             return new Response(400, false, "La requête à échouée : $error");
         }
@@ -66,6 +66,19 @@ class AuthController {
             }
 
             return new Response(400, false, "Identifiants de connection incorrects.", $users);
+        } catch (Error $error) {
+            return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
+                "error" => $error
+            ));
+        }
+    }
+
+    public static function logout(string|null $token): Response {
+        try {
+            if (!$token)
+                return new Response(400, false, "Aucune session existante.", $token);
+
+            return new Response(200, true, "Déconnection réussie.");
         } catch (Error $error) {
             return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
                 "error" => $error
