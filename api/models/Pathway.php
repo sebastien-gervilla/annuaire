@@ -3,7 +3,6 @@
 class Pathway {
     private int $student_id;
     private int $specialization_id;
-    private string $date;
 
     private array $validations;
 
@@ -23,4 +22,9 @@ class Pathway {
     public function getValidations() {
         return $this->validations;
     }
+
+    public function getModel() { return array(
+        "studentId" => $this->student_id,
+        "specializationId" => $this->specialization_id
+    ); }
 }
