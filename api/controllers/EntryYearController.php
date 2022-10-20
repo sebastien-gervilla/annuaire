@@ -56,7 +56,7 @@ class EntryYearController {
                 $error = findModelValidationsError($NewEntryYear->getValidations());
                 if ($error) return new Response(400, false, $error);
 
-                EntryYearManager::createEntryYearRequest($studentId, $schoolYearId);
+                EntryYearManager::createEntryYearRequest($NewEntryYear);
             }
 
             return new Response(200, true, "Année(s) d'entrée(s) créée avec succès.");
@@ -91,16 +91,20 @@ class EntryYearController {
             }
 
             $oldEntryYears = EntryYearManager::getStudentEntryYears($studentId);
-            $oldEntryYearsIds = filterArrayList($oldEntryYears, 'school_year_id');
-            foreach ($oldEntryYearsIds as $entryYearId)
-                EntryYearManager::deleteEntryYearRequest($studentId, $entryYearId);
+            foreach ($oldEntryYears as $oldEntryYear) {
+                $oldEntryYear = new EntryYear(
+                    $oldEntryYear['student_id'], 
+                    $oldEntryYear['school_year_id']
+                );
+                EntryYearManager::deleteEntryYearRequest($oldEntryYear);
+            }
 
             foreach ($newEntryYears as $entryYearId) {
                 $NewEntryYear = new EntryYear($studentId, $entryYearId);
                 $error = findModelValidationsError($NewEntryYear->getValidations());
                 if ($error) return new Response(400, false, $error);
 
-                EntryYearManager::createEntryYearRequest($studentId, $entryYearId);
+                EntryYearManager::createEntryYearRequest($NewEntryYear);
             }
 
             return new Response(200, true, "Années d'entrées modifiées avec succès.");

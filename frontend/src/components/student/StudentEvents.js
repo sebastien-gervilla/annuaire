@@ -7,7 +7,7 @@ import { calcMaxPage } from '../../utils/useful-functions';
 import EventForm from '../event/EventForm';
 import StudentEvent from './StudentEvent';
 
-const StudentEvents = ({ studentId, participationsIds, removeParticipation }) => {
+const StudentEvents = ({ studentId, participations, removeParticipation }) => {
 
     const eventsReq = useFetch('event/events');
 
@@ -26,12 +26,13 @@ const StudentEvents = ({ studentId, participationsIds, removeParticipation }) =>
             ...sortOptions, 
             maxPage: calcMaxPage(body.length, sortOptions.pageSize)
         });
-    }, [eventsReq.data, participationsIds]);
+    }, [eventsReq.data, participations]);
 
-    const getEvents = () => participationsIds && eventsReq.data?.body && 
-        eventsReq.data?.body?.filter(event =>
-            participationsIds.includes(event._id)
-        );
+    const getEvents = () => participations && eventsReq.data?.body && 
+        participations.map(participation => {
+            const event = eventsReq.data.body.find(event => event._id === participation._id);
+            return {...event, date: participation.date};
+        });
 
     const handleChangePage = event =>
     setSortOptions({
@@ -73,7 +74,7 @@ const StudentEvents = ({ studentId, participationsIds, removeParticipation }) =>
             <div className="menu">
                 <p className='title'>TITLE</p>
                 <p className='type'>TYPE</p>
-                <p className='creation_date'>DATE DE CREATION</p>
+                <p className='date'>DATE</p>
                 <div className='menu_buttons placeholder'>PLUS</div>
             </div>
             <div className="data">

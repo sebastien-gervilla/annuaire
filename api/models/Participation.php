@@ -4,7 +4,7 @@ class Participation {
     private int $student_id;
     private int $event_id;
     private int $amount;
-    private string $date;
+    private DateTime $date;
 
     private array $validations;
 
@@ -26,4 +26,9 @@ class Participation {
     public function getValidations() {
         return $this->validations;
     }
+
+    public function getModel() { return array(
+        "studentId" => $this->student_id,
+        "eventId" => $this->event_id
+    ); }
 }

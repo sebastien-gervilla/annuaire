@@ -17,7 +17,6 @@ const Login = () => {
     const handleSubmitForm = async event => {
         event.preventDefault();
         const res = await apiRequest('auth/login', 'POST', user);
-        console.log(res);
         if (res?.status && res.status !== 200) return setError(res.message);
         if (res && res.status === 200 && res.body?.token) {
             document.cookie = "token=" + res.body.token;

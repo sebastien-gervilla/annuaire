@@ -56,7 +56,7 @@ class PathwayController {
                 $error = findModelValidationsError($NewPathway->getValidations());
                 if ($error) return new Response(400, false, $error);
 
-                PathwayManager::createPathwayRequest($studentId, $specializationId);
+                PathwayManager::createPathwayRequest($NewPathway);
             }
 
             return new Response(200, true, "Filière(s) créée avec succès.");
@@ -91,16 +91,20 @@ class PathwayController {
             }
 
             $oldPathways = PathwayManager::getStudentPathways($studentId);
-            $oldPathwaysIds = filterArrayList($oldPathways, 'specialization_id');
-            foreach ($oldPathwaysIds as $specializationId)
-                PathwayManager::deletePathwayRequest($studentId, $specializationId);
+            foreach ($oldPathways as $oldPathway) {
+                $oldPathway = new Pathway(
+                    $oldPathway['student_id'], 
+                    $oldPathway['specialization_id']
+                );
+                PathwayManager::deletePathwayRequest($oldPathway);
+            }
 
             foreach ($newPathways as $specializationId) {
                 $NewPathway = new Pathway($studentId, $specializationId);
                 $error = findModelValidationsError($NewPathway->getValidations());
                 if ($error) return new Response(400, false, $error);
 
-                PathwayManager::createPathwayRequest($studentId, $specializationId);
+                PathwayManager::createPathwayRequest($NewPathway);
             }
 
             return new Response(200, true, "Filière(s) créée avec succès.");

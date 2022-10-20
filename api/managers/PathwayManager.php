@@ -22,22 +22,24 @@ class PathwayManager {
 
     #region POST
 
-    public static function createPathwayRequest(int $studentId, int $specializationId) {
+    public static function createPathwayRequest(Pathway $Pathway) {
         $dbh = DatabaseHandler::connect();
         $request = "INSERT INTO pathway (student_id, specialization_id) 
-        VALUES ('$studentId', '$specializationId')";
-        $dbh->exec($request);
+        VALUES (:studentId, :specializationId)";
+        $sth = $dbh->prepare($request);
+        $sth->execute($Pathway->getModel());
     }
 
     #endregion
 
     #region DELETE
 
-    public static function deletePathwayRequest(int $studentId, int $specializationId) {
+    public static function deletePathwayRequest(Pathway $Pathway) {
         $dbh = DatabaseHandler::connect();
-        $request = "DELETE FROM `pathway` 
-        WHERE `student_id` = $studentId AND `specialization_id` = $specializationId;";
-        $dbh->exec($request);
+        $request = "DELETE FROM pathway 
+        WHERE student_id = :studentId AND specialization_id = :specializationId";
+        $sth = $dbh->prepare($request);
+        $sth->execute($Pathway->getModel());
     }
 
     #endregion

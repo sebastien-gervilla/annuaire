@@ -11,8 +11,8 @@ function useParticipationGetRoutes(string $endpoint, array|null $body): Response
             return Router::get(function () { return ParticipationController::getAll(); });
 
         case 'participation':
-            $id = $body['_id'];
-            return Router::get(function () use($id) { return ParticipationController::getById($id); });
+            $id = Request::getParam('studentId');
+            return Router::get(function () use($id) { return ParticipationController::getStudentParticipations($id); });
         
         default:
             return new Response(400, false, "Couldn't find url endpoint.");

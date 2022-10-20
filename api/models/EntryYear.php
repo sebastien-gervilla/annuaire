@@ -3,7 +3,6 @@
 class EntryYear {
     private int $student_id;
     private int $schoolYear_id;
-    private string $date;
 
     private array $validations;
 
@@ -23,4 +22,9 @@ class EntryYear {
     public function getValidations() {
         return $this->validations;
     }
+
+    public function getModel() { return array(
+        "studentId" => $this->student_id,
+        "schoolYearId" => $this->schoolYear_id
+    ); }
 }

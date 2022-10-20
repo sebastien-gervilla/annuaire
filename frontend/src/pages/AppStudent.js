@@ -8,11 +8,13 @@ import { defaultStudent } from '../utils/model-defaults';
 import StudentForm from '../components/student/StudentForm';
 import StudentEvents from '../components/student/StudentEvents';
 import apiRequest from '../utils/api-request';
+import { toTimeFormat } from '../utils/useful-functions';
 
 const AppStudent = () => {
 
     const { id } = useParams();
     const studentReq = useFetch('student/student/?_id=' + id);
+    const participationReq = useFetch('participation/participation/?studentId=' + id);
 
     const [studentModal, setStudentModal] = useState({
         student: defaultStudent,
@@ -43,6 +45,12 @@ const AppStudent = () => {
             } 
         />
 
+    const getParticipations = () => studentReq.data?.body?.participations?.map((participationId, index) => {
+        return { _id: participationId, date: toTimeFormat(participationReq.data?.body?.find(
+            participation => participation.event_id === participationId
+        )?.date) };
+    });
+
     // Api calls
 
     const removeParticipation = async (eventId, studentId) => {
@@ -60,7 +68,7 @@ const AppStudent = () => {
 
                     <StudentCard studentInfos={studentReq.data?.body} openStudentModal={openStudentModal} />
                     <StudentEvents studentId={studentReq.data?.body?._id} 
-                    participationsIds={studentReq.data?.body?.participations}
+                    participations={getParticipations()}
                     removeParticipation={removeParticipation} />
 
                 </div>

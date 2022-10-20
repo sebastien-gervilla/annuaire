@@ -3,9 +3,10 @@ const calcMaxPage = (elementAmount, pageSize) =>
 
 const toTimeFormat = (time) => {
     if (!time)
-        return;
-    time = time.replace('T', ' ');
-    time = time.slice(0, time.length - 5)
+        return 'Indéterminé';
+
+    time = time.slice(0, time.length - 3)
+    time = time.replace(':', 'h')
     return time
 };
 
