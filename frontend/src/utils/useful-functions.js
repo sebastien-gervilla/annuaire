@@ -1,6 +1,3 @@
-const calcMaxPage = (elementAmount, pageSize) =>
-    Math.floor(elementAmount / pageSize) + 1;
-
 const toTimeFormat = (time) => {
     if (!time)
         return 'Indéterminé';
@@ -10,4 +7,4 @@ const toTimeFormat = (time) => {
     return time
 };
 
-module.exports = { calcMaxPage, toTimeFormat };
+module.exports = { toTimeFormat };
