@@ -59,7 +59,7 @@ class StudentController {
             $error = findModelValidationsError($NewStudent->getValidations());
             if ($error) return new Response(400, false, $error);
 
-            StudentManager::createStudentRequest($student);
+            StudentManager::createStudentRequest($NewStudent);
             $studentId = StudentManager::getLastCreatedStudentId();
             $body = array("data" => $student);
             $res = EntryYearController::createEntryYears($entryYears, $studentId);
@@ -109,7 +109,7 @@ class StudentController {
             $error = findModelValidationsError($NewStudent->getValidations());
             if ($error) return new Response(400, false, $error);
 
-            StudentManager::modifyStudentRequest($studentId, $newStudent);
+            StudentManager::modifyStudentRequest($NewStudent);
 
             $res = EntryYearController::modifyStudentEntryYears($entryYears, $studentId);
             if ($res->getStatus() != 200) return $res;
