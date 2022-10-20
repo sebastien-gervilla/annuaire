@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import { Modal } from 'skz-ui';
 import useFetch from '../../hooks/useFetch';
+import usePagination from '../../hooks/usePagination';
 import { defaultEvent } from '../../utils/model-defaults';
 import { calcMaxPage } from '../../utils/useful-functions';
 import EventForm from '../event/EventForm';
@@ -10,23 +11,22 @@ import StudentEvent from './StudentEvent';
 const StudentEvents = ({ studentId, participations, removeParticipation }) => {
 
     const eventsReq = useFetch('event/events');
-
     const [events, setEvents] = useState([]);
-    const [sortOptions, setSortOptions] = useState({
-        page: 0,
-        pageSize: 6,
-        maxPage: 0
-    });
+
+    const pageHandler = usePagination();
 
     useEffect(() => {
         const body = eventsReq.data?.body;
         if (!body) return;
         setEvents(getEvents());
-        setSortOptions({
-            ...sortOptions, 
-            maxPage: calcMaxPage(body.length, sortOptions.pageSize)
-        });
+        pageHandler.updateMax(body.length);
     }, [eventsReq.data, participations]);
+
+    useEffect(() => {
+        const body = eventsReq.data?.body;
+        if (!body) return;
+        pageHandler.refreshPage(body.length);
+    }, [pageHandler.maxPage]);
 
     const getEvents = () => participations && eventsReq.data?.body && 
         participations.map(participation => {
@@ -34,24 +34,10 @@ const StudentEvents = ({ studentId, participations, removeParticipation }) => {
             return {...event, date: participation.date};
         });
 
-    const handleChangePage = event =>
-    setSortOptions({
-        ...sortOptions,
-        page: changePage(event)
-    });
-
-    const changePage = event => {
-        let newPage = sortOptions.page + parseInt(event.currentTarget.value);
-        const pages = sortOptions.maxPage - 1;
-        if (newPage > pages) return pages;
-        if (newPage < 0) return 0;
-        if (newPage !== sortOptions.page) return newPage;
-    };
-
     const displayEvents = () => {
         if (!events) return;
 
-        const start = 6 * sortOptions.page;
+        const start = 6 * pageHandler.page;
         const end = (start + 6) > events.length ? 
             events.length : (start + 6);
 
@@ -82,10 +68,10 @@ const StudentEvents = ({ studentId, participations, removeParticipation }) => {
             </div>
             <div className="footer">
                 <div className="buttons">
-                    <button className='switch-btn' onClick={handleChangePage} value="-1"><VscChevronLeft/></button>
-                    <button className='switch-btn' onClick={handleChangePage} value="1"><VscChevronRight/></button>
+                    <button className='switch-btn' onClick={pageHandler.prevPage} value="-1"><VscChevronLeft/></button>
+                    <button className='switch-btn' onClick={pageHandler.nextPage} value="1"><VscChevronRight/></button>
                 </div>
-                <p>Page {sortOptions.page + 1} / {sortOptions.maxPage || 1}</p>
+                <p>Page {pageHandler.page + 1} / {pageHandler.maxPage || 1}</p>
             </div>
         </div>
     );

@@ -2,21 +2,18 @@ import React, { useEffect, useState } from 'react';
 import useFetch from '../hooks/useFetch';
 import { Modal } from 'skz-ui';
 import { defaultStudent } from '../utils/model-defaults';
-import { calcMaxPage } from '../utils/useful-functions';
 import StudentForm from './student/StudentForm';
 import Student from './Student';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import apiRequest from '../utils/api-request';
+import usePagination from '../hooks/usePagination';
 
 const Students = () => {
 
     const studentsReq = useFetch('student/students');
     const [students, setStudents] = useState([]);
-    const [sortOptions, setSortOptions] = useState({
-        page: 0,
-        pageSize: 6,
-        maxPage: 0
-    });
+
+    const pageHandler = usePagination();
 
     const [studentModal, setStudentModal] = useState({
         student: defaultStudent,
@@ -29,17 +26,14 @@ const Students = () => {
         const body = studentsReq.data?.body;
         if (!body) return;
         setStudents(body);
-        setSortOptions({
-            ...sortOptions, 
-            maxPage: calcMaxPage(body.length, sortOptions.pageSize)
-        });
+        pageHandler.updateMax(body.length);
     }, [studentsReq.data]);
 
-    const handleChangePage = event =>
-    setSortOptions({
-        ...sortOptions,
-        page: changePage(event)
-    });
+    useEffect(() => {
+        const body = studentsReq.data?.body;
+        if (!body) return;
+        pageHandler.refreshPage(body.length);
+    }, [pageHandler.maxPage]);
 
     const openStudentModal = (student = defaultStudent, method = 'POST') =>
         setStudentModal({
@@ -48,14 +42,6 @@ const Students = () => {
             student,
             method
         });
-
-    const changePage = event => {
-        let newPage = sortOptions.page + parseInt(event.currentTarget.value);
-        const pages = sortOptions.maxPage - 1;
-        if (newPage > pages) return pages;
-        if (newPage < 0) return 0;
-        if (newPage !== sortOptions.page) return newPage;
-    };
 
     const displayStudentModal = () =>
         <Modal 
@@ -74,7 +60,7 @@ const Students = () => {
     const displayStudents = () => {
         if (!students) return;
 
-        const start = 6 * sortOptions.page;
+        const start = 6 * pageHandler.page;
         const end = (start + 6) > students.length ? 
             students.length : (start + 6);
 
@@ -93,7 +79,7 @@ const Students = () => {
 
     const deleteStudent = async studentId => { // Snackbar when delete ?
         const res = await apiRequest('student/student', 'DELETE', { _id: studentId });
-        (res.status === 200) ? studentsReq.doFetch() : console.log(res);
+        if (res.status === 200) studentsReq.doFetch();
     }
 
     return (
@@ -114,10 +100,10 @@ const Students = () => {
             </div>
             <div className="footer">
                 <div className="buttons">
-                    <button className='switch-btn' onClick={handleChangePage} value="-1"><VscChevronLeft/></button>
-                    <button className='switch-btn' onClick={handleChangePage} value="1"><VscChevronRight/></button>
+                    <button className='switch-btn' onClick={pageHandler.prevPage} value="-1"><VscChevronLeft/></button>
+                    <button className='switch-btn' onClick={pageHandler.nextPage} value="1"><VscChevronRight/></button>
                 </div>
-                <p>Page {sortOptions.page + 1} / {sortOptions.maxPage || 1}</p>
+                <p>Page {pageHandler.page + 1} / {pageHandler.maxPage || 1}</p>
             </div>
         </div>
     );
