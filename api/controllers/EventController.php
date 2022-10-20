@@ -38,7 +38,7 @@ class EventController {
                 return new Response(400, false, "Le formulaire ne correspond pas à la table.");
             }
 
-            $exceptions = ["description"];
+            $exceptions = ["date", "description"];
             if (!isFormFilled($event, $exceptions)) {
                 return new Response(400, false, "Tous les champs requis ne sont pas remplis.");
             }
@@ -71,7 +71,7 @@ class EventController {
                 return new Response(400, false, "Le formulaire ne correspond pas à la table.");
             }
 
-            $exceptions = ["description"];
+            $exceptions = ["date", "description"];
             if (!isFormFilled($newEvent, $exceptions)) {
                 return new Response(400, false, "Tous les champs requis ne sont pas remplis.");
             }

@@ -4,9 +4,10 @@ class Event {
     private int $_id;
     private string $title;
     private string $type;
+    private string $date;
     private string $description;
-    private string $createdAt;
 
+    private array $event;
     private array $validations;
 
     public function __construct(array $event) {
@@ -24,6 +25,7 @@ class Event {
         $this->validations = array(
             'Nom' => [minLength($this->title, 2)],
             'Type' => [amongValues($this->type, ["JPO", "Entretien", "Visite", "Autre"])],
+            'Date' => [maxLength($this->date, 64)],
             'Description' => [maxLength($this->description, 256)]
         );
     }
