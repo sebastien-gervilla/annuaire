@@ -11,7 +11,7 @@ function useSchoolYearGetRoutes(string $endpoint, array|null $body): Response
             return Router::get(function () { return SchoolYearController::getAll(); });
 
         case 'schoolyear':
-            $id = $body['_id'];
+            $id = Request::getParam('_id');
             return Router::get(function () use($id) { return SchoolYearController::getById($id); });
         
         default:

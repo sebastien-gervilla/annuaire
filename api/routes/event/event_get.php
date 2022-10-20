@@ -11,7 +11,7 @@ function useEventGetRoutes(string $endpoint, array|null $body): Response
             return Router::get(function () { return EventController::getAll(); });
 
         case 'event':
-            $id = $body['_id'];
+            $id = Request::getParam('_id');
             return Router::get(function () use($id) { return EventController::getById($id); });
         
         default:

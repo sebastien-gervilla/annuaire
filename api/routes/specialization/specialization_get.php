@@ -11,7 +11,7 @@ function useSpecializationGetRoutes(string $endpoint, array|null $body): Respons
             return Router::get(function () { return SpecializationController::getAll(); });
 
         case 'specialization':
-            $id = $body['_id'];
+            $id = Request::getParam('_id');
             return Router::get(function () use($id) { return SpecializationController::getById($id); });
         
         default:
