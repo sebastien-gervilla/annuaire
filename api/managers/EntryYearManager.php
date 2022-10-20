@@ -22,21 +22,24 @@ class EntryYearManager {
 
     #region POST
 
-    public static function createEntryYearRequest(int $studentId, int $schoolYearId) {
+    public static function createEntryYearRequest(EntryYear $EntryYear) {
         $dbh = DatabaseHandler::connect();
-        $request = "INSERT INTO entry_year (student_id, school_year_id) VALUES ('$studentId', '$schoolYearId')";
-        $dbh->exec($request);
+        $request = "INSERT INTO entry_year (student_id, school_year_id) 
+        VALUES (:studentId, :schoolYearId)";
+        $sth = $dbh->prepare($request);
+        $sth->execute($EntryYear->getModel());
     }
 
     #endregion
 
     #region DELETE
 
-    public static function deleteEntryYearRequest(int $studentId, int $schoolYearId) {
+    public static function deleteEntryYearRequest(EntryYear $EntryYear) {
         $dbh = DatabaseHandler::connect();
-        $request = "DELETE FROM `entry_year` 
-        WHERE `student_id` = $studentId AND `school_year_id` = $schoolYearId;";
-        $dbh->exec($request);
+        $request = "DELETE FROM entry_year 
+        WHERE student_id = :studentId AND school_year_id = :schoolYearId";
+        $sth = $dbh->prepare($request);
+        $sth->execute($EntryYear->getModel());
     }
 
     #endregion
