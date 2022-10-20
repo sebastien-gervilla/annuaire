@@ -36,21 +36,24 @@ class ParticipationManager {
 
     #region POST
 
-    public static function createParticipationRequest(int $studentId, int $eventId) {
+    public static function createParticipationRequest(Participation $Participation) {
         $dbh = DatabaseHandler::connect();
-        $request = "INSERT INTO participation (student_id, event_id) VALUES ('$studentId', '$eventId')";
-        $dbh->exec($request);
+        $request = "INSERT INTO participation (student_id, event_id) 
+        VALUES (:studentId, :eventId)";
+        $sth = $dbh->prepare($request);
+        $sth->execute($Participation->getModel());
     }
 
     #endregion
 
     #region DELETE
 
-    public static function deleteParticipationRequest(int $studentId, int $eventId) {
+    public static function deleteParticipationRequest(Participation $Participation) {
         $dbh = DatabaseHandler::connect();
         $request = "DELETE FROM `participation` 
-        WHERE `student_id` = $studentId AND `event_id` = $eventId;";
-        $dbh->exec($request);
+        WHERE `student_id` = :studentId AND `event_id` = :eventId";
+        $sth = $dbh->prepare($request);
+        $sth->execute($Participation->getModel());
     }
 
     #endregion
