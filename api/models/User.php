@@ -5,6 +5,7 @@ class User {
     private string $email;
     private string $password;
 
+    private array $user;
     private array $validations;
 
     public function __construct(array $user) {
@@ -15,6 +16,7 @@ class User {
     private function setModel(array $user) {
         $this->email = $user['email'];
         $this->password = $user['password'];
+        $this->user = $user;
     }
 
     private function setValidations() {
@@ -27,4 +29,6 @@ class User {
     public function getValidations() {
         return $this->validations;
     }
+
+    public function getModel() { return $this->user; }
 }

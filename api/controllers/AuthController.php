@@ -57,9 +57,10 @@ class AuthController {
 
             $usersRes = self::getAllUsers();
             $users = $usersRes->getBody();
+            $ids = $User->getModel();
             foreach ($users as $user) {
-                if ($logs['email'] == $user['email']
-                && password_verify($logs['password'], $user['password']))
+                if ($ids['email'] == $user['email']
+                && password_verify($ids['password'], $user['password']))
                     return new Response(200, true, "Connection réussie.", array(
                         'token' => $user['password']
                     ));
