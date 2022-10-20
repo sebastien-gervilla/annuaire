@@ -59,37 +59,25 @@ class StudentManager {
 
     #region POST
 
-    public static function createStudentRequest(array $student) {
+    public static function createStudentRequest(Student $Student) {
         $dbh = DatabaseHandler::connect();
-        $fname = $student['fname'];
-        $lname = $student['lname'];
-        $age = $student['age'];
-        $gender = $student['gender'];
-        $email = $student['email'];
-        $phone = $student['phone'];
-        $degree = $student['degree'];
         $request = "INSERT INTO student (fname, lname, age, gender, email, phone, degree) 
-        VALUES ('$fname', '$lname', '$age', '$gender', '$email', '$phone', '$degree')";
-        $dbh->exec($request);
+        VALUES (:fname, :lname, :age, :gender, :email, :phone, :degree)";
+        $sth = $dbh->prepare($request);
+        $sth->execute($Student->getModel());
     }
 
     #endregion
     
     #region PUT
 
-    public static function modifyStudentRequest(int $studentId, array $newStudent) {
+    public static function modifyStudentRequest(Student $Student) {
         $dbh = DatabaseHandler::connect();
-        $fname = $newStudent['fname'];
-        $lname = $newStudent['lname'];
-        $age = $newStudent['age'];
-        $gender = $newStudent['gender'];
-        $email = $newStudent['email'];
-        $phone = $newStudent['phone'];
-        $degree = $newStudent['degree'];
-        $request = "UPDATE `student` 
-        SET `fname` = '$fname', `lname` = '$lname', `age` = '$age', `gender` = '$gender', `email` = '$email', 
-        `phone` = '$phone', `degree` = '$degree' WHERE `_id` = '$studentId';";
-        $dbh->exec($request);
+        $request = "UPDATE student 
+        SET fname = :fname, lname = :lname, age = :age, gender = :gender, email = :email, 
+        phone = :phone, degree = :degree WHERE _id = :_id";
+        $sth = $dbh->prepare($request);
+        $sth->execute($Student->getModel());
     }
 
     #endregion
@@ -98,8 +86,10 @@ class StudentManager {
 
     public static function deleteStudentRequest(int $studentId) {
         $dbh = DatabaseHandler::connect();
-        $request = "DELETE FROM `student` WHERE `_id` = $studentId;";
-        $dbh->exec($request);
+        $request = "DELETE FROM student WHERE _id = :_id";
+        $sth = $dbh->prepare($request);
+        $sth->bindParam(':_id', $studentId);
+        $sth->execute();
     }
 
     #endregion

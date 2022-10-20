@@ -32,24 +32,32 @@ const EventForm = ({ eventInfos, method, closeModal, onSubmit }) => {
             warning && <ErrorMessage type='warning' message={warning} />
         : <ErrorMessage type={'error'} message={error} />
 
+    const displayTitle = () => method === 'POST' ?
+        'Nouvel élève' : (method === 'PUT') ?
+        'Modifier un élève' : '';
+
     return (
         <form className='event-form app-form'>
             <div className="form-header">
-                <h2>Nouvel élève</h2>
+                <h2>{displayTitle()}</h2>
                 <button onClick={handleCloseModal}><IoClose/></button>
             </div>
             <div className="form-input">
-                <p>TITRE</p>
+                <p>TITRE *</p>
                 <input type="text" name='title' value={event.title} onChange={handleChanges} />
             </div>
             <div className="form-input">
-                <p>TYPE</p>
+                <p>TYPE *</p>
                 <select className='form-select' name="type" value={event.type} onChange={handleChanges}>
                     <option value="JPO">JPO</option>
                     <option value="Entretien">Entretien</option>
                     <option value="Visite">Visite</option>
                     <option value="Autre">Autre</option>
                 </select>
+            </div>
+            <div className="form-input">
+                <p>DATE D'EVENEMENT</p>
+                <input type="text" name='date' value={event.date} onChange={handleChanges} />
             </div>
             <div className="form-input">
                 <p>DESCRIPTION</p>

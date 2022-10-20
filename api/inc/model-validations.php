@@ -130,6 +130,18 @@ function validLength(string|null $value, int $length): array {
     );
 }
 
+function validChars(string|null $value): array {
+    return array(
+        "validateFn" => function() use($value): bool {
+            if ($value == null) return true;
+            return (!preg_match('/\<\>\|\,\?\!\;\:\&\#\{\}\@\*\ù\%\$/', $value)) ? true : false;
+        },
+        "getErrorFn" => function(string $field): string {
+            return "Le champ \"$field\" ne doit pas contenir de charactères spéciaux.";
+        }
+    );
+}
+
 // Utils
 
 function removeAllSpaces($string) {

@@ -106,7 +106,7 @@ const Events = () => {
             <div className="menu">
                 <p className='title'>TITLE</p>
                 <p className='type'>TYPE</p>
-                <p className='creation_date'>DATE DE CREATION</p>
+                <p className='date'>DATE D'EVENEMENT</p>
                 <div className='menu_buttons placeholder'>PLUS</div>
             </div>
             <div className="data">

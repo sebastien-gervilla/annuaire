@@ -53,10 +53,14 @@ const StudentForm = ({ studentInfos, method, closeModal, onSubmit }) => {
             warning && <ErrorMessage type='warning' message={warning} />
         : <ErrorMessage type={'error'} message={error} />
 
+    const displayTitle = () => method === 'POST' ?
+        'Nouvel élève' : (method === 'PUT') ?
+        'Modifier un élève' : '';
+
     return (
         <form className='student-form app-form'>
             <div className="form-header">
-                <h2>Nouvel élève</h2>
+                <h2>{displayTitle()}</h2>
                 <button onClick={handleCloseModal}><IoClose/></button>
             </div>
             <div className="form-input_row">
