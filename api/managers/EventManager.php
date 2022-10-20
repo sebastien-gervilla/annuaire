@@ -36,28 +36,24 @@ class EventManager {
 
     #region POST
 
-    public static function createEventRequest(array $event) {
+    public static function createEventRequest(Event $Event) {
         $dbh = DatabaseHandler::connect();
-        $title = $event['title'];
-        $type = $event['type'];
-        $description = $event['description'];
-        $request = "INSERT INTO event (title, type, description) 
-        VALUES ('$title', '$type', '$description')";
-        $dbh->exec($request);
+        $request = "INSERT INTO `event` (title, `type`, `date`, `description`) 
+        VALUES (:title, :type, :date, :description)";
+        $sth = $dbh->prepare($request);
+        $sth->execute($Event->getModel());
     }
 
     #endregion
     
     #region PUT
 
-    public static function modifyEventRequest(int $eventId, array $newEvent) {
+    public static function modifyEventRequest(Event $Event) {
         $dbh = DatabaseHandler::connect();
-        $title = $newEvent['title'];
-        $type = $newEvent['type'];
-        $description = $newEvent['description'];
         $request = "UPDATE `event` 
-        SET `title` = '$title', `type` = '$type', `description` = '$description' WHERE `_id` = '$eventId';";
-        $dbh->exec($request);
+        SET title = :title, `type` = :type, `date` = :date, `description` = :description WHERE _id = :_id";
+        $sth = $dbh->prepare($request);
+        $sth->execute($Event->getModel());
     }
 
     #endregion
@@ -66,8 +62,10 @@ class EventManager {
 
     public static function deleteEventRequest(int $eventId) {
         $dbh = DatabaseHandler::connect();
-        $request = "DELETE FROM `event` WHERE `_id` = $eventId;";
-        $dbh->exec($request);
+        $request = "DELETE FROM `event` WHERE _id = :_id";
+        $sth = $dbh->prepare($request);
+        $sth->bindParam(':_id', $eventId);
+        $sth->execute();
     }
 
     #endregion

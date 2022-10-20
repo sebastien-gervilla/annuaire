@@ -18,12 +18,14 @@ class Event {
     private function setModel(array $event) {
         $this->title = $event['title'];
         $this->type = $event['type'];
+        $this->date = $event['date'];
         $this->description = $event['description'];
+        $this->event = $event;
     }
 
     private function setValidations() {
         $this->validations = array(
-            'Nom' => [minLength($this->title, 2)],
+            'Nom' => [minLength($this->title, 2), validChars($this->title)],
             'Type' => [amongValues($this->type, ["JPO", "Entretien", "Visite", "Autre"])],
             'Date' => [maxLength($this->date, 64)],
             'Description' => [maxLength($this->description, 256)]
@@ -33,4 +35,6 @@ class Event {
     public function getValidations() {
         return $this->validations;
     }
+
+    public function getModel() { return $this->event; }
 }

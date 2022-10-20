@@ -48,7 +48,7 @@ class EventController {
             $error = findModelValidationsError($NewEvent->getValidations());
             if ($error) return new Response(400, false, $error);
 
-            EventManager::createEventRequest($event);
+            EventManager::createEventRequest($NewEvent);
             return new Response(200, true, "Evènement créé avec succès.", $event);
         } catch (Error $error) {
             return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
@@ -81,7 +81,7 @@ class EventController {
             $error = findModelValidationsError($NewEvent->getValidations());
             if ($error) return new Response(400, false, $error);
 
-            EventManager::modifyEventRequest($eventId, $newEvent);
+            EventManager::modifyEventRequest($NewEvent);
             return new Response(200, true, "Evènement modifié avec succès.", $newEvent);
         } catch (Error $error) {
             return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
