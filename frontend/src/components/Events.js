@@ -2,21 +2,18 @@ import React, { useEffect, useState } from 'react';
 import useFetch from '../hooks/useFetch';
 import { Modal } from 'skz-ui';
 import { defaultEvent } from '../utils/model-defaults';
-import { calcMaxPage } from '../utils/useful-functions';
 import EventForm from './event/EventForm';
 import Event from './Event';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import apiRequest from '../utils/api-request';
+import usePagination from '../hooks/usePagination';
 
 const Events = () => {
 
     const eventsReq = useFetch('event/events');
     const [events, setEvents] = useState([]);
-    const [sortOptions, setSortOptions] = useState({
-        page: 0,
-        pageSize: 6,
-        maxPage: 0
-    });
+
+    const pageHandler = usePagination();
 
     const [eventModal, setEventModal] = useState({
         event: defaultEvent,
@@ -29,17 +26,14 @@ const Events = () => {
         const body = eventsReq.data?.body;
         if (!body) return;
         setEvents(body);
-        setSortOptions({
-            ...sortOptions, 
-            maxPage: calcMaxPage(body.length, sortOptions.pageSize)
-        });
+        pageHandler.updateMax(body.length);
     }, [eventsReq.data]);
 
-    const handleChangePage = event =>
-    setSortOptions({
-        ...sortOptions,
-        page: changePage(event)
-    });
+    useEffect(() => {
+        const body = eventsReq.data?.body;
+        if (!body) return;
+        pageHandler.refreshPage(body.length);
+    }, [pageHandler.maxPage]);
 
     const openEventModal = (event = defaultEvent, method = 'POST') =>
         setEventModal({
@@ -48,14 +42,6 @@ const Events = () => {
             event,
             method
         });
-
-    const changePage = event => {
-        let newPage = sortOptions.page + parseInt(event.currentTarget.value);
-        const pages = sortOptions.maxPage - 1;
-        if (newPage > pages) return pages;
-        if (newPage < 0) return 0;
-        if (newPage !== sortOptions.page) return newPage;
-    };
 
     const displayEventModal = () =>
         <Modal 
@@ -74,7 +60,7 @@ const Events = () => {
     const displayEvents = () => {
         if (!events) return;
 
-        const start = 6 * sortOptions.page;
+        const start = 6 * pageHandler.page;
         const end = (start + 6) > events.length ? 
             events.length : (start + 6);
 
@@ -114,10 +100,10 @@ const Events = () => {
             </div>
             <div className="footer">
                 <div className="buttons">
-                    <button className='switch-btn' onClick={handleChangePage} value="-1"><VscChevronLeft/></button>
-                    <button className='switch-btn' onClick={handleChangePage} value="1"><VscChevronRight/></button>
+                    <button className='switch-btn' onClick={pageHandler.prevPage} value="-1"><VscChevronLeft/></button>
+                    <button className='switch-btn' onClick={pageHandler.nextPage} value="1"><VscChevronRight/></button>
                 </div>
-                <p>Page {sortOptions.page + 1} / {sortOptions.maxPage || 1}</p>
+                <p>Page {pageHandler.page + 1} / {pageHandler.maxPage || 1}</p>
             </div>
         </div>
     );

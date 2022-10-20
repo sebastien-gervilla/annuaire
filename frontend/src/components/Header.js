@@ -24,7 +24,7 @@ const Header = () => {
     const handleLogout = async event => {
         const res = await apiRequest('auth/logout', 'POST', { token : document.cookie });
         if (res && res.success) {
-            document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+            document.cookie = "token=; Path=/; Expires = Thu, 01 Jan 1970 00:00:01 GMT;";
             refresh();
         };
     }

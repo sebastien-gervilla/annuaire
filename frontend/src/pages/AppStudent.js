@@ -31,6 +31,11 @@ const AppStudent = () => {
             method
         });
 
+    const onSubmitModal = () => {
+        studentReq.doFetch();
+        participationReq.doFetch();
+    }
+
     const displayStudentModal = () =>
         <Modal 
             open={studentModal.isOpen} 
@@ -40,7 +45,7 @@ const AppStudent = () => {
                     studentInfos={studentModal.student}
                     method={studentModal.method}
                     closeModal={studentModal.closeModal}
-                    onSubmit={studentReq.doFetch}
+                    onSubmit={onSubmitModal}
                 />
             } 
         />
