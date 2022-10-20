@@ -40,7 +40,7 @@ const StudentForm = ({ studentInfos, method, closeModal, onSubmit }) => {
         event.preventDefault();
         const res = await apiRequest('student/student', method, student);
         if (!res) return setError("Une erreur est survenue...");
-        if (res.status !== 200) {
+        if (res.status !== 200 || res.body?.warning) {
             res.body?.warning && setWarning(res.body.warning);
             return setError(res.message)
         };

@@ -14,6 +14,7 @@ export const defaultStudent = {
 export const defaultEvent = {
     title: '',
     type: 'JPO',
+    date: '',
     description: ''
 }
 
