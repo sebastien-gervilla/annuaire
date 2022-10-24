@@ -34,7 +34,7 @@ class Student {
         $this->validations = array(
             'Prénom' => [minLength($this->fname, 2), validChars($this->fname)],
             'Nom' => [minLength($this->lname, 1), validChars($this->lname)],
-            'Age' => [betweenNumbers($this->age, 0, 100)],
+            'Age' => [betweenNumbers($this->age, 15, 100)],
             'Genre' => [amongValues($this->gender, ['Homme', 'Femme'])],
             'Email' => [validEmail($this->email)],
             'Téléphone' => [validPhone($phone), validLength($phone, 10)],
