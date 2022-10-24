@@ -57,12 +57,7 @@ const StudentEvents = ({ studentId, participations, removeParticipation }) => {
                 <h2>Evènements</h2>
                 <button className='add-btn'>Ajouter</button>
             </div>
-            <div className="menu">
-                <p className='title'>TITLE</p>
-                <p className='type'>TYPE</p>
-                <p className='date'>DATE</p>
-                <div className='menu_buttons placeholder'>PLUS</div>
-            </div>
+            <DataMenu fields={dataMenuFields} sortedOption={sortOptions.sorted} handleToggleOrder={handleToggleOrder} />
             <div className="data">
                 {displayEvents()}
             </div>

@@ -7,6 +7,7 @@ import Student from './Student';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import apiRequest from '../utils/api-request';
 import usePagination from '../hooks/usePagination';
+import DataMenu from './DataMenu';
 
 const Students = () => {
 
@@ -89,12 +90,8 @@ const Students = () => {
                 <h2>Elèves</h2>
                 <button className='add-btn' onClick={() => openStudentModal()}>Ajouter</button>
             </div>
-            <div className="menu">
-                <p className='fname'>PRENOM</p>
-                <p className='lname'>NOM</p>
-                <p className='email'>EMAIL</p>
-                <div className='menu_buttons placeholder'>PLUS</div>
-            </div>
+            {displayFilterMenu()}
+            <DataMenu fields={dataMenuFields} sortedOption={sortOptions.sorted} handleToggleOrder={handleToggleOrder} />
             <div className="data">
                 {displayStudents()}
             </div>

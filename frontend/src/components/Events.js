@@ -7,6 +7,7 @@ import Event from './Event';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import apiRequest from '../utils/api-request';
 import usePagination from '../hooks/usePagination';
+import DataMenu from './DataMenu';
 
 const Events = () => {
 
@@ -89,12 +90,7 @@ const Events = () => {
                 <h2>Evènements</h2>
                 <button className='add-btn' onClick={() => openEventModal()}>Ajouter</button>
             </div>
-            <div className="menu">
-                <p className='title'>TITLE</p>
-                <p className='type'>TYPE</p>
-                <p className='date'>DATE D'EVENEMENT</p>
-                <div className='menu_buttons placeholder'>PLUS</div>
-            </div>
+            <DataMenu fields={dataMenuFields} sortedOption={sortOptions.sorted} handleToggleOrder={handleToggleOrder} />
             <div className="data">
                 {displayEvents()}
             </div>
