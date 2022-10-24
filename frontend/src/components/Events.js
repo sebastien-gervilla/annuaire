@@ -9,6 +9,7 @@ import apiRequest from '../utils/api-request';
 import usePagination from '../hooks/usePagination';
 import useSort from '../hooks/useSort';
 import DataMenu from './DataMenu';
+import FilterMenu from './FilterMenu';
 
 const Events = () => {
 
@@ -94,6 +95,7 @@ const Events = () => {
                 <h2>Evènements</h2>
                 <button className='add-btn' onClick={() => openEventModal()}>Ajouter</button>
             </div>
+            <FilterMenu sortOptions={sortOptions} labels={menuLabels} handleChanges={handleChanges} />
             <DataMenu fields={dataMenuFields} sortedOption={sortOptions.sorted} handleToggleOrder={handleToggleOrder} />
             <div className="data">
                 {displayEvents()}
@@ -114,6 +116,13 @@ const dataMenuFields = [
     { name: 'type', label: 'TYPE' },
     { name: 'description', label: 'DESCRIPTION' },
     { name: 'date', label: "DATE D'EVENEMENT" }
+];
+
+const menuLabels = [
+    'Titre',
+    'Type',
+    'Description',
+    "Date d'évènements"
 ];
 
 export default Events;
