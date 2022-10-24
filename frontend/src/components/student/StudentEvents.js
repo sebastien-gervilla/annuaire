@@ -3,8 +3,10 @@ import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import { Modal } from 'skz-ui';
 import useFetch from '../../hooks/useFetch';
 import usePagination from '../../hooks/usePagination';
-import { defaultEvent } from '../../utils/model-defaults';
+import useSort from '../../hooks/useSort';
+import { filterEventOptions } from '../../utils/model-defaults';
 import { calcMaxPage } from '../../utils/useful-functions';
+import DataMenu from '../DataMenu';
 import EventForm from '../event/EventForm';
 import StudentEvent from './StudentEvent';
 
@@ -12,6 +14,9 @@ const StudentEvents = ({ studentId, participations, removeParticipation }) => {
 
     const eventsReq = useFetch('event/events');
     const [events, setEvents] = useState([]);
+
+    const { sortedData, sortOptions, handleChanges, 
+        handleToggleOrder, setOptions } = useSort(events, filterEventOptions);
 
     const pageHandler = usePagination();
 
@@ -35,13 +40,13 @@ const StudentEvents = ({ studentId, participations, removeParticipation }) => {
         });
 
     const displayEvents = () => {
-        if (!events) return;
+        if (!sortedData) return;
 
         const start = 6 * pageHandler.page;
-        const end = (start + 6) > events.length ? 
-            events.length : (start + 6);
+        const end = (start + 6) > sortedData.length ? 
+            sortedData.length : (start + 6);
 
-        const displayedEvents = events.slice(start, end);
+        const displayedEvents = sortedData.slice(start, end);
 
         return displayedEvents.map(event =>
             <StudentEvent key={event._id} 
@@ -71,5 +76,11 @@ const StudentEvents = ({ studentId, participations, removeParticipation }) => {
         </div>
     );
 };
+
+const dataMenuFields = [
+    { name: 'title', label: 'TITRE' },
+    { name: 'type', label: 'TYPE' },
+    { name: 'date', label: "DATE D'EVENEMENT" }
+];
 
 export default StudentEvents;
