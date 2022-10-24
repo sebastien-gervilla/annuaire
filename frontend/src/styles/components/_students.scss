@@ -1,17 +1,64 @@
 .students {
     .fname {
-        width: 17.5%;
+        width: 15%;
     }
 
     .lname {
-        width: 17.5%;
+        width: 15%;
+    }
+
+    .gender {
+        width: 10%;
+    }
+
+    .age {
+        width: 5%;
     }
 
     .email {
-        width: 50%;
+        width: 27.5%;
     }
 
-    .phone {
-        width: 12%;
+    .menu_buttons {
+        width: 7.5%;
+    }
+
+    .multiple-select {
+        width: 27.5%;
+        
+        background-color: transparent;
+        border-bottom: 1px solid $dark-color;
+        box-shadow: none;
+
+        ul {
+            background-color: $light-color;
+        }
+    }
+
+    .pathways {
+        display: flex;
+        width: 20%;
+
+        @include nws-colors;
+        
+        .pathway {
+            @include flex-center;
+
+            width: 1.5vw;
+            height: 1.5vw;
+            margin-right: .5vw; 
+
+            color: $light-color;
+            border-radius: 1.5vw;
+
+            span {
+                @include flex-center;
+
+                width: 50%;
+                height: 50%;
+
+                font-size: .7vw;
+            }
+        }
     }
 }

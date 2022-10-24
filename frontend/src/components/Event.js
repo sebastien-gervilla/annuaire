@@ -19,13 +19,13 @@ const Event = ({ eventInfos, openEventModal, deleteEvent }) => {
 
     const displayEvent = () =>
         Object.entries(eventInfos)
-            .filter(([name, value]) => ['title', 'type', 'date'].includes(name))
+            .filter(([name, value]) => ['title', 'type', 'description', 'date'].includes(name))
             .map(([name, value]) =>
-                <p key={name} className={name + (value ? ' active' : '')}>
+                <p key={name} className={name + ' copyable'}>
                     {name && <span 
                         onMouseOver={handleHoverCopy} 
                         onMouseLeave={handleLeaveCopy}
-                        >{value || 'Indéterminée'}</span>}
+                        >{value || 'Aucune'}</span>}
                 </p>
             );
 
