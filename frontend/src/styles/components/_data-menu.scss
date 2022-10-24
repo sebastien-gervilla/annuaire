@@ -1,0 +1,48 @@
+.data-menu {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 2.5vw;
+    padding: .5vw 2vw;
+    
+    background-color: $light-gray-color;
+    border-top: .1vw solid $mid-gray-color;
+    border-bottom: .1vw solid $mid-gray-color;
+
+    font-size: .8vw;
+
+    .field {
+        display: flex;
+        align-items: center;
+
+        padding-right: 1vw;
+
+        button {
+            display: flex;
+            align-items: center;
+
+            svg {
+                width: 1.15vw;
+                height: 1.15vw;
+
+                color: $dark-color;
+
+                cursor: pointer;
+                transition: .15s ease;
+
+                &:hover { 
+                    color: $main-color;
+                    transition: .15s ease;
+                }
+
+                &.asc, &.desc { color: $main-color; }
+                &.asc { 
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        p { margin-right: .5vw; }
+    }
+}
