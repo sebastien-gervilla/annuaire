@@ -1,7 +1,7 @@
 import React from 'react';
 import MultipleSelect from './MultipleSelect';
 
-const TableSelect = ({ name, tableData, onChangeValues, defaultValues = [] }) => {
+const TableSelect = ({ name, tableData, onChangeValues, defaultValues = [], placeholder = '' }) => {
 
     const getOptions = () => tableData &&
         tableData.map(row => {
@@ -17,6 +17,7 @@ const TableSelect = ({ name, tableData, onChangeValues, defaultValues = [] }) =>
             options={getOptions()}
             onChangeValues={onChangeValues}
             defaultValues={defaultValues}
+            placeholder={placeholder}
         />
     );
 };
