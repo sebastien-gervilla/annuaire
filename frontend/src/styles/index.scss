@@ -6,6 +6,8 @@
 // Layouts
 @import './layouts/login-content';
 @import './layouts/main-content';
+@import './layouts/full-component';
+@import './layouts/half-component';
 
 // Components
 @import './components/header';
@@ -15,8 +17,9 @@
 @import './components/events';
 @import './components/switch-btn';
 @import './components/add-btn';
-@import './components/half-component';
-@import './components/half-component-el';
+@import './components/box-component';
+@import './components/box-component-el';
 @import './components/multiple-select';
 @import './components/student-card';
 @import './components/error-msg';
+@import './components/filter-menu';
