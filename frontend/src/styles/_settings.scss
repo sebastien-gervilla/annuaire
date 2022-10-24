@@ -106,19 +106,40 @@ svg {
     padding: 2vw 0;
 }
 
+@mixin app-component-theme {
+    background-color: $light-color;
+    box-shadow: $main-shadow;
+}
+
 @mixin half-component {
     width: 42.5vw;
     max-height: 37vw;
     height: 37vw;
 
-    background-color: $light-color;
-    box-shadow: $main-shadow;
+    @include app-component-theme;
+}
+
+@mixin full-component {
+    width: 90vw;
+    max-height: 37vw;
+    height: 37vw;
+    margin: 2.5vw 0;
+
+    @include app-component-theme;
 }
 
 @mixin flex-center {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@mixin nws-colors {
+    .Ind { background-color: $dark-color; color: $light-color; }
+    .E-B { background-color: #CA4B38; color: $light-color; }
+    .Dév { background-color: #FEC800; color: $dark-color; }
+    .Com { background-color: #00a5a5; color: $light-color; }
+    .Soc { background-color: #620092; color: $light-color; }
 }
 
 // Other variables
