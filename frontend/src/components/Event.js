@@ -30,7 +30,7 @@ const Event = ({ eventInfos, openEventModal, deleteEvent }) => {
             );
 
     return (
-        <div className="event half-component-el">
+        <div className="event box-component-el">
             {displayEvent()}
             <div className="menu_buttons">
                 <TbEdit className='edit-btn_icon' onClick={handleEditEvent} />

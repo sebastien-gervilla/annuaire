@@ -83,7 +83,7 @@ const Events = () => {
     }
 
     return (
-        <div className="events half-component">
+        <div className="events box-component full-component">
             {displayEventModal()}
             <div className="header">
                 <h2>Evènements</h2>

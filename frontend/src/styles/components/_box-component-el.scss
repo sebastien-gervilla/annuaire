@@ -1,4 +1,4 @@
-.half-component-el {
+.box-component-el {
     position: relative;
     display: flex;
     align-items: center;
@@ -20,7 +20,7 @@
         text-overflow: ellipsis;
         word-break: break-word;
 
-        &.active {
+        &.copyable {
             span {
                 cursor: pointer;
                 transition: .15s ease;

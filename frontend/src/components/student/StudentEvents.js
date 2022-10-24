@@ -52,7 +52,7 @@ const StudentEvents = ({ studentId, participations, removeParticipation }) => {
     }
 
     return (
-        <div className="events half-component">
+        <div className="student-events box-component half-component">
             <div className="header">
                 <h2>Evènements</h2>
                 <button className='add-btn'>Ajouter</button>

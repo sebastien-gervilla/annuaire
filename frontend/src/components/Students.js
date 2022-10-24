@@ -83,7 +83,7 @@ const Students = () => {
     }
 
     return (
-        <div className="students half-component">
+        <div className="students box-component full-component has-filter">
             {displayStudentModal()}
             <div className="header">
                 <h2>Elèves</h2>

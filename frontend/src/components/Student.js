@@ -35,6 +35,7 @@ const Student = ({ studentInfos, openStudentModal, deleteStudent }) => {
 
     return (
         <div className="student half-component-el">
+        <div className="student box-component-el">
             {displayStudent()}
 
             <div className="menu_buttons">
