@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
-import { Modal } from 'skz-ui';
 import useFetch from '../../hooks/useFetch';
 import usePagination from '../../hooks/usePagination';
 import useSort from '../../hooks/useSort';
 import { filterEventOptions } from '../../utils/model-defaults';
-import { calcMaxPage } from '../../utils/useful-functions';
 import DataMenu from '../DataMenu';
-import EventForm from '../event/EventForm';
 import StudentEvent from './StudentEvent';
 
 const StudentEvents = ({ studentId, participations, removeParticipation }) => {

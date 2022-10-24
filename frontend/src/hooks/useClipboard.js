@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function useClipboard(timeout = 150) {
     const [anchor, setAnchor] = useState(null);
