@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import useFetch from '../hooks/useFetch';
 import { Modal } from 'skz-ui';
-import { defaultEvent } from '../utils/model-defaults';
+import { defaultEvent, filterEventOptions } from '../utils/model-defaults';
 import EventForm from './event/EventForm';
 import Event from './Event';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import apiRequest from '../utils/api-request';
 import usePagination from '../hooks/usePagination';
+import useSort from '../hooks/useSort';
+import DataMenu from './DataMenu';
 
 const Events = () => {
 
     const eventsReq = useFetch('event/events');
     const [events, setEvents] = useState([]);
+
+    const { sortedData, sortOptions, handleChanges, 
+        handleToggleOrder, setOptions } = useSort(events, filterEventOptions);
 
     const pageHandler = usePagination();
 
@@ -58,13 +63,13 @@ const Events = () => {
         />
 
     const displayEvents = () => {
-        if (!events) return;
+        if (!sortedData) return;
 
         const start = 6 * pageHandler.page;
-        const end = (start + 6) > events.length ? 
-            events.length : (start + 6);
+        const end = (start + 6) > sortedData.length ? 
+            sortedData.length : (start + 6);
 
-        const displayedEvents = events.slice(start, end);
+        const displayedEvents = sortedData.slice(start, end);
 
         return displayedEvents.map(event =>
             <Event key={event._id} 
@@ -83,18 +88,13 @@ const Events = () => {
     }
 
     return (
-        <div className="events half-component">
+        <div className="events box-component full-component">
             {displayEventModal()}
             <div className="header">
                 <h2>Evènements</h2>
                 <button className='add-btn' onClick={() => openEventModal()}>Ajouter</button>
             </div>
-            <div className="menu">
-                <p className='title'>TITLE</p>
-                <p className='type'>TYPE</p>
-                <p className='date'>DATE D'EVENEMENT</p>
-                <div className='menu_buttons placeholder'>PLUS</div>
-            </div>
+            <DataMenu fields={dataMenuFields} sortedOption={sortOptions.sorted} handleToggleOrder={handleToggleOrder} />
             <div className="data">
                 {displayEvents()}
             </div>
@@ -108,5 +108,12 @@ const Events = () => {
         </div>
     );
 };
+
+const dataMenuFields = [
+    { name: 'title', label: 'TITRE' },
+    { name: 'type', label: 'TYPE' },
+    { name: 'description', label: 'DESCRIPTION' },
+    { name: 'date', label: "DATE D'EVENEMENT" }
+];
 
 export default Events;

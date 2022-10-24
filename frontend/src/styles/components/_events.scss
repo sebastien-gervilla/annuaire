@@ -1,13 +1,21 @@
 .events {
     .title {
-        width: 35%;
-    }
-
-    .type {
         width: 20%;
     }
 
+    .type {
+        width: 15%;
+    }
+
+    .description {
+        width: 40%;
+    }
+
     .date {
-        width: 30%;
+        width: 20%;
+    }
+
+    .menu_buttons {
+        width: 5%;
     }
 }

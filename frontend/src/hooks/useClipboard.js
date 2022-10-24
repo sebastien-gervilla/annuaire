@@ -20,8 +20,10 @@ export default function useClipboard(timeout = 150) {
         msg.classList.add('copy-msg');
         msg.textContent = 'Copier';
         const rect = anchor.getBoundingClientRect();
-        msg.style.left = (rect.x + rect.width * 2 / 3) + 'px';
-        msg.style.top = (rect.y + rect.height * 1.5) + 'px';
+        const rectX = rect.x + window.scrollX;
+        const rectY = rect.y + window.scrollY;
+        msg.style.left = (rectX + rect.width * 2 / 3) + 'px';
+        msg.style.top = (rectY + rect.height * 1.5) + 'px';
         document.body.appendChild(msg);
         messageRef.current = msg;
         setTimeout(() => msg.classList.add('appear'), timeout);

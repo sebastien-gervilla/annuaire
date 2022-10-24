@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import useFetch from '../hooks/useFetch';
 import { Modal } from 'skz-ui';
-import { defaultStudent } from '../utils/model-defaults';
+import { defaultStudent, filterStudentOptions } from '../utils/model-defaults';
 import StudentForm from './student/StudentForm';
 import Student from './Student';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import apiRequest from '../utils/api-request';
 import usePagination from '../hooks/usePagination';
+import useSort from '../hooks/useSort';
+import FilterMenu from './FilterMenu';
+import DataMenu from './DataMenu';
+import TableSelect from './TableSelect';
 
 const Students = () => {
 
+    const specsReq = useFetch('specialization/specializations');
     const studentsReq = useFetch('student/students');
     const [students, setStudents] = useState([]);
+
+    const { sortedData, sortOptions, handleChanges, 
+        handleToggleOrder, setOptions } = useSort(students, filterStudentOptions);
 
     const pageHandler = usePagination();
 
@@ -58,22 +66,34 @@ const Students = () => {
         />
 
     const displayStudents = () => {
-        if (!students) return;
+        if (!sortedData) return;
 
         const start = 6 * pageHandler.page;
-        const end = (start + 6) > students.length ? 
-            students.length : (start + 6);
+        const end = (start + 6) > sortedData.length ? 
+            sortedData.length : (start + 6);
 
-        const displayedStudents = students.slice(start, end);
+        const displayedStudents = sortedData.slice(start, end);
 
         return displayedStudents.map(student =>
             <Student key={student._id} 
                 studentInfos={student}
+                specs={specsReq.data?.body}
                 openStudentModal={openStudentModal}
                 deleteStudent={deleteStudent}
             />
         )
     }
+
+    const displayFilterMenu = () => {
+        if (!sortOptions) return;
+        const {pathways, ...options} = sortOptions;
+        return (<FilterMenu sortOptions={options} labels={menuLabels} handleChanges={handleChanges} customInputs={[
+            <TableSelect key={'pathways'} name={'pathways'} placeholder={'Filières'}
+            tableData={specsReq.data?.body} onChangeValues={onChangePathwaysValues} />
+        ]} />)
+    }
+
+    const onChangePathwaysValues = (name, values) => setOptions(name, values);
 
     // Api calls
 
@@ -83,18 +103,14 @@ const Students = () => {
     }
 
     return (
-        <div className="students half-component">
+        <div className="students box-component full-component has-filter">
             {displayStudentModal()}
             <div className="header">
                 <h2>Elèves</h2>
                 <button className='add-btn' onClick={() => openStudentModal()}>Ajouter</button>
             </div>
-            <div className="menu">
-                <p className='fname'>PRENOM</p>
-                <p className='lname'>NOM</p>
-                <p className='email'>EMAIL</p>
-                <div className='menu_buttons placeholder'>PLUS</div>
-            </div>
+            {displayFilterMenu()}
+            <DataMenu fields={dataMenuFields} sortedOption={sortOptions.sorted} handleToggleOrder={handleToggleOrder} />
             <div className="data">
                 {displayStudents()}
             </div>
@@ -108,5 +124,22 @@ const Students = () => {
         </div>
     );
 };
+
+const dataMenuFields = [
+    { name: 'fname', label: 'PRENOM' },
+    { name: 'lname', label: 'NOM' },
+    { name: 'age', label: 'AGE' },
+    { name: 'gender', label: 'SEXE' },
+    { name: 'email', label: 'EMAIL' },
+    { name: 'pathways', label: 'FILIERES' },
+];
+
+const menuLabels = [
+    'Prénom',
+    'Nom',
+    'Age',
+    'Sexe',
+    'Email'
+];
 
 export default Students;

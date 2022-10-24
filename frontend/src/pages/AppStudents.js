@@ -11,8 +11,8 @@ const AppStudents = () => {
             <div className="main-area">
                 <div className="main-content">
 
-                    <Events />
                     <Students />
+                    <Events />
 
                 </div>
             </div>

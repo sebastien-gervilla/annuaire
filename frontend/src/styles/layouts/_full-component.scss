@@ -1,0 +1,8 @@
+.full-component {
+    @include full-component;
+
+    &.has-filter {
+        max-height: 40.5vw;
+        height: 40.5vw;
+    }
+}

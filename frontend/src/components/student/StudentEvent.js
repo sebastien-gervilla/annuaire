@@ -53,7 +53,7 @@ const StudentEvent = ({ eventInfos, openEventModal, removeParticipation }) => {
             );
 
     return (
-        <div className="event half-component-el">
+        <div className="event box-component-el">
             {displayEvent()}
             <div className="menu_buttons">
                 <IoRemoveCircleOutline className='del-btn_icon' onClick={handleRemoveParticipation} />

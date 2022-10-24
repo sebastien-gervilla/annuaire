@@ -3,7 +3,7 @@ import useArray from '../hooks/useArray';
 import { IoClose } from 'react-icons/io5';
 import { BiChevronDown } from 'react-icons/bi';
 
-const MultipleSelect = ({ name, options, onChangeValues, defaultValues = [] }) => {
+const MultipleSelect = ({ name, options, onChangeValues, defaultValues = [], placeholder = '' }) => {
 
     const values = useArray(defaultValues || []);
     const [openSelect, setOpenSelect] = useState(false);
@@ -45,9 +45,9 @@ const MultipleSelect = ({ name, options, onChangeValues, defaultValues = [] }) =
         );
 
     return (
-        <div className="multiple-select">
+        <div className={"multiple-select"}>
             <div className="select-bar" onClick={handleToggleSelect}>
-                <p>{displayValues()}</p>
+                <p>{displayValues() || placeholder}</p>
             </div>
             <div className="buttons">
                 <IoClose className='reset-multiple-select' onClick={handleResetValues} />
