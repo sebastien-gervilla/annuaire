@@ -71,10 +71,12 @@ const AppStudent = () => {
             <div className="main-area">
                 <div className="main-content">
 
-                    <StudentCard studentInfos={studentReq.data?.body} openStudentModal={openStudentModal} />
-                    <StudentEvents studentId={studentReq.data?.body?._id} 
-                    participations={getParticipations()}
-                    removeParticipation={removeParticipation} />
+                    <div className="row">
+                        <StudentCard studentInfos={studentReq.data?.body} openStudentModal={openStudentModal} />
+                        <StudentEvents studentId={studentReq.data?.body?._id} 
+                        participations={getParticipations()}
+                        removeParticipation={removeParticipation} />
+                    </div>
 
                 </div>
             </div>
