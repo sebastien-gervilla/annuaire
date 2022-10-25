@@ -91,6 +91,7 @@ class ParticipationController {
 
             $oldParticipations = ParticipationManager::getStudentParticipations($studentId);
             foreach ($oldParticipations as $oldParticipation) {
+                if (in_array($oldParticipation['event_id'], $newParticipations)) continue;
                 $oldParticipation = new Participation(
                     $oldParticipation['student_id'],
                     $oldParticipation['event_id']
@@ -98,7 +99,9 @@ class ParticipationController {
                 ParticipationManager::deleteParticipationRequest($oldParticipation);
             }
 
+            $oldParticipationsIds = filterArrayList($oldParticipations, 'event_id');
             foreach ($newParticipations as $eventId) {
+                if (in_array($eventId, $oldParticipationsIds)) continue;
                 $NewParticipation = new Participation($studentId, $eventId);
                 $error = findModelValidationsError($NewParticipation->getValidations());
                 if ($error) return new Response(400, false, $error);

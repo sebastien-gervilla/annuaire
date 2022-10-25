@@ -16,6 +16,7 @@
 
     --error-color: rgb(195, 41, 10);
     --warning-color: rgb(224, 167, 11);
+    --placeholder-color: #6d6765;
 }
 
 .dark-mode {
@@ -23,8 +24,10 @@
     --dark-color: #F1F1F1;
     --gray-color: #171721;
     --mid-gray-color: #c4bfbb;
-    --light-gray-color: #565250;
+    --light-gray-color: #4c4c4e;
     --light-color: #34343C;
+
+    --placeholder-color: #dcd9d8;
 
     transition: .2s ease;
 }
@@ -39,6 +42,7 @@ $light-gray-color: var(--light-gray-color);
 
 $error-color: var(--error-color);
 $warning-color: var(--warning-color);
+$placeholder-color: var(--placeholder-color);
 
 $replace-font: Helvetica, Arial, sans-serif;
 $main-font: 'RobotoRegular', $replace-font;

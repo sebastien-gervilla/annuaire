@@ -9,7 +9,7 @@ import TransferSelect from '../TransferSelect';
 const ParticipationForm = ({ studentId, method, closeModal, onSubmit }) => {
 
     const eventsReq = useFetch("event/events");
-    const participationsReq = useFetch("participation/participations/?studentId=" + studentId);
+    const participationsReq = useFetch("participation/participation/?studentId=" + studentId);
 
     const selectedEvents = useArray([]);
     const [error, setError] = useState(null);
