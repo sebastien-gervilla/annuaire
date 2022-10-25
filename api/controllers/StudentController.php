@@ -59,6 +59,9 @@ class StudentController {
             $error = findModelValidationsError($NewStudent->getValidations());
             if ($error) return new Response(400, false, $error);
 
+            $student = StudentManager::getStudentByEmail($student['email']);
+            if ($student) return new Response(400, false, "Email déjà enregistrée.");
+
             StudentManager::createStudentRequest($NewStudent);
             $studentId = StudentManager::getLastCreatedStudentId();
             $body = array("data" => $student);
