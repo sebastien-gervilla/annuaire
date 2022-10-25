@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { IoRemoveCircleOutline } from 'react-icons/io5';
 import useClipboard from '../../hooks/useClipboard';
 
