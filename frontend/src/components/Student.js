@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { AiFillDelete, AiOutlineInfoCircle } from 'react-icons/ai';
 import { TbEdit } from 'react-icons/tb';
 import useClipboard from '../hooks/useClipboard';
-import useFetch from '../hooks/useFetch';
 
 const Student = ({ studentInfos, specs, openStudentModal, deleteStudent }) => {
 

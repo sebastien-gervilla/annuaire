@@ -48,6 +48,7 @@
                 transition: .1s ease;
             }
 
+            &.info-btn_icon:hover { color: #3794F2; }
             &.edit-btn_icon:hover { color: #3794F2; }
             &.del-btn_icon:hover { color: $secondary-color; }
         }

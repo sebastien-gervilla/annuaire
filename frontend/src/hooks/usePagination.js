@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function usePagination(pageSize = 6) {
     const [pagination, setPagination] = useState({
