@@ -12,6 +12,14 @@
         .brand {
             display: flex;
             align-items: center;
+
+            img {
+                width: 2.5vw;
+                height: 2.5vw;
+                margin-right: 1vw;
+
+                cursor: pointer;
+            }
             
             h1 {
                 font-size: 1.4vw;

@@ -37,7 +37,8 @@ const Header = () => {
         <div className="app-header">
             <div className="header-content">
                 <div className="brand">
-                    <h1 onClick={() => navigate('/')}>Annuaire NWS</h1>
+                    <img onClick={() => navigate('/')} src="/assets/images/logo.png" alt="Directory icon" />
+                    <h1 onClick={() => navigate('/')}>Annuaire</h1>
                 </div>
                 <div className="buttons">
                     <button>{displayDarkModeIcon()}</button>

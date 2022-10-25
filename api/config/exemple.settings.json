@@ -1,0 +1,11 @@
+{
+    "developpement": {
+        "apiURL": "/annuaire/api/",
+        "database": {
+            "host": "localhost",
+            "name": "database-name",
+            "username": "",
+            "password": ""
+        }
+    }
+}

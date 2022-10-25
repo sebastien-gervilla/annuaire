@@ -1,12 +1,12 @@
 /* -- DATABASE CREATION -- */
 
-/* You can modify 'annuaire_nws' by your desired database name. */
+/* You can modify 'annuaire' by your desired database name. */
 /* If you do, keep in mind you'll have to update your '.env' and 'settings.json' files accordingly. */
 
-DROP DATABASE IF EXISTS `annuaire_nws`;
-CREATE DATABASE `annuaire_nws` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+DROP DATABASE IF EXISTS `annuaire`;
+CREATE DATABASE `annuaire` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
-USE `annuaire_nws`;
+USE `annuaire`;
 
 /* -- TABLES CREATION - Don't modify anything below ! -- */
 

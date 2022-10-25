@@ -1,4 +1,4 @@
-# Annuaire NWS
+# Annuaire
 
 ## The project
 
@@ -32,7 +32,7 @@ during events like open days.
 (Then rename it to `.env`)
 
 -> Create the database using the SQL Script : `db.sql` in /scripts \
-(Careful : If you already have a database named `annuaire_nws`, \
+(Careful : If you already have a database named `annuaire`, \
 you may want to change it, as it will overwrite it.)
 
 -> Fill the `settings.exemple.json` in /api/config \
@@ -59,17 +59,19 @@ you may want to change it, as it will overwrite it.)
 
 ## Technologies
 
-## Front-end
+### Front-end
 
 -> HTML / CSS \
 -> JavaScript \
 -> React
 
-## Back-end
+### Back-end
 
 -> PHP (v. 8.1.0) \
 -> MySQL (v. 8.0.27) \
--> Wampserver (v. 3.2.6)
+-> Wampserver (v. 3.2.6) \
+(You can also use other servers, \
+ex: Xampp, Mamp, Lamp...)
 
 
 ## Miscellaneous
