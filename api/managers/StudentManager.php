@@ -61,7 +61,8 @@ class StudentManager {
         WHERE student.email = :email";
         $sth = $dbh->prepare($request);
         $sth->execute(['email' => $email]);
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
+        $student = $sth->fetchAll(PDO::FETCH_ASSOC);
+        return count($student) > 0 ? $student[0] : null;
     }
 
     #endregion
