@@ -55,6 +55,16 @@ class StudentManager {
         return count($student) > 0 ? $student[0] : null;
     }
 
+    public static function getStudentByEmail(string $email) {
+        $dbh = DatabaseHandler::connect();
+        $request = "SELECT * FROM `student`
+        WHERE student.email = :email";
+        $sth = $dbh->prepare($request);
+        $sth->execute(['email' => $email]);
+        $student = $sth->fetchAll(PDO::FETCH_ASSOC);
+        return count($student) > 0 ? $student[0] : null;
+    }
+
     #endregion
 
     #region POST

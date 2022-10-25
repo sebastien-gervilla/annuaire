@@ -119,6 +119,7 @@ const Students = () => {
                     <button className='switch-btn' onClick={pageHandler.prevPage} value="-1"><VscChevronLeft/></button>
                     <button className='switch-btn' onClick={pageHandler.nextPage} value="1"><VscChevronRight/></button>
                 </div>
+                <p className='total'>{sortedData.length + " élèves enregistrés."}</p>
                 <p>Page {pageHandler.page + 1} / {pageHandler.maxPage || 1}</p>
             </div>
         </div>

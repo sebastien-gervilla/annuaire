@@ -59,9 +59,12 @@ class StudentController {
             $error = findModelValidationsError($NewStudent->getValidations());
             if ($error) return new Response(400, false, $error);
 
+            $checkedStudent = StudentManager::getStudentByEmail($student['email']);
+            if ($checkedStudent) return new Response(400, false, "Email déjà enregistrée.");
+
             StudentManager::createStudentRequest($NewStudent);
             $studentId = StudentManager::getLastCreatedStudentId();
-            $body = array("data" => $student);
+            $body = array("data" => $NewStudent->getModel());
             $res = EntryYearController::createEntryYears($entryYears, $studentId);
             if ($res->getStatus() != 200) return $res;
 
@@ -109,6 +112,10 @@ class StudentController {
             $error = findModelValidationsError($NewStudent->getValidations());
             if ($error) return new Response(400, false, $error);
 
+            $checkedStudent = StudentManager::getStudentByEmail($newStudent['email']);
+            if ($checkedStudent && $checkedStudent['_id'] !== $studentId) 
+                return new Response(400, false, "Email déjà enregistrée.", $checkedStudent);
+
             StudentManager::modifyStudentRequest($NewStudent);
 
             $res = EntryYearController::modifyStudentEntryYears($entryYears, $studentId);
@@ -123,7 +130,7 @@ class StudentController {
             return new Response(200, true, "Elève modifié avec succès.", array("data" => $student));
         } catch (Error $error) {
             return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
-                "error" => $error
+                "data" => $checkedStudent
             ));
         }
     }

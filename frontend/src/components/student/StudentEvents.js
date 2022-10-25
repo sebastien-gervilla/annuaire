@@ -47,7 +47,7 @@ const StudentEvents = ({ studentId, participations, removeParticipation, openPar
         return displayedEvents.map(event =>
             <StudentEvent key={event._id} 
                 eventInfos={event}
-                removeParticipation={(() => removeParticipation(event._id, studentId))}
+                removeParticipation={() => removeParticipation(event._id, studentId)}
             />
         )
     }
