@@ -98,6 +98,23 @@ svg {
     color: $dark-color;
 }
 
+::-webkit-scrollbar {
+    width: .5vw;
+  }
+  
+::-webkit-scrollbar-track {
+    background: $light-color;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #777;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+    background: $dark-color;
+}
+
 // Mixins
 
 @mixin app-content {
