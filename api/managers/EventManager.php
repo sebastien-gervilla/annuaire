@@ -9,7 +9,7 @@ class EventManager {
     public static function getColumnsNames() {
         $dbh = DatabaseHandler::connect();
         $request = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS 
-        WHERE TABLE_SCHEMA = 'annuaire_nws' AND TABLE_NAME = 'event'";
+        WHERE TABLE_NAME = 'event'";
         $columns = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
         $columnNames = [];
         foreach ($columns as $column) {

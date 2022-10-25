@@ -1,4 +1,4 @@
-# Annuaire NWS
+# Annuaire
 
 ## The project
 
@@ -32,7 +32,7 @@ during events like open days.
 (Then rename it to `.env`)
 
 -> Create the database using the SQL Script : `db.sql` in /scripts \
-(Careful : If you already have a database named `annuaire_nws`, \
+(Careful : If you already have a database named `annuaire`, \
 you may want to change it, as it will overwrite it.)
 
 -> Fill the `settings.exemple.json` in /api/config \
