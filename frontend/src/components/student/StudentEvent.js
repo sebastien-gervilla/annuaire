@@ -43,7 +43,7 @@ const StudentEvent = ({ eventInfos, openEventModal, removeParticipation }) => {
         Object.entries(eventInfos)
             .filter(([name, value]) => ['title', 'type', 'date'].includes(name))
             .map(([name, value]) =>
-                <p key={name} className={name + (value ? ' active' : '')}>
+                <p key={name} className={name + ' copyable'}>
                     {name && <span 
                         onMouseOver={handleHoverCopy} 
                         onMouseLeave={handleLeaveCopy}
