@@ -59,17 +59,19 @@ you may want to change it, as it will overwrite it.)
 
 ## Technologies
 
-## Front-end
+### Front-end
 
 -> HTML / CSS \
 -> JavaScript \
 -> React
 
-## Back-end
+### Back-end
 
 -> PHP (v. 8.1.0) \
 -> MySQL (v. 8.0.27) \
--> Wampserver (v. 3.2.6)
+-> Wampserver (v. 3.2.6) \
+(You can also use other servers, \
+ex: Xampp, Mamp, Lamp...)
 
 
 ## Miscellaneous
