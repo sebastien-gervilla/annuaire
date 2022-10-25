@@ -42,6 +42,7 @@
         @include nws-colors;
         
         .pathway {
+            position: relative;
             @include flex-center;
 
             width: 1.5vw;
@@ -49,6 +50,8 @@
             margin-right: .5vw; 
 
             border-radius: 1.5vw;
+
+            cursor: pointer;
 
             span {
                 @include flex-center;
@@ -58,6 +61,36 @@
 
                 font-size: .7vw;
             }
+
+            &::after {
+                position: absolute;
+                top: 120%;
+                left: 120%;
+
+                padding: .25vw .5vw;
+
+                visibility: hidden;
+                opacity: 0;
+                color: $light-color;
+                background-color: $dark-color;
+
+                font-size: .9vw;
+
+                transition: .15s ease;
+                pointer-events: none;
+            }
+
+            &:hover::after {
+                visibility: visible;
+                opacity: 1;
+                transition: .15s ease;
+            }
+
+            &.Ind::after { content: 'Indéterminé'; }
+            &.E-B::after { content: 'E-Business'; width: 4.5vw; }
+            &.Dév::after { content: 'Dev'; }
+            &.Com::after { content: 'CG'; }
+            &.Soc::after { content: 'SMM'; }
         }
     }
 }
