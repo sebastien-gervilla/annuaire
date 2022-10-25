@@ -1,0 +1,12 @@
+THESES ARE THE DEFAULT LOGS FOR THE APPLICATION :
+
+- Email : admin@ex.com
+- Password : admin
+
+ADDING MORE USERS TO THE APPLICATION :
+
+-> Open the terminal
+
+-> Make sure you're in the root folder
+
+-> run `php script .\scripts\add-user.php`
