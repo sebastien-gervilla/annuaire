@@ -47,15 +47,15 @@ you may want to change it, as it will overwrite it.)
 
 ## Front-end
 
--> HTML / CSS
--> JavaScript
--> React
+-> HTML / CSS\
+-> JavaScript\
+-> React\
 
 ## Back-end
 
--> PHP (v. 8.1.0)
--> MySQL (v. 8.0.27)
--> Wampserver (v. 3.2.6)
+-> PHP (v. 8.1.0)\
+-> MySQL (v. 8.0.27)\
+-> Wampserver (v. 3.2.6)\
 
 
 ## Miscellaneous
