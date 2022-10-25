@@ -35,7 +35,7 @@ during events like open days.
 (Careful : If you already have a database named `annuaire`, \
 you may want to change it, as it will overwrite it.)
 
--> Fill the `settings.exemple.json` in /api/config \
+-> Fill the `exemple.settings.json` in /api/config \
 (Then rename it to `settings.json`)
 
 -> Make sure you have all the right versions or above \
