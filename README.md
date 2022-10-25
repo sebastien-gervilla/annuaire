@@ -4,8 +4,8 @@
 
 ### About
 
-This was initially a school project that I decided to upgrade.
-It's a directory application meant to help schools register users
+This was initially a school project that I decided to upgrade. \
+It's a directory application meant to help schools register users \
 during events like open days.
 
 ### Features
@@ -38,6 +38,9 @@ you may want to change it, as it will overwrite it.)
 -> Fill the `settings.exemple.json` in /api/config \
 (Then rename it to `settings.json`)
 
+-> Make sure you have all the right versions or above \
+(See [Technologies](#technologies) below)
+
 -> Default App logs in `/scripts/logs.txt`
 
 ### Running
@@ -54,7 +57,7 @@ you may want to change it, as it will overwrite it.)
 -> You're good to go !
 
 
-## Techologies
+## Technologies
 
 ## Front-end
 
