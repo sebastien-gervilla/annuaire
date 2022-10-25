@@ -22,13 +22,23 @@ class User {
     private function setValidations() {
         $this->validations = array(
             'Email' => [validEmail($this->email)],
-            'Mot de passe' => [minLength($this->password, 10)]
+            'Mot de passe' => [minLength($this->password, 8)]
         );
+    }
+
+    public function hashPassword() {
+        if (!$this->password) return;
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
     }
 
     public function getValidations() {
         return $this->validations;
     }
 
-    public function getModel() { return $this->user; }
+    public function getModel() { 
+        return array(
+            'email' => $this->email,
+            'password' => $this->password
+        ); 
+    }
 }
