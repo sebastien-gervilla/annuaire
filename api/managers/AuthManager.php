@@ -27,6 +27,28 @@ class AuthManager {
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function getUserByEmail(string $email) {
+        $dbh = DatabaseHandler::connect();
+        $request = "SELECT * FROM `user`
+        WHERE user.email = :email";
+        $sth = $dbh->prepare($request);
+        $sth->execute(['email' => $email]);
+        $user = $sth->fetchAll(PDO::FETCH_ASSOC);
+        return count($user) > 0 ? $user[0] : null;
+    }
+
+    #endregion
+
+    #region POST
+
+    public static function createUserRequest(User $User) {
+        $dbh = DatabaseHandler::connect();
+        $request = "INSERT INTO user (email, password) 
+        VALUES (:email, :password)";
+        $sth = $dbh->prepare($request);
+        $sth->execute($User->getModel());
+    }
+
     #endregion
 
 }

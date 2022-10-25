@@ -87,6 +87,39 @@ class AuthController {
         }
     }
 
+    public static function createUser(array $user): Response {
+        try {
+            if (!$user) return new Response(400, false, "Aucun utilisateur donné.");
+
+            $columns = AuthManager::getColumnsNames();
+            if (!formMatchesTable($user, $columns))
+                return new Response(400, false, "Le formulaire ne correspond pas à la table.", array(
+                    "data" => $user
+                ));
+
+            if (!isFormFilled($user, [])) {
+                return new Response(400, false, "Tous les champs requis ne sont pas remplis.");
+            }
+
+            $chechUser = AuthManager::getUserByEmail($user['email']);
+            if ($chechUser) return new Response(400, false, "Email déjà enregistrée.", $chechUser);
+
+            $user = trimArray($user);
+            $User = new User($user);
+            $error = findModelValidationsError($User->getValidations());
+            if ($error) return new Response(400, false, $error);
+
+            $User->hashPassword();
+            AuthManager::createUserRequest($User);
+
+            return new Response(200, true, "Utilisateur créé avec succès.", $user);
+        } catch (Error $error) {
+            return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
+                "error" => $error
+            ));
+        }
+    }
+
     #endregion
 
 }
