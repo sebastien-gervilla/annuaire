@@ -32,11 +32,11 @@
                 transition: .15s ease;
 
                 &:hover { 
-                    color: $main-color;
+                    color: #3794F2;
                     transition: .15s ease;
                 }
 
-                &.asc, &.desc { color: $main-color; }
+                &.asc, &.desc { color: #3794F2; }
                 &.asc { 
                     transform: rotate(180deg);
                 }
