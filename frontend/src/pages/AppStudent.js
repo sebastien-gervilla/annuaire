@@ -4,11 +4,12 @@ import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import StudentCard from '../components/student/StudentCard';
 import useFetch from '../hooks/useFetch';
-import { defaultStudent } from '../utils/model-defaults';
+import { defaultEvent, defaultStudent } from '../utils/model-defaults';
 import StudentForm from '../components/student/StudentForm';
 import StudentEvents from '../components/student/StudentEvents';
 import apiRequest from '../utils/api-request';
 import { toTimeFormat } from '../utils/useful-functions';
+import ParticipationForm from '../components/student/ParticipationForm';
 
 const AppStudent = () => {
 
@@ -21,6 +22,13 @@ const AppStudent = () => {
         isOpen: false,
         method: 'PUT',
         closeModal: () => setStudentModal({...studentModal, isOpen: false})
+    });
+
+    const [participationModal, setParticipationModal] = useState({
+        student: defaultEvent,
+        isOpen: false,
+        method: 'POST',
+        closeModal: () => setParticipationModal(prev => { return {...prev, isOpen: false} })
     });
 
     const openStudentModal = (student = defaultStudent, method = 'PUT') =>
@@ -56,6 +64,28 @@ const AppStudent = () => {
         )?.date) };
     });
 
+    const openParticipationModal = (event = defaultEvent, method = 'POST') =>
+        setParticipationModal({
+            ...participationModal,
+            isOpen: true,
+            event,
+            method
+        });
+
+    const displayParticipationModal = () =>
+        <Modal 
+            open={participationModal.isOpen} 
+            onClose={participationModal.closeModal} 
+            body={
+                <ParticipationForm 
+                    studentId={id}
+                    method={participationModal.method}
+                    closeModal={participationModal.closeModal}
+                    onSubmit={onSubmitModal}
+                />
+            } 
+        />
+
     // Api calls
 
     const removeParticipation = async (eventId, studentId) => {
@@ -68,6 +98,7 @@ const AppStudent = () => {
         <section id="student-page">
             <Header />
             {displayStudentModal()}
+            {displayParticipationModal()}
             <div className="main-area">
                 <div className="main-content">
 
@@ -75,7 +106,8 @@ const AppStudent = () => {
                         <StudentCard studentInfos={studentReq.data?.body} openStudentModal={openStudentModal} />
                         <StudentEvents studentId={studentReq.data?.body?._id} 
                         participations={getParticipations()}
-                        removeParticipation={removeParticipation} />
+                        removeParticipation={removeParticipation}
+                        openParticipationModal={openParticipationModal} />
                     </div>
 
                 </div>

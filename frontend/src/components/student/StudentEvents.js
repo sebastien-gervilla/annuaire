@@ -7,20 +7,19 @@ import { filterEventOptions } from '../../utils/model-defaults';
 import DataMenu from '../DataMenu';
 import StudentEvent from './StudentEvent';
 
-const StudentEvents = ({ studentId, participations, removeParticipation }) => {
+const StudentEvents = ({ studentId, participations, removeParticipation, openParticipationModal }) => {
 
     const eventsReq = useFetch('event/events');
     const [events, setEvents] = useState([]);
 
-    const { sortedData, sortOptions, handleChanges, 
-        handleToggleOrder, setOptions } = useSort(events, filterEventOptions);
+    const { sortedData, sortOptions, handleToggleOrder } = useSort(events, filterEventOptions);
 
     const pageHandler = usePagination();
 
     useEffect(() => {
         const body = eventsReq.data?.body;
         if (!body) return;
-        setEvents(getEvents());
+        setEvents(getParticipations());
         pageHandler.updateMax(body.length);
     }, [eventsReq.data, participations]);
 
@@ -30,7 +29,7 @@ const StudentEvents = ({ studentId, participations, removeParticipation }) => {
         pageHandler.refreshPage(body.length);
     }, [pageHandler.maxPage]);
 
-    const getEvents = () => participations && eventsReq.data?.body && 
+    const getParticipations = () => participations && eventsReq.data?.body && 
         participations.map(participation => {
             const event = eventsReq.data.body.find(event => event._id === participation._id);
             return {...event, date: participation.date};
@@ -57,7 +56,7 @@ const StudentEvents = ({ studentId, participations, removeParticipation }) => {
         <div className="student-events box-component half-component">
             <div className="header">
                 <h2>Evènements</h2>
-                <button className='add-btn'>Ajouter</button>
+                <button className='add-btn' onClick={openParticipationModal}>Ajouter</button>
             </div>
             <DataMenu fields={dataMenuFields} sortedOption={sortOptions.sorted} handleToggleOrder={handleToggleOrder} />
             <div className="data">
