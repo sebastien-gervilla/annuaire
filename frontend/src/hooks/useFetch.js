@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 export default function useFetch(defUrl, defOptions = {}) {
     const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [relUrl, setRelUrl] = useState(defUrl);
 
@@ -13,6 +14,7 @@ export default function useFetch(defUrl, defOptions = {}) {
         const fullUrl = process.env.REACT_APP_API_PATH + url;
 
         setIsLoading(true);
+        setError(null);
         const options = {
             ...defOptions,
             signal: signal
@@ -24,6 +26,7 @@ export default function useFetch(defUrl, defOptions = {}) {
             setData(json);
         } catch (error) {
             console.log("Error while fetching with url : ", url, error);
+            setError(error);
         } finally {
             setIsLoading(false);
         }
@@ -35,5 +38,5 @@ export default function useFetch(defUrl, defOptions = {}) {
         doFetch();
     }, []);
 
-    return { data, isLoading, doFetch, changeRelUrl };
+    return { data, error, isLoading, doFetch, changeRelUrl };
 }

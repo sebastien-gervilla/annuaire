@@ -8,6 +8,9 @@ require_once __DIR__ .'/../../controllers/AuthController.php';
 function useAuthGetRoutes(string $endpoint, array|null $body): Response
 {
     switch ($endpoint) {
+        case 'users':
+            return Router::get(function () { return AuthController::getAllUsers(); });
+
         case 'isauth':
             $token = Request::getParam('token');
             return Router::get(function () use($token) { return AuthController::isAuth($token); });
