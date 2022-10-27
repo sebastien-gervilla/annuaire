@@ -12,7 +12,7 @@ export default function useAuth(needAdmin = false) {
         if (authReq.data.status !== 200) navigate('/login');
         if (needAdmin) {
             const body = authReq.data?.body;
-            !body.is_admin && navigate('/login');
+            !body?.is_admin && navigate('/login');
         }
     }, [authReq.data, authReq.error]);
 
