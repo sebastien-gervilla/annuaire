@@ -5,6 +5,7 @@ require_once './participation/index.php';
 require_once './schoolyear/index.php';
 require_once './student/index.php';
 require_once './event/index.php';
+require_once './user/index.php';
 require_once './auth/index.php';
 require_once '../inc/Response.php';
 require_once '../inc/Request.php';
@@ -15,9 +16,15 @@ function useRedirections() {
 
     function useRoutes(string $url, string $model, string $method, string $endpoint, array|null $body): Response
     {
+        if ($model != 'auth' && !isAuth())
+            return new Response(400, false, 'Utilisateur non connecté');
+
         switch ($model) {
             case 'auth':
                 return useAuthRoutes($method, $endpoint, $body);
+
+            case 'user':
+                return useUserRoutes($method, $endpoint, $body);
 
             case 'student':
                 return useStudentRoutes($method, $endpoint, $body);
@@ -37,6 +44,14 @@ function useRedirections() {
             default:
                 return new Response(400, false, "Coudln't find url : $url");
         }
+    }
+
+    function isAuth() {
+        $token = Request::getCookie('token');
+        if (!$token) return false;
+
+        $res = useAuthRoutes('GET', 'isauth');
+        return $res->getStatus() == 200;
     }
 
     try {

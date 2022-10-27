@@ -18,7 +18,14 @@ export const defaultEvent = {
     description: ''
 }
 
+export const defaultAuth = {
+    email: '',
+    password: ''
+}
+
 export const defaultUser = {
+    fname: '',
+    lname: '',
     email: '',
     password: ''
 }
@@ -51,6 +58,16 @@ export const filterStudentEventOptions = {
     title: '',
     type: '',
     date: '',
+    sorted: {
+        field: '',
+        value: ''
+    }
+}
+
+export const filterUserOptions = {
+    fname: '',
+    lname: '',
+    email: '',
     sorted: {
         field: '',
         value: ''

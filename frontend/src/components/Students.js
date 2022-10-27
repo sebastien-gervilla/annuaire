@@ -93,6 +93,13 @@ const Students = () => {
         ]} />)
     }
 
+    const displayTotal = () => {
+        const len = sortedData.length;
+        if (len === 0) return 'Aucun élève enregistré.';
+        if (len === 1) return 'Un élève enregistré.';
+        if (len > 1) return len + ' élèves enregistrés.';
+    }
+
     const onChangePathwaysValues = (name, values) => setOptions(name, values);
 
     // Api calls
@@ -119,7 +126,7 @@ const Students = () => {
                     <button className='switch-btn' onClick={pageHandler.prevPage} value="-1"><VscChevronLeft/></button>
                     <button className='switch-btn' onClick={pageHandler.nextPage} value="1"><VscChevronRight/></button>
                 </div>
-                <p className='total'>{sortedData.length + " élèves enregistrés."}</p>
+                <p className='total'>{displayTotal()}</p>
                 <p>Page {pageHandler.page + 1} / {pageHandler.maxPage || 1}</p>
             </div>
         </div>

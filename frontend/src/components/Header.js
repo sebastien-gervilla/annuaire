@@ -6,9 +6,9 @@ import { MdWbSunny } from 'react-icons/md';
 import apiRequest from '../utils/api-request';
 import useAuth from '../hooks/useAuth';
 
-const Header = () => {
+const Header = ({ needAdmin = false }) => {
 
-    const { refresh } = useAuth();
+    const { refresh } = useAuth(needAdmin);
 
     const [isDark, setIsDark] = useState(isDarkMode());
     const navigate = useNavigate();

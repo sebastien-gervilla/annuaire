@@ -13,7 +13,7 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "sass": "^1.55.0",
-    "skz-ui": "^0.0.8",
+    "skz-ui": "^0.0.9",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -3,7 +3,7 @@ export default async function apiRequest(relUrl, method, data = null, options = 
 
     try {
         const body = JSON.stringify(data);
-        const res = await fetch(fullUrl, {...options, body, method});
+        const res = await fetch(fullUrl, {...options, body, method, credentials: 'include'});
         return await res.json();
     } catch (error) {
         console.log("Error while fetching with url : ", fullUrl, error);

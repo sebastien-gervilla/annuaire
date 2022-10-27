@@ -1,9 +1,7 @@
 <?php
 
-class User {
+class Auth {
     private int $_id;
-    private string $fname;
-    private string $lname;
     private string $email;
     private string $password;
 
@@ -15,8 +13,6 @@ class User {
     }
 
     private function setModel(array $user) {
-        $this->fname = $user['fname'];
-        $this->lname = $user['lname'];
         $this->email = $user['email'];
         $this->password = $user['password'];
     }
@@ -39,8 +35,6 @@ class User {
 
     public function getModel() { 
         return array(
-            'fname' => $this->fname,
-            'lname' => $this->lname,
             'email' => $this->email,
             'password' => $this->password
         ); 

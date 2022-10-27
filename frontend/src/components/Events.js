@@ -81,6 +81,13 @@ const Events = () => {
         )
     }
 
+    const displayTotal = () => {
+        const len = sortedData.length;
+        if (len === 0) return 'Aucun évènement enregistré.';
+        if (len === 1) return 'Un évènement enregistré.';
+        if (len > 1) return len + ' évènements enregistrés.';
+    }
+
     // Api calls
 
     const deleteEvent = async eventId => { // Snackbar when delete ?
@@ -105,7 +112,7 @@ const Events = () => {
                     <button className='switch-btn' onClick={pageHandler.prevPage} value="-1"><VscChevronLeft/></button>
                     <button className='switch-btn' onClick={pageHandler.nextPage} value="1"><VscChevronRight/></button>
                 </div>
-                <p className='total'>{sortedData.length + " évènements enregistrés."}</p>
+                <p className='total'>{displayTotal()}</p>
                 <p>Page {pageHandler.page + 1} / {pageHandler.maxPage || 1}</p>
             </div>
         </div>

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ErrorMessage from '../components/ErrorMessage';
 import apiRequest from '../utils/api-request';
-import { defaultUser } from '../utils/model-defaults';
+import { defaultAuth } from '../utils/model-defaults';
 
 const Login = () => {
 
     const navigate = useNavigate();
 
-    const [user, setUser] = useState(defaultUser);
+    const [user, setUser] = useState(defaultAuth);
     const [error, setError] = useState(null);
 
     const handleChangeUser = event => 
