@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../utils/utils.php';
 require_once __DIR__ . '/../inc/Response.php';
-require_once __DIR__ . "/../models/User.php";
+require_once __DIR__ . "/../models/Auth.php";
 require_once __DIR__ . "/../inc/model-validations.php";
 require_once __DIR__ . "/../managers/AuthManager.php";
 
@@ -28,7 +28,7 @@ class AuthController {
             $users = $usersReq->getBody();
             foreach ($users as $user)
                 if ($token == $user['password'])
-                    return new Response(200, true, "Utilisateur connecté.");
+                    return new Response(200, true, "Utilisateur connecté.", $user);
                     
             return new Response(400, false, "Utilisateur non connecté.");
         } catch (\Throwable $error) {
@@ -48,10 +48,10 @@ class AuthController {
                     "data" => $logs
                 ));
 
-            if (!isFormFilled($logs, []))
+            if (!isFormFilled($logs))
                 return new Response(400, false, "Tous les champs requis ne sont pas remplis.");
 
-            $User = new User($logs);
+            $User = new Auth($logs);
             $error = findModelValidationsError($User->getValidations());
             if ($error) return new Response(400, false, $error);
 
@@ -80,39 +80,6 @@ class AuthController {
                 return new Response(400, false, "Aucune session existante.", $token);
 
             return new Response(200, true, "Déconnection réussie.");
-        } catch (Error $error) {
-            return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
-                "error" => $error
-            ));
-        }
-    }
-
-    public static function createUser(array $user): Response {
-        try {
-            if (!$user) return new Response(400, false, "Aucun utilisateur donné.");
-
-            $columns = AuthManager::getColumnsNames();
-            if (!formMatchesTable($user, $columns))
-                return new Response(400, false, "Le formulaire ne correspond pas à la table.", array(
-                    "data" => $user
-                ));
-
-            if (!isFormFilled($user, [])) {
-                return new Response(400, false, "Tous les champs requis ne sont pas remplis.");
-            }
-
-            $chechUser = AuthManager::getUserByEmail($user['email']);
-            if ($chechUser) return new Response(400, false, "Email déjà enregistrée.", $chechUser);
-
-            $user = trimArray($user);
-            $User = new User($user);
-            $error = findModelValidationsError($User->getValidations());
-            if ($error) return new Response(400, false, $error);
-
-            $User->hashPassword();
-            AuthManager::createUserRequest($User);
-
-            return new Response(200, true, "Utilisateur créé avec succès.", $user);
         } catch (Error $error) {
             return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
                 "error" => $error
