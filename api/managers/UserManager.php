@@ -59,6 +59,14 @@ class UserManager {
         $sth->execute($User->getModel());
     }
 
+    public static function createAdminRequest(User $User) {
+        $dbh = DatabaseHandler::connect();
+        $request = "INSERT INTO user (fname, lname, email, password, is_admin) 
+        VALUES (:fname, :lname, :email, :password, 1)";
+        $sth = $dbh->prepare($request);
+        $sth->execute($User->getModel());
+    }
+
     #endregion
     
     #region PUT
