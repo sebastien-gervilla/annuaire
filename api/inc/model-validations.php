@@ -1,6 +1,6 @@
 <?php
 
-function isFormFilled(array $formInputs, array $exceptions): bool {
+function isFormFilled(array $formInputs, array $exceptions = []): bool {
     foreach ($formInputs as $name => $value) {
         if (!in_array($name, $exceptions) && $value == '') {
             return false;
