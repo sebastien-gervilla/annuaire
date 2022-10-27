@@ -15,6 +15,9 @@ function useRedirections() {
 
     function useRoutes(string $url, string $model, string $method, string $endpoint, array|null $body): Response
     {
+        if ($model != 'auth' && !isAuth())
+            return new Response(400, false, 'Utilisateur non connecté');
+
         switch ($model) {
             case 'auth':
                 return useAuthRoutes($method, $endpoint, $body);
@@ -37,6 +40,14 @@ function useRedirections() {
             default:
                 return new Response(400, false, "Coudln't find url : $url");
         }
+    }
+
+    function isAuth() {
+        $token = Request::getCookie('token');
+        if (!$token) return false;
+
+        $res = useAuthRoutes('GET', 'isauth');
+        return $res->getStatus() == 200;
     }
 
     try {
