@@ -17,7 +17,8 @@ export default function useFetch(defUrl, defOptions = {}) {
         setError(null);
         const options = {
             ...defOptions,
-            signal: signal
+            signal: signal,
+            credentials: 'include'
         };
 
         try {

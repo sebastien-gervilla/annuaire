@@ -47,6 +47,10 @@ class Request {
         return $endpoints;
     }
 
+    public static function getCookie(string $key) {
+        return isset($_COOKIE[$key]) ? $_COOKIE[$key] : null;
+    }
+
     // CORS
 
     public static function allowCors(): void {
