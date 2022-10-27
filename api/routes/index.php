@@ -5,6 +5,7 @@ require_once './participation/index.php';
 require_once './schoolyear/index.php';
 require_once './student/index.php';
 require_once './event/index.php';
+require_once './user/index.php';
 require_once './auth/index.php';
 require_once '../inc/Response.php';
 require_once '../inc/Request.php';
@@ -21,6 +22,9 @@ function useRedirections() {
         switch ($model) {
             case 'auth':
                 return useAuthRoutes($method, $endpoint, $body);
+
+            case 'user':
+                return useUserRoutes($method, $endpoint, $body);
 
             case 'student':
                 return useStudentRoutes($method, $endpoint, $body);
