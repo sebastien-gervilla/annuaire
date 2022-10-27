@@ -61,7 +61,7 @@ const UserForm = ({ userInfos, method, closeModal, onSubmit }) => {
                 </div>
                 <div className="form-input">
                     <p>MOT DE PASSE *</p>
-                    <input type="text" name='password' placeholder={method === 'PUT' && 'Ancien mot de passe'} 
+                    <input type="text" name='password' placeholder={method === 'PUT' ? 'Ancien mot de passe' : ''} 
                     value={user.password} onChange={handleChanges} />
                 </div>
             </div>
