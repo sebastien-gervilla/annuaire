@@ -1,12 +1,12 @@
-THESES ARE THE DEFAULT LOGS FOR THE APPLICATION :
+THESES ARE THE DEFAULT ADMIN LOGS FOR THE APPLICATION :
 
 - Email : admin@ex.com
 - Password : admin
 
-ADDING MORE USERS TO THE APPLICATION :
+HOW TO RESET ADMIN :
 
 -> Open the terminal
 
 -> Make sure you're in the root folder
 
--> run `php script .\scripts\add-user.php`
+-> run `php script .\scripts\reset-admin.php`
