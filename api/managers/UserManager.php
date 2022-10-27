@@ -24,7 +24,7 @@ class UserManager {
     public static function getAllUsers() {
         $dbh = DatabaseHandler::connect();
         $request = "SELECT * FROM `user`
-        ORDER BY user._id;";
+        ORDER BY user.is_admin DESC, user._id;";
         $users = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
         return $users;
     }
@@ -45,6 +45,15 @@ class UserManager {
         $sth->execute(['email' => $email]);
         $user = $sth->fetchAll(PDO::FETCH_ASSOC);
         return count($user) > 0 ? $user[0] : null;
+    }
+
+    public static function getAllAdmins() {
+        $dbh = DatabaseHandler::connect();
+        $request = "SELECT * FROM `user`
+        WHERE is_admin = 1
+        ORDER BY user._id;";
+        $users = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
+        return $users;
     }
 
     #endregion
