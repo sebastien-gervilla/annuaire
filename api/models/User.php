@@ -2,10 +2,11 @@
 
 class User {
     private int $_id;
+    private string $fname;
+    private string $lname;
     private string $email;
     private string $password;
 
-    private array $user;
     private array $validations;
 
     public function __construct(array $user) {
@@ -14,9 +15,10 @@ class User {
     }
 
     private function setModel(array $user) {
+        $this->fname = $user['fname'];
+        $this->lname = $user['lname'];
         $this->email = $user['email'];
         $this->password = $user['password'];
-        $this->user = $user;
     }
 
     private function setValidations() {
@@ -37,6 +39,8 @@ class User {
 
     public function getModel() { 
         return array(
+            'fname' => $this->fname,
+            'lname' => $this->lname,
             'email' => $this->email,
             'password' => $this->password
         ); 
