@@ -4,7 +4,7 @@ require_once __DIR__ . '/auth_get.php';
 require_once __DIR__ . '/auth_post.php';
 require_once __DIR__ . '/../../inc/Response.php';
 
-function useAuthRoutes(string $method, string $endpoint, array|null $body): Response
+function useAuthRoutes(string $method, string $endpoint, array|null $body = null): Response
 {
     switch ($method) {
         case 'GET':

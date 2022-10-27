@@ -12,7 +12,7 @@ function useAuthGetRoutes(string $endpoint, array|null $body): Response
             return Router::get(function () { return AuthController::getAllUsers(); });
 
         case 'isauth':
-            $token = Request::getParam('token');
+            $token = Request::getCookie('token');
             return Router::get(function () use($token) { return AuthController::isAuth($token); });
         
         default:
