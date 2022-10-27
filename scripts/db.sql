@@ -25,8 +25,11 @@ CREATE TABLE `student` (
 
 CREATE TABLE `user` (
   `_id` int NOT NULL AUTO_INCREMENT,
+  `fname` VARCHAR(32) NOT NULL,
+  `lname` VARCHAR(32) NOT NULL,
   `email` varchar(128) NOT NULL,
   `password` varchar(256) NOT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -87,5 +90,5 @@ CREATE TABLE `pathway` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-INSERT INTO `user` (`email`, `password`) 
-VALUES ('admin@ex.com', '$2y$10$CsNYBd8KlXPkpcSPotP49OGXQ4UBGamPBdC19e8r2ZNVjBPaw2xDu');
+INSERT INTO `user` (`fname`, `lname`, `email`, `password`, `is_admin`) 
+VALUES ('admin', 'account', 'admin@ex.com', '$2y$10$CsNYBd8KlXPkpcSPotP49OGXQ4UBGamPBdC19e8r2ZNVjBPaw2xDu', 1);

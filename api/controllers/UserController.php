@@ -64,6 +64,44 @@ class UserController {
         }
     }
 
+    public static function resetAdmin(array $user): Response {
+        try {
+            $columns = UserManager::getColumnsNames();
+            if (!formMatchesTable($user, $columns))
+                return new Response(400, false, "Le formulaire ne correspond pas à la table.", array(
+                    "data" => $user
+                ));
+
+            if (!isFormFilled($user)) {
+                return new Response(400, false, "Tous les champs requis ne sont pas remplis.");
+            }
+
+            $user = trimArray($user);
+            $NewUser = new User($user);
+            $error = findModelValidationsError($NewUser->getValidations());
+            if ($error) return new Response(400, false, $error);
+
+            $checkedUser = UserManager::getUserByEmail($user['email']);
+            if (!$checkedUser['is_admin'] && $checkedUser) 
+                return new Response(400, false, "Email déjà enregistrée.");
+
+            $admins = UserManager::getAllAdmins();
+            foreach ($admins as $admin) {
+                UserManager::deleteUserRequest($admin['_id']);
+            }
+
+            $NewUser->hashPassword();
+            UserManager::createAdminRequest($NewUser);
+            $body = array("data" => $NewUser->getModel());
+
+            return new Response(200, true, "Utilisateur créé avec succès.", $body);
+        } catch (Error $error) {
+            return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
+                "error" => $error
+            ));
+        }
+    }
+
     #endregion
 
     #region PUT

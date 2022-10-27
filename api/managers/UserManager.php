@@ -24,7 +24,7 @@ class UserManager {
     public static function getAllUsers() {
         $dbh = DatabaseHandler::connect();
         $request = "SELECT * FROM `user`
-        ORDER BY user._id;";
+        ORDER BY user.is_admin DESC, user._id;";
         $users = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
         return $users;
     }
@@ -47,6 +47,15 @@ class UserManager {
         return count($user) > 0 ? $user[0] : null;
     }
 
+    public static function getAllAdmins() {
+        $dbh = DatabaseHandler::connect();
+        $request = "SELECT * FROM `user`
+        WHERE is_admin = 1
+        ORDER BY user._id;";
+        $users = $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
+        return $users;
+    }
+
     #endregion
 
     #region POST
@@ -55,6 +64,14 @@ class UserManager {
         $dbh = DatabaseHandler::connect();
         $request = "INSERT INTO user (fname, lname, email, password) 
         VALUES (:fname, :lname, :email, :password)";
+        $sth = $dbh->prepare($request);
+        $sth->execute($User->getModel());
+    }
+
+    public static function createAdminRequest(User $User) {
+        $dbh = DatabaseHandler::connect();
+        $request = "INSERT INTO user (fname, lname, email, password, is_admin) 
+        VALUES (:fname, :lname, :email, :password, 1)";
         $sth = $dbh->prepare($request);
         $sth->execute($User->getModel());
     }
