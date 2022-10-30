@@ -38,8 +38,6 @@
     .pathways {
         display: flex;
         width: 20%;
-
-        @include nws-colors;
         
         .pathway {
             position: relative;
@@ -49,6 +47,9 @@
             height: 1.5vw;
             margin-right: .5vw; 
 
+            @include nws-colors;
+            background-color: $dark-color;
+            color: $light-color;
             border-radius: 1.5vw;
 
             cursor: pointer;
