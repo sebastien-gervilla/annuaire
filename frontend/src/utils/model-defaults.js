@@ -30,6 +30,14 @@ export const defaultUser = {
     password: ''
 }
 
+export const defaultYear = {
+    title: ''
+}
+
+export const defaultSpec = {
+    title: ''
+}
+
 export const filterStudentOptions = {
     fname: '',
     lname: '',
@@ -68,6 +76,22 @@ export const filterUserOptions = {
     fname: '',
     lname: '',
     email: '',
+    sorted: {
+        field: '',
+        value: ''
+    }
+}
+
+export const filterYearOptions = {
+    title: '',
+    sorted: {
+        field: '',
+        value: ''
+    }
+}
+
+export const filterSpecOptions = {
+    title: '',
     sorted: {
         field: '',
         value: ''
