@@ -156,11 +156,11 @@ svg {
 }
 
 @mixin nws-colors {
-    .Ind { background-color: $dark-color; color: $light-color; }
-    .E-B { background-color: #CA4B38; color: #F1F1F1; }
-    .Dév { background-color: #FEC800; color: #313A39; }
-    .Com { background-color: #00a5a5; color: #F1F1F1; }
-    .Soc { background-color: #620092; color: #F1F1F1; }
+    &.Ind { background-color: $dark-color; color: $light-color; }
+    &.E-B { background-color: #CA4B38; color: #F1F1F1; }
+    &.Dév { background-color: #FEC800; color: #313A39; }
+    &.Com { background-color: #00a5a5; color: #F1F1F1; }
+    &.Soc { background-color: #620092; color: #F1F1F1; }
 }
 
 // Other variables
