@@ -3,7 +3,6 @@ import AppStudent from './pages/AppStudent';
 import AppStudents from './pages/AppStudents';
 import AppUsers from './pages/AppUsers';
 import Login from './pages/Login';
-import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -13,7 +12,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/student/:id' element={<AppStudent />} />
         <Route path='/users' element={<AppUsers />} />
-        <Route path='*' element={<NotFound />} />
+        <Route path='*' element={<AppStudents />} />
       </Routes>
     </BrowserRouter>
   );
