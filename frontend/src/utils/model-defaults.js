@@ -35,7 +35,10 @@ export const defaultYear = {
 }
 
 export const defaultSpec = {
-    title: ''
+    title: '',
+    abbreviation: '',
+    color: '#000',
+    contrast: 'Noir'
 }
 
 export const filterStudentOptions = {
