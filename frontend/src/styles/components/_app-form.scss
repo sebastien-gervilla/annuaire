@@ -13,8 +13,8 @@
         width: 100%;
         margin-bottom: 2vw;
 
-        h3 {
-            font-size: 1.2vw;
+        h2 {
+            font-size: 1.5vw;
         }
 
         button {
@@ -45,7 +45,7 @@
         .form-input, .form-input_row {
             width: 47.5%;
 
-            input, select {
+            input, select, .input-button {
                 height: 2vw;
             }
         }
@@ -61,7 +61,7 @@
             margin-bottom: .5vw;
         }
 
-        input, textarea, .form-select {
+        input, textarea, .form-select, .input-button {
             width: 100%;
             height: 2vw;
             padding: .5vw;
@@ -94,6 +94,11 @@
                     transition: .2s ease;
                 }
             }
+        }
+
+        .input-button {
+            cursor: pointer;
+            text-align: left;
         }
 
         textarea {

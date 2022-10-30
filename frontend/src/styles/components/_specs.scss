@@ -1,9 +1,30 @@
 .specs {
     .title {
-        width: 80%;
+        width: 45%;
+    }
+
+    .color {
+        width: 20%;
+    }
+
+    .contrast {
+        width: 25%;
     }
 
     .menu_buttons {
-        width: 20%;
+        width: 10%;
+    }
+}
+
+.spec-form {
+    position: relative;
+
+    .color-wheel_wrapper {
+        position: absolute;
+        content: '';
+        left: 100%;
+        top: 50%;
+
+        transform: translate(10%, -50%);
     }
 }
