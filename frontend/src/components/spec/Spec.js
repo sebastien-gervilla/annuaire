@@ -21,9 +21,9 @@ const Spec = ({ specInfos, openSpecModal, deleteSpec }) => {
 
     const displaySpec = () => specInfos &&
         Object.entries(specInfos)
-            .filter(([name, value]) => ['title'].includes(name))
+            .filter(([name, value]) => ['title', 'color', 'contrast'].includes(name))
             .map(([name, value]) =>
-                <p key={name} className={name + ' copyable'}>
+                <p key={name} className={name + ' copyable'} style={{color: (name === 'color') ? value : 'unset'}}>
                     {name && <span 
                         onMouseOver={handleHoverCopy} 
                         onMouseLeave={handleLeaveCopy}
