@@ -41,4 +41,39 @@ class SpecializationManager {
 
     #endregion
 
+    #region POST
+
+    public static function createSpecializationRequest(Specialization $Specialization) {
+        $dbh = DatabaseHandler::connect();
+        $request = "INSERT INTO `specialization` (title) VALUES (:title)";
+        $sth = $dbh->prepare($request);
+        $sth->execute($Specialization->getModel());
+    }
+
+    #endregion
+    
+    #region PUT
+
+    public static function modifySpecializationRequest(Specialization $Specialization) {
+        $dbh = DatabaseHandler::connect();
+        $request = "UPDATE `specialization` 
+        SET title = :title WHERE _id = :_id";
+        $sth = $dbh->prepare($request);
+        $sth->execute($Specialization->getModel());
+    }
+
+    #endregion
+
+    #region DELETE
+
+    public static function deleteSpecializationRequest(int $specializationId) {
+        $dbh = DatabaseHandler::connect();
+        $request = "DELETE FROM `specialization` WHERE _id = :_id";
+        $sth = $dbh->prepare($request);
+        $sth->bindParam(':_id', $specializationId);
+        $sth->execute();
+    }
+
+    #endregion
+
 }

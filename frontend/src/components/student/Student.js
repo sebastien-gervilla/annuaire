@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiFillDelete, AiOutlineInfoCircle } from 'react-icons/ai';
 import { TbEdit } from 'react-icons/tb';
-import useClipboard from '../hooks/useClipboard';
+import useClipboard from '../../hooks/useClipboard';
 
 const Student = ({ studentInfos, specs, openStudentModal, deleteStudent }) => {
 

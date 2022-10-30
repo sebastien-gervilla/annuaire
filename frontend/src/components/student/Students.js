@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import useFetch from '../hooks/useFetch';
+import useFetch from '../../hooks/useFetch';
 import { Modal } from 'skz-ui';
-import { defaultStudent, filterStudentOptions } from '../utils/model-defaults';
-import StudentForm from './student/StudentForm';
+import { defaultStudent, filterStudentOptions } from '../../utils/model-defaults';
+import StudentForm from './StudentForm';
 import Student from './Student';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
-import apiRequest from '../utils/api-request';
-import usePagination from '../hooks/usePagination';
-import useSort from '../hooks/useSort';
-import FilterMenu from './FilterMenu';
-import DataMenu from './DataMenu';
-import TableSelect from './TableSelect';
+import apiRequest from '../../utils/api-request';
+import usePagination from '../../hooks/usePagination';
+import useSort from '../../hooks/useSort';
+import FilterMenu from '../FilterMenu';
+import DataMenu from '../DataMenu';
+import TableSelect from '../TableSelect';
 
 const Students = () => {
 

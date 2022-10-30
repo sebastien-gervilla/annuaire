@@ -1,5 +1,5 @@
 import React from 'react';
-import Users from '../components/Users';
+import Users from '../components/user/Users';
 import Header from '../components/Header';
 
 const AppUsers = () => {
