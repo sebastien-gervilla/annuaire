@@ -36,8 +36,10 @@ const Student = ({ studentInfos, specs, openStudentModal, deleteStudent }) => {
     const displayPathways = () => studentInfos?.pathways && specs &&
         studentInfos.pathways.map(pathway => {
             const spec = specs.find(specialization => specialization._id === pathway);
-            return (
-                <div key={spec._id} className={"pathway " + spec.title.substr(0, 3)}>
+            const content = `&::after { content: ${spec.abbreviation}}`;
+            return ( // styled components
+                <div key={spec._id} className="pathway"
+                    style={{backgroundColor: spec.color, color: spec.contrast, ...content}}>
                     <span>{spec.title[0]}</span>
                 </div>
             );
