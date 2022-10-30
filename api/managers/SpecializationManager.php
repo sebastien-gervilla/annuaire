@@ -45,7 +45,8 @@ class SpecializationManager {
 
     public static function createSpecializationRequest(Specialization $Specialization) {
         $dbh = DatabaseHandler::connect();
-        $request = "INSERT INTO `specialization` (title) VALUES (:title)";
+        $request = "INSERT INTO `specialization` (title, color, contrast, abbreviation) 
+        VALUES (:title, :color, :contrast, :abbreviation)";
         $sth = $dbh->prepare($request);
         $sth->execute($Specialization->getModel());
     }
@@ -57,7 +58,8 @@ class SpecializationManager {
     public static function modifySpecializationRequest(Specialization $Specialization) {
         $dbh = DatabaseHandler::connect();
         $request = "UPDATE `specialization` 
-        SET title = :title WHERE _id = :_id";
+        SET title = :title, abbreviation = :abbreviation, color = :color, contrast = :contrast 
+        WHERE _id = :_id";
         $sth = $dbh->prepare($request);
         $sth->execute($Specialization->getModel());
     }
