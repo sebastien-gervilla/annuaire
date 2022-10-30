@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { IoPower } from 'react-icons/io5';
 import { HiOutlineMoon } from 'react-icons/hi';
 import { MdWbSunny } from 'react-icons/md';
+import { GoGear } from 'react-icons/go';
 import apiRequest from '../utils/api-request';
 import useAuth from '../hooks/useAuth';
 
@@ -42,6 +43,7 @@ const Header = ({ needAdmin = false }) => {
                 </div>
                 <div className="buttons">
                     <button>{displayDarkModeIcon()}</button>
+                    <button onClick={() => navigate('/parameters')} ><GoGear id='parameters_icon'/></button>
                     <button onClick={handleLogout}><IoPower id='disconnect_icon'/></button>
                 </div>
             </div>
