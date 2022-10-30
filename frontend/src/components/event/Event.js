@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { TbEdit } from 'react-icons/tb';
-import useClipboard from '../hooks/useClipboard';
+import useClipboard from '../../hooks/useClipboard';
 
 const Event = ({ eventInfos, openEventModal, deleteEvent }) => {
 

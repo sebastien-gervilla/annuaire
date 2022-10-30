@@ -1,7 +1,7 @@
 import React from 'react';
-import Events from '../components/Events';
 import Header from '../components/Header';
-import Students from '../components/Students';
+import Students from '../components/student/Students';
+import Events from '../components/event/Events';
 
 const AppStudents = () => {
     return (

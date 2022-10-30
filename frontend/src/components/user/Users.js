@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import useFetch from '../hooks/useFetch';
+import useFetch from '../../hooks/useFetch';
 import { Modal } from 'skz-ui';
-import { defaultUser, filterUserOptions } from '../utils/model-defaults';
-import UserForm from './user/UserForm';
+import { defaultUser, filterUserOptions } from '../../utils/model-defaults';
+import UserForm from './UserForm';
 import User from './User';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
-import apiRequest from '../utils/api-request';
-import usePagination from '../hooks/usePagination';
-import useSort from '../hooks/useSort';
-import DataMenu from './DataMenu';
-import FilterMenu from './FilterMenu';
+import apiRequest from '../../utils/api-request';
+import usePagination from '../../hooks/usePagination';
+import useSort from '../../hooks/useSort';
+import DataMenu from '../DataMenu';
+import FilterMenu from '../FilterMenu';
 
 const Users = () => {
 

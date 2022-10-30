@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import useFetch from '../hooks/useFetch';
+import useFetch from '../../hooks/useFetch';
 import { Modal } from 'skz-ui';
-import { defaultEvent, filterEventOptions } from '../utils/model-defaults';
-import EventForm from './event/EventForm';
+import { defaultEvent, filterEventOptions } from '../../utils/model-defaults';
+import EventForm from './EventForm';
 import Event from './Event';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
-import apiRequest from '../utils/api-request';
-import usePagination from '../hooks/usePagination';
-import useSort from '../hooks/useSort';
-import DataMenu from './DataMenu';
-import FilterMenu from './FilterMenu';
+import apiRequest from '../../utils/api-request';
+import usePagination from '../../hooks/usePagination';
+import useSort from '../../hooks/useSort';
+import DataMenu from '../DataMenu';
+import FilterMenu from '../FilterMenu';
 
 const Events = () => {
 
