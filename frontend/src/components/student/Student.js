@@ -45,7 +45,7 @@ const Student = ({ studentInfos, specs, openStudentModal, deleteStudent }) => {
             const spec = specs.find(specialization => specialization._id === pathway);
             return ( // styled components
                 <Pathway key={spec._id} className="pathway" after={spec.abbreviation} 
-                    style={{backgroundColor: spec.color, color: spec.contrast}}>
+                    style={{backgroundColor: spec.color, color: spec.contrast === 'Blanc' ? '#F1F1F1' : '#313A39'}}>
                     <span>{spec.title[0]}</span>
                 </Pathway>
             );
