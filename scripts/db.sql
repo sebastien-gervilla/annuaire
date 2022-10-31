@@ -45,7 +45,7 @@ CREATE TABLE `event` (
 
 
 CREATE TABLE `school_year` (
-  `_id` tinyint(1) NOT NULL AUTO_INCREMENT,
+  `_id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(64) NOT NULL,
   PRIMARY KEY (`_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -53,7 +53,7 @@ CREATE TABLE `school_year` (
 
 CREATE TABLE `entry_year` (
   `student_id` int NOT NULL,
-  `school_year_id` tinyint(1) NOT NULL,
+  `school_year_id` int NOT NULL,
   KEY `student_id` (`student_id`),
   KEY `school_year_id` (`school_year_id`),
   CONSTRAINT `entry_year_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -74,15 +74,18 @@ CREATE TABLE `participation` (
 
 
 CREATE TABLE `specialization` (
-  `_id` tinyint(1) NOT NULL AUTO_INCREMENT,
+  `_id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(64) NOT NULL,
+  `abbreviation` varchar(16) NOT NULL,
+  `color` varchar(8) NOT NULL,
+  `contrast` enum('Noir','Blanc') NOT NULL,
   PRIMARY KEY (`_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 CREATE TABLE `pathway` (
   `student_id` int NOT NULL,
-  `specialization_id` tinyint(1) NOT NULL,
+  `specialization_id` int NOT NULL,
   KEY `student_id` (`student_id`),
   KEY `specialization_id` (`specialization_id`),
   CONSTRAINT `pathway_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`_id`) ON DELETE CASCADE ON UPDATE CASCADE,

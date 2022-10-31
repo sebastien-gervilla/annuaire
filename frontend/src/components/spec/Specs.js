@@ -119,7 +119,9 @@ const Specs = () => {
 };
 
 const dataMenuFields = [
-    { name: 'title', label: 'TITRE' }
+    { name: 'title', label: 'TITRE' },
+    { name: 'color', label: 'COULEUR' },
+    { name: 'contrast', label: 'CONTRASTE' }
 ];
 
 export default Specs;
