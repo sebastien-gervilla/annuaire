@@ -9,4 +9,4 @@ HOW TO RESET ADMIN :
 
 -> Make sure you're in the root folder
 
--> run `php script .\scripts\reset-admin.php`
+-> run `php .\scripts\reset-admin.php`
