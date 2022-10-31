@@ -21,6 +21,8 @@
             border-bottom: 1px solid $dark-color;
             caret-color: $dark-color;
 
+            font-size: .9vw;
+
             &::placeholder {
                 color: $placeholder-color;
             }
