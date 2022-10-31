@@ -47,7 +47,6 @@
             height: 1.5vw;
             margin-right: .5vw; 
 
-            @include nws-colors;
             background-color: $dark-color;
             color: $light-color;
             border-radius: 1.5vw;
@@ -70,12 +69,13 @@
 
                 padding: .25vw .5vw;
 
-                visibility: hidden;
                 opacity: 0;
+                visibility: hidden;
                 color: $light-color;
                 background-color: $dark-color;
 
                 font-size: .9vw;
+                white-space: nowrap;
 
                 transition: .15s ease;
                 pointer-events: none;
@@ -88,7 +88,7 @@
             }
 
             &.Ind::after { content: 'Indéterminé'; }
-            &.E-B::after { content: 'E-Business'; width: 4.5vw; }
+            &.E-B::after { content: 'E-Business'; }
             &.Dév::after { content: 'Dev'; }
             &.Com::after { content: 'CG'; }
             &.Soc::after { content: 'SMM'; }

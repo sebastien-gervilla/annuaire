@@ -2,7 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiFillDelete, AiOutlineInfoCircle } from 'react-icons/ai';
 import { TbEdit } from 'react-icons/tb';
+import styled from 'styled-components';
 import useClipboard from '../../hooks/useClipboard';
+
+const Pathway = styled.div`
+    &:after {
+        content: '${props => props.after}';
+    }
+`;
 
 const Student = ({ studentInfos, specs, openStudentModal, deleteStudent }) => {
 
@@ -36,12 +43,11 @@ const Student = ({ studentInfos, specs, openStudentModal, deleteStudent }) => {
     const displayPathways = () => studentInfos?.pathways && specs &&
         studentInfos.pathways.map(pathway => {
             const spec = specs.find(specialization => specialization._id === pathway);
-            const content = `&::after { content: ${spec.abbreviation}}`;
             return ( // styled components
-                <div key={spec._id} className="pathway"
-                    style={{backgroundColor: spec.color, color: spec.contrast, ...content}}>
+                <Pathway key={spec._id} className="pathway" after={spec.abbreviation} 
+                    style={{backgroundColor: spec.color, color: spec.contrast}}>
                     <span>{spec.title[0]}</span>
-                </div>
+                </Pathway>
             );
         });
 
