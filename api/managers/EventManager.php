@@ -26,6 +26,12 @@ class EventManager {
         return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function getSortedEvents(string $order) {
+        $dbh = DatabaseHandler::connect();
+        $request = "SELECT * FROM `event` ORDER BY `_id` " . $order;
+        return $dbh->query($request)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function getEvent(int $eventId) {
         $dbh = DatabaseHandler::connect();
         $request = "SELECT * FROM `event` WHERE `_id` = $eventId;";

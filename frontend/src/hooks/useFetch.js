@@ -37,7 +37,7 @@ export default function useFetch(defUrl, defOptions = {}) {
 
     useEffect(() => {
         doFetch();
-    }, []);
+    }, [relUrl]);
 
     return { data, error, isLoading, doFetch, changeRelUrl };
 }

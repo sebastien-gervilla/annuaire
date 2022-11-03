@@ -18,6 +18,15 @@ class EventController {
         }
     }
 
+    public static function getSortedEvents(string $order): Response {
+        try {
+            $events = EventManager::getSortedEvents($order);
+            return new Response(200, true, "Evènements récupérés avec succès", $events);
+        } catch (\Throwable $error) {
+            return new Response(400, false, "La requête à échouée : $error");
+        }
+    }
+
     public static function getById(int $id): Response {
         try {
             $event = EventManager::getEvent($id);

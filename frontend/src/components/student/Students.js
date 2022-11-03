@@ -14,9 +14,14 @@ import TableSelect from '../TableSelect';
 
 const Students = () => {
 
+    const [filterName, setFilterName] = useState("");
+    const handleFilterStudents = event => setFilterName(event.target.value);
+
     const specsReq = useFetch('specialization/specializations');
-    const studentsReq = useFetch('student/students');
+    const studentsReq = useFetch('student/students/?name=' + filterName);
     const [students, setStudents] = useState([]);
+
+    useEffect(() => {studentsReq.changeRelUrl('student/students/?name=' + filterName)}, [filterName])
 
     const { sortedData, sortOptions, handleChanges, 
         handleToggleOrder, setOptions } = useSort(students, filterStudentOptions);
@@ -117,6 +122,7 @@ const Students = () => {
                 <button className='add-btn' onClick={() => openStudentModal()}>Ajouter</button>
             </div>
             {displayFilterMenu()}
+            <input type="text" onChange={handleFilterStudents} value={filterName} name={'filterName'} />
             <DataMenu fields={dataMenuFields} sortedOption={sortOptions.sorted} handleToggleOrder={handleToggleOrder} />
             <div className="data">
                 {displayStudents()}

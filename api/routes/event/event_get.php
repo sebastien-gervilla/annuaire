@@ -8,7 +8,8 @@ function useEventGetRoutes(string $endpoint, array|null $body): Response
 {
     switch ($endpoint) {
         case 'events':
-            return Router::get(function () { return EventController::getAll(); });
+            $order = Request::getParam("order");
+            return Router::get(function () use($order) { return EventController::getSortedEvents($order); });
 
         case 'event':
             $id = Request::getParam('_id');

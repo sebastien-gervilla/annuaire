@@ -65,6 +65,15 @@ class StudentManager {
         return count($student) > 0 ? $student[0] : null;
     }
 
+    public static function getFilteredStudentsRequest(string $searchedValue) {
+        $dbh = DatabaseHandler::connect();
+        $request = "SELECT * FROM `student`
+        WHERE student.fname LIKE '%" . $searchedValue . "%'";
+        $sth = $dbh->prepare($request);
+        $sth->execute();
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     #endregion
 
     #region POST

@@ -13,8 +13,13 @@ import FilterMenu from '../FilterMenu';
 
 const Events = () => {
 
-    const eventsReq = useFetch('event/events');
+    const [order, setOrder] = useState('ASC');
+    const handleOrder = event => setOrder(order === 'ASC' ? 'DESC' : 'ASC');
+
+    const eventsReq = useFetch('event/events/?order=' + order);
     const [events, setEvents] = useState([]);
+
+    useEffect(() => {eventsReq.changeRelUrl('event/events/?order=' + order)}, [order])
 
     const { sortedData, sortOptions, handleChanges, 
         handleToggleOrder, setOptions } = useSort(events, filterEventOptions);
@@ -103,6 +108,7 @@ const Events = () => {
                 <button className='add-btn' onClick={() => openEventModal()}>Ajouter</button>
             </div>
             <FilterMenu sortOptions={sortOptions} labels={menuLabels} handleChanges={handleChanges} />
+            <button onClick={handleOrder}>MDR</button>
             <DataMenu fields={dataMenuFields} sortedOption={sortOptions.sorted} handleToggleOrder={handleToggleOrder} />
             <div className="data">
                 {displayEvents()}

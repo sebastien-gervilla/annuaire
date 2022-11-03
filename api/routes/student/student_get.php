@@ -9,7 +9,9 @@ function useStudentGetRoutes(string $endpoint, array|null $body): Response
 {
     switch ($endpoint) {
         case 'students':
-            return Router::get(function () { return StudentController::getAll(); });
+            $name = Request::getParam('name');
+            if (!$name) $name = "";
+            return Router::get(function () use($name) { return StudentController::getFilteredStudents($name); });
 
         case 'student':
             $id = Request::getParam('_id');

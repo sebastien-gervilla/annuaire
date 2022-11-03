@@ -30,6 +30,15 @@ class StudentController {
             return new Response(400, false, "La requête à échouée : $error");
         }
     }
+
+    public static function getFilteredStudents(string $searchedValue): Response {
+        try {
+            $students = StudentManager::getFilteredStudentsRequest($searchedValue);
+            return new Response(200, true, "Elève récupéré avec succès", $students);
+        } catch (\Throwable $error) {
+            return new Response(400, false, "La requête à échouée : $error");
+        }
+    }
     
     #endregion
 
