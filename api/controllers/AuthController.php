@@ -5,6 +5,7 @@ require_once __DIR__ . '/../inc/Response.php';
 require_once __DIR__ . "/../models/Auth.php";
 require_once __DIR__ . "/../inc/model-validations.php";
 require_once __DIR__ . "/../managers/AuthManager.php";
+require_once __DIR__ . "/../controllers/UserController.php";
 
 class AuthController {
 
@@ -24,7 +25,7 @@ class AuthController {
             if (!$token)
                 return new Response(400, false, "Aucune session existante.", $token);
 
-            $usersReq = self::getAllUsers();
+            $usersReq = UserController::getAll();
             $users = $usersReq->getBody();
             foreach ($users as $user)
                 if ($token == $user['password'])
@@ -55,7 +56,7 @@ class AuthController {
             $error = findModelValidationsError($User->getValidations());
             if ($error) return new Response(400, false, $error);
 
-            $usersRes = self::getAllUsers();
+            $usersRes = UserController::getAll();
             $users = $usersRes->getBody();
             $ids = $User->getModel();
             foreach ($users as $user) {
@@ -66,7 +67,7 @@ class AuthController {
                     ));
             }
 
-            return new Response(400, false, "Identifiants de connection incorrects.", $users);
+            return new Response(400, false, "Identifiants de connection incorrects.", $logs);
         } catch (Error $error) {
             return new Response(400, false, "Une erreur est survenue, veuillez réessayer plus tard.", array(
                 "error" => $error
