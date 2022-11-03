@@ -25,8 +25,8 @@ class Specialization {
 
     private function setValidations() {
         $this->validations = array(
-            'Titre' => [minLength($this->title, 5), validChars($this->title)],
-            'Abbréviation' => [betweenLengths($this->abbreviation, 2, 16), validChars($this->abbreviation)],
+            'Titre' => [minLength($this->title, 5)],
+            'Abbréviation' => [betweenLengths($this->abbreviation, 2, 16)],
             'Coleur' => [betweenLengths($this->color, 4, 7)],
             'Contraste' => [amongValues($this->contrast, ['Noir', 'Blanc'])]
         );

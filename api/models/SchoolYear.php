@@ -19,7 +19,7 @@ class SchoolYear {
 
     private function setValidations() {
         $this->validations = array(
-            'Titre' => [minLength($this->title, 5), validChars($this->title)]
+            'Titre' => [minLength($this->title, 5)]
         );
     }
 
