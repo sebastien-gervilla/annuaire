@@ -134,7 +134,7 @@ function validChars(string|null $value): array {
     return array(
         "validateFn" => function() use($value): bool {
             if ($value == null) return true;
-            return (!preg_match('/\<\>\|\,\?\!\;\:\&\#\{\}\@\*\ù\%\$/', $value)) ? true : false;
+            return (!preg_match('/[\'\/~`\!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/', $value)) ? true : false;
         },
         "getErrorFn" => function(string $field): string {
             return "Le champ \"$field\" ne doit pas contenir de charactères spéciaux.";
