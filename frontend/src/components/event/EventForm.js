@@ -33,8 +33,8 @@ const EventForm = ({ eventInfos, method, closeModal, onSubmit }) => {
         : <ErrorMessage type={'error'} message={error} />
 
     const displayTitle = () => method === 'POST' ?
-        'Nouvel élève' : (method === 'PUT') ?
-        'Modifier un élève' : '';
+        'Nouvel évènement' : (method === 'PUT') ?
+        'Modifier un évènement' : '';
 
     return (
         <form className='event-form app-form'>
